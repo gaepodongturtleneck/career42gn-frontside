@@ -1,8 +1,20 @@
-import React from "react";
-import Button from "../components/Button/Button";
+import React, { useCallback, useState } from "react";
+import Header from "../components/Header/Header";
+import Dropdown from "../components/Dropdown/Dropdown";
 
 const MainContainer = () => {
-  return <Button />;
+  const [location, setLocation] = useState(null);
+
+  const handleChangeLocationClick = useCallback(() => {
+    console.log("click");
+  }, []);
+
+  return (
+    <>
+      <Header />
+      <Dropdown onChangeLocationClick={handleChangeLocationClick} />
+    </>
+  );
 };
 
 export default MainContainer;
