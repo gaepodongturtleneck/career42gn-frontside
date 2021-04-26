@@ -1,12 +1,23 @@
 import React from "react";
 import HeaderStyled from "./Header.styles";
+import { ReactComponent as LogoIcon } from "../../images/logo.svg";
 
-const Header = () => {
+const Header = props => {
+  const { name } = props;
+
   return (
     <HeaderStyled>
-      <p className="logo">Logo</p>
+      <LogoIcon width="50px" />
+      <div className="profile-box">
+        <span>{name}</span>
+        <div className="profile-image"></div>
+      </div>
     </HeaderStyled>
   );
+};
+
+Header.defaultProps = {
+  name: "jiwonlee",
 };
 
 export default Header;
