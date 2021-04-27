@@ -1,6 +1,7 @@
 import React from "react";
 import JobListHeader from "../JobListHeader/JobListHeader";
 import JobListItem from "../JobListItem/JobListItem";
+import JobListPagination from "../JobListPagination/JobListPagination";
 import { JobListViewStyled } from "./JobListView.styles";
 
 const JobListView = props => {
@@ -8,12 +9,13 @@ const JobListView = props => {
   return (
     <JobListViewStyled>
       <ul>
-        <JobListHeader />
+        <JobListHeader totalPostsNumber={dummyData.totalElements} />
         {dummyData?.content.map(item => {
           const isBookMark = bookMark.some(isMarked => isMarked.jobpost_id === item.id);
           return <JobListItem key={item.id} data={item} isBookMark={isBookMark} />;
         })}
       </ul>
+      <JobListPagination totalPages={dummyData.totalPages} />
     </JobListViewStyled>
   );
 };
@@ -105,6 +107,31 @@ JobListView.defaultProps = {
         type: "농담곰",
       },
     ],
+    empty: true,
+    first: true,
+    last: true,
+    number: 0,
+    numberOfElements: 0,
+    pageable: {
+      offset: 0,
+      pageNumber: 0,
+      pageSize: 0,
+      paged: true,
+      sort: {
+        empty: true,
+        sorted: true,
+        unsorted: true,
+      },
+      unpaged: true,
+    },
+    size: 0,
+    sort: {
+      empty: true,
+      sorted: true,
+      unsorted: true,
+    },
+    totalElements: 24,
+    totalPages: 12,
   },
 
   // */bookmarks?cadetid=secho => 북마크 조회 <GET>
