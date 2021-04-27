@@ -4,8 +4,8 @@ import { JobListItemStyled, DateBox, CompanyLogoBox, PostContentSection, PostCon
 import CompanyLogo from "../../images/nong.png";
 
 const JobListItem = props => {
-  const [isClick, setClick] = useState(false);
   const { data, isBookMark } = props;
+  const [isClick, setClick] = useState(isBookMark);
   useEffect(() => {});
   return (
     <JobListItemStyled id={data.id} isClosed={data.isClosed}>
@@ -32,7 +32,7 @@ const JobListItem = props => {
             <a>#경력 3년 이하</a>
           </HashTagBox>
         </PostContent>
-        <Heart ismark={isBookMark ? 1 : 0} onClick={() => setClick(!isClick)} />
+        <Heart ismark={isClick ? 1 : 0} onClick={() => setClick(!isClick)} />
       </PostContentSection>
     </JobListItemStyled>
   );
