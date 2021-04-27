@@ -3,16 +3,16 @@ import Header from "../components/Header/Header";
 import Dropdown from "../components/Dropdown/Dropdown";
 
 const MainContainer = () => {
-  const [location, setLocation] = useState(null);
+  //  const [location, setLocation] = useState(null);
 
-  const handleChangeLocationClick = useCallback(() => {
-    console.log("click");
-  }, []);
+  const onSubmit = data => {
+    console.log(`this is my child data: ${data.value}`);
+  };
 
   return (
     <>
       <Header />
-      <Dropdown onChangeLocationClick={handleChangeLocationClick} />
+      <Dropdown onSubmit={onSubmit} />
     </>
   );
 };
