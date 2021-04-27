@@ -14,6 +14,7 @@ const HeaderStyled = styled.div`
   padding: 0 20px;
   box-sizing: border-box;
   background-color: #252831;
+  z-index: 1;
 
   .profile-box {
     display: flex;
