@@ -4,13 +4,14 @@ import JobListItem from "../JobListItem/JobListItem";
 import { JobListViewStyled } from "./JobListView.styles";
 
 const JobListView = props => {
-  const { dummyData } = props;
+  const { dummyData, bookMark } = props;
   return (
     <JobListViewStyled>
       <ul>
         <JobListHeader />
         {dummyData?.content.map(item => {
-          return <JobListItem key={item.id} data={item} />;
+          const isBookMark = bookMark.some(isMarked => isMarked.jobpost_id === item.id);
+          return <JobListItem key={item.id} data={item} isBookMark={isBookMark} />;
         })}
       </ul>
     </JobListViewStyled>
@@ -18,8 +19,8 @@ const JobListView = props => {
 };
 
 JobListView.defaultProps = {
+  // TODO 하기 API를 기반으로 요청, 데이터 get 후  rendering
   // * /jobposts?page=1?type=aa?tag=bb  <GET>
-  // TODO 상기 API를 기반으로 요청, 데이터 get 후  rendering
 
   dummyData: {
     content: [
@@ -105,6 +106,26 @@ JobListView.defaultProps = {
       },
     ],
   },
+
+  // */bookmarks?cadetid=secho => 북마크 조회 <GET>
+  bookMark: [
+    {
+      id: 1,
+      jobpost_id: 1,
+    },
+    {
+      id: 2,
+      jobpost_id: 2,
+    },
+    {
+      id: 3,
+      jobpost_id: 3,
+    },
+    {
+      id: 7,
+      jobpost_id: 7,
+    },
+  ],
 };
 
 JobListView.propTypes = {};

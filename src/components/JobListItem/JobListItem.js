@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Heart from "react-animated-heart";
 import { JobListItemStyled, DateBox, CompanyLogoBox, PostContentSection, PostContent, CompanyInfoBox, HashTagBox } from "./JobListItem.styles";
 import CompanyLogo from "../../images/nong.png";
 
 const JobListItem = props => {
   const [isClick, setClick] = useState(false);
-  const { data } = props;
+  const { data, isBookMark } = props;
+  useEffect(() => {});
   return (
-    <JobListItemStyled isClosed={data.isClosed}>
+    <JobListItemStyled id={data.id} isClosed={data.isClosed}>
       <DateBox>
         <span>D-10</span>
         <span>{data.dueDate}</span>
@@ -31,7 +32,7 @@ const JobListItem = props => {
             <a>#경력 3년 이하</a>
           </HashTagBox>
         </PostContent>
-        <Heart ismark={isClick ? 1 : 0} onClick={() => setClick(!isClick)} />
+        <Heart ismark={isBookMark ? 1 : 0} onClick={() => setClick(!isClick)} />
       </PostContentSection>
     </JobListItemStyled>
   );
