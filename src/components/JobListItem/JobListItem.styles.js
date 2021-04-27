@@ -8,6 +8,7 @@ export const JobListItemStyled = styled.li`
   min-height: 100px;
   font-size: 26px;
   margin: 10px 0 10px 0;
+  opacity: ${props => (props.isClosed ? 0.5 : 1)};
 `;
 
 export const DateBox = styled.div`
