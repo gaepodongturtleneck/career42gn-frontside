@@ -25,6 +25,21 @@ const GlobalStyle = createGlobalStyle`
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
   }
+  .content-section{
+    padding-top:120px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .job-container{
+    width:70%;
+  }
+  .job-filter-container{
+    min-height:100px;
+  }
+  .job-list-container{
+    padding-top:20px;
+  }
 `;
 
 function App() {
