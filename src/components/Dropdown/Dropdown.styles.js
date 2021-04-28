@@ -1,9 +1,6 @@
 import styled from "styled-components";
 
 const DropdownWrapper = styled.div`
-  position: relative;
-  top: 100px;
-  left: 20%;
   width: 200px;
   height: 70px;
 
@@ -11,6 +8,8 @@ const DropdownWrapper = styled.div`
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
+    border: solid #27babb 1px;
+    padding: 10px;
   }
 `;
 

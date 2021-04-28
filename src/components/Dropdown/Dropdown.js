@@ -1,6 +1,7 @@
 import React, { useCallback, useState, useEffect, useRef } from "react";
 import DropdownWrapper from "./Dropdown.styles";
 
+/*
 const Dropdown = () => {
   const [location, setLocation] = useState(["seoul", "busan", "seongnam"]);
   const loc = location.map(loc => loc);
@@ -8,7 +9,7 @@ const Dropdown = () => {
 
   return (
     <DropdownWrapper>
-      <select onChange={e => handleChange(e)}>
+      <select className="dd-select" onChange={e => handleChange(e)}>
         {loc.map((location, key) => (
           <option key={key} value={key}>
             {location}
@@ -18,14 +19,17 @@ const Dropdown = () => {
     </DropdownWrapper>
   );
 };
+*/
 
-/*
 const Dropdown = props => {
   const { title, items, onSubmit } = props;
   const dropdownRef = useRef(null);
   const [open, setOpen] = useState(false);
   const [selection, setSelection] = useState([]);
   const toggle = () => setOpen(!open);
+  const handleClick = item => {
+    props.onSubmit(item);
+  };
 
   return (
     <DropdownWrapper>
@@ -41,7 +45,7 @@ const Dropdown = props => {
         <ul ref={dropdownRef} className="dd-list">
           {items.map(item => (
             <li className="dd-list-item" key={item.id}>
-              <button type="button" onClick={() => props.onSubmit(item)}>
+              <button type="button" onClick={() => handleClick(item)}>
                 <span>{item.value}</span>
               </button>
             </li>
@@ -51,7 +55,6 @@ const Dropdown = props => {
     </DropdownWrapper>
   );
 };
-*/
 
 Dropdown.defaultProps = {
   title: "location",
