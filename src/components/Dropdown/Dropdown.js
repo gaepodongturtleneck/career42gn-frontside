@@ -1,6 +1,25 @@
 import React, { useCallback, useState, useEffect, useRef } from "react";
 import DropdownWrapper from "./Dropdown.styles";
 
+const Dropdown = () => {
+  const [location, setLocation] = useState(["seoul", "busan", "seongnam"]);
+  const loc = location.map(loc => loc);
+  const handleChange = e => console.log(location[e.target.value]);
+
+  return (
+    <DropdownWrapper>
+      <select onChange={e => handleChange(e)}>
+        {loc.map((location, key) => (
+          <option key={key} value={key}>
+            {location}
+          </option>
+        ))}
+      </select>
+    </DropdownWrapper>
+  );
+};
+
+/*
 const Dropdown = props => {
   const { title, items, onSubmit } = props;
   const dropdownRef = useRef(null);
@@ -32,6 +51,7 @@ const Dropdown = props => {
     </DropdownWrapper>
   );
 };
+*/
 
 Dropdown.defaultProps = {
   title: "location",
