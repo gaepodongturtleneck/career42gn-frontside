@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from "react";
 import Heart from "react-animated-heart";
-import { JobListItemStyled, DateBox, CompanyLogoBox, PostContentSection, PostContent, CompanyInfoBox, HashTagBox } from "./JobListItem.styles";
+import { JobListItemStyled, PostContentSection, PostContent, CompanyInfoBox, HashTagBox } from "./JobListItem.styles";
 import CompanyLogo from "../../images/nong.png";
+import DateBox from "../Common/DateBox";
+import CompanyLogoBox from "../Common/CompanyLogoBox";
+import TagBox from "../Common/TagBox";
 
 const JobListItem = props => {
   const { data, isBookMark } = props;
+  const tags = ["#안드로이드", "iOS", "인턴"];
   const [isClick, setClick] = useState(isBookMark);
   useEffect(() => {});
   return (
     <JobListItemStyled id={data.id} isClosed={data.isClosed}>
-      <DateBox className="list-view">
-        <span className="d-day">D-10</span>
-        <span className="date">{data.dueDate}</span>
-      </DateBox>
+      <DateBox dueDate={data.dueDate}></DateBox>
       <PostContentSection name="content-container">
-        <CompanyLogoBox name="logo-container">
-          <img src={CompanyLogo}></img>
-        </CompanyLogoBox>
+        <CompanyLogoBox imgsrc={CompanyLogo} name="logo-container"></CompanyLogoBox>
         <PostContent name="content">
           <span>{data.title}</span>
           <CompanyInfoBox>
@@ -25,12 +24,7 @@ const JobListItem = props => {
             <span>{data.tag}</span>
             <span>학력무관</span>
           </CompanyInfoBox>
-          <HashTagBox>
-            <a>#퍼블리싱</a>
-            <a>{data.type}</a>
-            <a>#채용시까지</a>
-            <a>#경력 3년 이하</a>
-          </HashTagBox>
+          <TagBox tags={tags}></TagBox>
         </PostContent>
         <Heart ismark={isClick ? 1 : 0} onClick={() => setClick(!isClick)} />
       </PostContentSection>

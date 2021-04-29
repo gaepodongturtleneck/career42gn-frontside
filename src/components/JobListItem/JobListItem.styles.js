@@ -35,7 +35,6 @@ export const DateBox = styled.div`
 
 export const PostContentSection = styled.div`
   display: flex;
-  margin-left: 10px;
   width: 100%;
   justify-content: center;
   align-items: center;

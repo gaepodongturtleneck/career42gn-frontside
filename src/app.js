@@ -10,6 +10,7 @@ const GlobalStyle = createGlobalStyle`
   html, body {
     height: 100%;
     background-color: #f9f9f9;
+    box-sizing: border-box;
   }
   #root {
     width: 100%;
@@ -24,7 +25,6 @@ const GlobalStyle = createGlobalStyle`
 	}
   .content-section{
     padding-top:120px;
-    max-width: 1300px;
     min-width: 850px;
     display: flex;
     justify-content: center;
@@ -32,10 +32,13 @@ const GlobalStyle = createGlobalStyle`
 
   .content-container{
     display:flex;
+    max-width: 1300px;
     flex-direction:column;
+    min-width: 70%;
+    /* min-width: 1300px; */
   }
   .job-list-container{
-    padding-top:20px;
+    padding: 20px;
   }
 `;
 

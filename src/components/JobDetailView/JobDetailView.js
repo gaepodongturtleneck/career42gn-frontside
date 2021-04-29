@@ -1,7 +1,9 @@
 import React from "react";
 import { JobDetailViewStyled, JobDetailViewWrapper, JobDetailTitleWrapper, JobDetailTitleTop, JobDetailTitleBottom, JobDetailInfo, JobCompanyInfo } from "./JobDetailView.styles";
 import { ReactComponent as BookmarkIcon } from "../../images/icon-bookmark.svg";
-import { DateBox, CompanyLogoBox, HashTagBox } from "../JobListItem/JobListItem.styles";
+import DateBox from "../Common/DateBox";
+import CompanyLogoBox from "../Common/CompanyLogoBox";
+import TagBox from "../Common/TagBox";
 
 const JobDetailView = props => {
   const { title, company, dueDate, tags } = props.infoData;
@@ -10,7 +12,7 @@ const JobDetailView = props => {
     <JobDetailViewStyled>
       <JobDetailViewWrapper>
         <JobDetailTitleWrapper>
-          <JobDetailTitleTop>
+          <JobDetailTitleTop name="detail-top">
             <JobDetailTitleTop.Left>
               <JobDetailTitleTop.SubTitle>
                 <div className="logo">Logo</div>
@@ -23,13 +25,10 @@ const JobDetailView = props => {
                 <BookmarkIcon />
                 <p className="count">5</p>
               </JobDetailTitleTop.Bookmark>
-              <JobDetailTitleTop.Date>
-                <p className="d-day">D-10</p>
-                <p className="date">{dueDate}</p>
-              </JobDetailTitleTop.Date>
+              <DateBox detail={true} dueDate={dueDate}></DateBox>
             </JobDetailTitleTop.Right>
           </JobDetailTitleTop>
-          <JobDetailTitleBottom>
+          <JobDetailTitleBottom name="detail-bottom">
             <JobDetailTitleBottom.Info>
               <JobDetailTitleBottom.InfoBox>
                 <JobDetailTitleBottom.Item>
