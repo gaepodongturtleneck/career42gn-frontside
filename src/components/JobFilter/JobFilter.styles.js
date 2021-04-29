@@ -5,6 +5,7 @@ export const JobFilterContainer = styled.div`
   flex-flow: row nowrap;
   justify-content: space-between;
   padding: 20px;
+  background: #ffffff;
 `;
 
 export default JobFilterContainer;
