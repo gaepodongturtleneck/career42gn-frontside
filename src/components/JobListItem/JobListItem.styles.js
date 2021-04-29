@@ -50,10 +50,27 @@ export const CompanyLogoBox = styled.div`
 `;
 export const PostContent = styled.div`
   flex: 1;
-  span:first-child {
+  #title {
+    text-decoration: none;
     font-weight: bold;
     display: block;
     font-size: 0.8em;
+  }
+  a:link {
+    text-decoration: none;
+    color: black;
+  }
+  a:visited {
+    text-decoration: none;
+    color: black;
+  }
+  a:active {
+    text-decoration: none;
+    color: black;
+  }
+  a:hover {
+    text-decoration: none;
+    color: gray;
   }
 `;
 

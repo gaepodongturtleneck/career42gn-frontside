@@ -4,8 +4,10 @@ import { ReactComponent as BookmarkIcon } from "../../images/icon-bookmark.svg";
 import DateBox from "../Common/DateBox";
 import CompanyLogoBox from "../Common/CompanyLogoBox";
 import TagBox from "../Common/TagBox";
+import ScrollToTop from "../CustomHook/ScrollToTop";
 
 const JobDetailView = props => {
+  ScrollToTop();
   const { title, company, dueDate, tags } = props.infoData;
 
   return (
