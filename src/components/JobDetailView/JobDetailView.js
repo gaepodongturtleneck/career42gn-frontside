@@ -51,11 +51,7 @@ const JobDetailView = props => {
                 </JobDetailTitleBottom.Item>
               </JobDetailTitleBottom.InfoBox>
             </JobDetailTitleBottom.Info>
-            <JobDetailTitleBottom.Tags>
-              {tags.map((tag, i) => (
-                <span key={i}>#{tag}</span>
-              ))}
-            </JobDetailTitleBottom.Tags>
+            <TagBox tags={tags}></TagBox>
           </JobDetailTitleBottom>
         </JobDetailTitleWrapper>
         <JobDetailInfo>
