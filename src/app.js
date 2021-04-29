@@ -4,6 +4,7 @@ import resetCss from "reset-css";
 import { createGlobalStyle } from "styled-components";
 import MainContainer from "./containers/MainContainer";
 import DetailContainer from "./containers/DetailContainer";
+import LoginContainer from "./containers/LoginContainer";
 
 const GlobalStyle = createGlobalStyle`
   ${resetCss};
@@ -49,6 +50,7 @@ function App() {
         <Switch>
           <Route path="/" exact component={MainContainer} />
           <Route path="/jobpost/:id" exact component={DetailContainer} />
+          <Route path="/login" exact component={LoginContainer} />
         </Switch>
       </BrowserRouter>
       <GlobalStyle />
