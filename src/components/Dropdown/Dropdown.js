@@ -4,10 +4,8 @@ import { ReactComponent as FilterArrow } from "../../images/filter-arrow.svg";
 import Checkbox from "./Checkbox";
 
 const Dropdown = props => {
-  const { title, items, onSubmit, isChecked, onChange } = props;
-  const dropdownRef = useRef(null);
+  const { title, items, isChecked, onChange } = props;
   const [open, setOpen] = useState(false);
-  const [selection, setSelection] = useState([]);
   const toggle = () => setOpen(!open);
 
   return (
