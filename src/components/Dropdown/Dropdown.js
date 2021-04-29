@@ -4,7 +4,7 @@ import { ReactComponent as FilterArrow } from "../../images/filter-arrow.svg";
 import Checkbox from "./Checkbox";
 
 const Dropdown = props => {
-  const { title, items, isChecked, onChange } = props;
+  const { title, items, onChange } = props;
   const [open, setOpen] = useState(false);
   const toggle = () => setOpen(!open);
 
@@ -18,7 +18,7 @@ const Dropdown = props => {
           <p>{open ? "close" : "open"}</p>
         </div>
       </div>
-      {open && <Checkbox items={items} onChange={onChange} isChecked={isChecked} />}
+      {open && <Checkbox items={items} onChange={onChange} />}
     </DropdownWrapper>
   );
 };

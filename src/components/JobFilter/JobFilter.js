@@ -10,11 +10,11 @@ const JobFilter = () => {
     },
     {
       id: 2,
-      value: "App",
+      value: "Android",
     },
     {
       id: 3,
-      value: "DB",
+      value: "IOS",
     },
     {
       id: 4,
@@ -26,30 +26,31 @@ const JobFilter = () => {
     },
     {
       id: 6,
+      value: "DB",
+    },
+    {
+      id: 7,
       value: "Etc",
     },
   ];
 
   const [selectedTags, selectTags] = useState([]);
-  const [isChecked, setIsChecked] = useState({});
 
-  const handleSelect = item => {
-    let newArr = selectedTags;
-    const idx = selectedTags.indexOf(item.value);
-    if (isChecked[item.id]) {
-      if (idx === -1) {
-        newArr = [...selectedTags, item.value];
-      }
-    } else {
-      newArr = selectedTags.splice(idx, 1);
+  const isItemSelected = item => {
+    if (selectedTags.find(current => current === item.value)) {
+      return true;
     }
-    selectTags(newArr);
+    return false;
   };
 
-  const handleCheck = item => {
-    setIsChecked({ ...isChecked, [item.id]: item.checked });
-    console.log(isChecked);
-    handleSelect(item);
+  const handleSelect = item => {
+    if (!isItemSelected(item)) {
+      selectTags([...selectedTags, item.value]);
+    } else {
+      let selectedTagsAfterRemoval = selectedTags;
+      selectedTagsAfterRemoval = selectedTagsAfterRemoval.filter(current => current !== item.value);
+      selectTags([...selectedTagsAfterRemoval]);
+    }
   };
 
   const getTitle = () => {
@@ -58,7 +59,7 @@ const JobFilter = () => {
 
   return (
     <JobFilterContainer>
-      <Dropdown onChange={handleCheck} title={getTitle()} isChecked={isChecked} items={items} />
+      <Dropdown onChange={handleSelect} title={getTitle()} items={items} />
       <Dropdown />
       <Dropdown />
       <button>검색하기</button>
