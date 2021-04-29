@@ -4,35 +4,23 @@ import { ReactComponent as FilterArrow } from "../../images/filter-arrow.svg";
 import Checkbox from "./Checkbox";
 
 const Dropdown = props => {
-  const { title, items, onSubmit } = props;
+  const { title, items, onSubmit, isChecked, onChange } = props;
+  const dropdownRef = useRef(null);
   const [open, setOpen] = useState(false);
-  const [isChecked, checking] = useState(false);
-  const toggleOpen = () => setOpen(!open);
-  const handleClick = item => {
-    props.onSubmit(item);
-  };
+  const [selection, setSelection] = useState([]);
+  const toggle = () => setOpen(!open);
 
   return (
     <DropdownWrapper>
-      <div className="dd-header" role="button" onClick={() => toggleOpen(!open)}>
+      <div className="dd-header" role="button" onClick={() => toggle(!open)}>
         <div>
           <p>{title}</p>
         </div>
         <div>
-          <p>{open ? <FilterArrow width="19px" style={{ transform: [{ rotateY: "180deg" }] }} /> : <FilterArrow width="19px" />}</p>
+          <p>{open ? "close" : "open"}</p>
         </div>
       </div>
-      {open && (
-        <ul className="dd-list">
-          {items.map(item => (
-            <li className="dd-list-item" key={item.id}>
-              <button type="button" onClick={() => handleClick(item)}>
-                <span>{item.value}</span>
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
+      {open && <Checkbox items={items} onChange={onChange} isChecked={isChecked} />}
     </DropdownWrapper>
   );
 };

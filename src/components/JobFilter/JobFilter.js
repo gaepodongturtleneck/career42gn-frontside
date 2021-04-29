@@ -36,6 +36,7 @@ const JobFilter = () => {
   const onChange = item => {
     setIsChecked({ ...isChecked, [item.id]: item.checked });
   };
+
   const onSubmit = data => {
     const newArr = [...selectedTags, data.value];
     selectTags(newArr);
@@ -49,7 +50,7 @@ const JobFilter = () => {
   return (
     <JobFilterContainer>
       <Checkbox items={items} onChange={onChange} isChecked={isChecked} />
-      <Dropdown onSubmit={onSubmit} title={getTitle()} items={items} />
+      <Dropdown onSubmit={onSubmit} title={getTitle()} isChecked={isChecked} items={items} />
       <Dropdown />
       <Dropdown />
       <button>검색하기</button>

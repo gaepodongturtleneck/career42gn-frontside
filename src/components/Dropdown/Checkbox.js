@@ -7,7 +7,7 @@ const Checkbox = props => {
     <CheckboxWrapper>
       {items.map(item => (
         <label key={item.id}>
-          <input type="checkbox" name={item.value} checked={isChecked[item.id]} onChange={() => props.onChange(item)} />
+          <input type="checkbox" name={item.value} checked={isChecked[item.id]} onChange={() => onChange(item)} />
           {item.value}
         </label>
       ))}
