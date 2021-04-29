@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const HeaderStyled = styled.div`
+const HeaderStyled = styled.nav`
   position: fixed;
   top: 0;
   left: 0;

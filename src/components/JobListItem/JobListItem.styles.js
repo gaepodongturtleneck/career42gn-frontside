@@ -20,13 +20,16 @@ export const DateBox = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  span {
-    display: block;
+
+  .d-day {
+    font-size: 1em;
     font-weight: bold;
+    color: #fff;
   }
-  span:nth-child(2) {
+  .date {
     font-size: 0.5em;
-    padding-top: 7px;
+    color: #fff;
+    margin-top: 10px;
   }
 `;
 

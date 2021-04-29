@@ -9,9 +9,9 @@ const JobListItem = props => {
   useEffect(() => {});
   return (
     <JobListItemStyled id={data.id} isClosed={data.isClosed}>
-      <DateBox>
-        <span>D-10</span>
-        <span>{data.dueDate}</span>
+      <DateBox className="list-view">
+        <span className="d-day">D-10</span>
+        <span className="date">{data.dueDate}</span>
       </DateBox>
       <PostContentSection name="content-container">
         <CompanyLogoBox name="logo-container">
