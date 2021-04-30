@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Heart from "react-animated-heart";
 import { Link, useHistory } from "react-router-dom";
 import { JobListItemStyled, PostContentSection, PostContent, CompanyInfoBox } from "./JobListItem.styles";
@@ -8,16 +8,14 @@ import CompanyLogoBox from "../Common/CompanyLogoBox";
 import TagBox from "../Common/TagBox";
 
 const JobListItem = props => {
-  const { data, isBookMark } = props;
-  const tags = ["#안드로이드", "iOS", "인턴"];
+  const { data, isBookMark, tags } = props;
   const [isClick, setClick] = useState(isBookMark);
-  useEffect(() => {});
 
   return (
     <JobListItemStyled id={data.id} isClosed={data.isClosed}>
-      <DateBox dueDate={data.dueDate}></DateBox>
+      <DateBox dueDate={data.dueDate} />
       <PostContentSection name="content-container">
-        <CompanyLogoBox imgsrc={CompanyLogo} name="logo-container"></CompanyLogoBox>
+        <CompanyLogoBox imgsrc={CompanyLogo} name="logo-container" />
         <PostContent name="content">
           <Link id="title" to={`/jobpost/${data.id}`}>
             {data.title}
@@ -28,14 +26,12 @@ const JobListItem = props => {
             <span>{data.tag}</span>
             <span>학력무관</span>
           </CompanyInfoBox>
-          <TagBox tags={tags}></TagBox>
+          <TagBox tags={tags} />
         </PostContent>
         <Heart ismark={isClick ? 1 : 0} onClick={() => setClick(!isClick)} />
       </PostContentSection>
     </JobListItemStyled>
   );
 };
-
-JobListItem.propTypes = {};
 
 export default JobListItem;
