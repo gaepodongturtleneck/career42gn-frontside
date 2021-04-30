@@ -15,18 +15,18 @@ const MainContainer = () => {
   return (
     <>
       <Header />
-      <div className="content-section">
-        <div className="job-container">
+      <section className="content-section">
+        <div className="content-container">
           <div className="job-filter-container">
             <button>지역</button>
             <button>분야</button>
             <button>경력</button>
             <button>검색하기</button>
           </div>
-
           <JobListView />
         </div>
-      </div>
+      </section>
+      <footer>footer</footer>
     </>
   );
 };

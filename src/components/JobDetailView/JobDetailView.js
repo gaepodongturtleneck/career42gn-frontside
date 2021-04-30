@@ -1,15 +1,20 @@
 import React from "react";
 import { JobDetailViewStyled, JobDetailViewWrapper, JobDetailTitleWrapper, JobDetailTitleTop, JobDetailTitleBottom, JobDetailInfo, JobCompanyInfo } from "./JobDetailView.styles";
 import { ReactComponent as BookmarkIcon } from "../../images/icon-bookmark.svg";
+import DateBox from "../Common/DateBox";
+import CompanyLogoBox from "../Common/CompanyLogoBox";
+import TagBox from "../Common/TagBox";
+import ScrollToTop from "../CustomHook/ScrollToTop";
 
 const JobDetailView = props => {
+  ScrollToTop();
   const { title, company, dueDate, tags } = props.infoData;
 
   return (
     <JobDetailViewStyled>
       <JobDetailViewWrapper>
         <JobDetailTitleWrapper>
-          <JobDetailTitleTop>
+          <JobDetailTitleTop name="detail-top">
             <JobDetailTitleTop.Left>
               <JobDetailTitleTop.SubTitle>
                 <div className="logo">Logo</div>
@@ -22,13 +27,10 @@ const JobDetailView = props => {
                 <BookmarkIcon />
                 <p className="count">5</p>
               </JobDetailTitleTop.Bookmark>
-              <JobDetailTitleTop.Date>
-                <p className="d-day">D-10</p>
-                <p className="date">{dueDate}</p>
-              </JobDetailTitleTop.Date>
+              <DateBox detail={true} dueDate={dueDate}></DateBox>
             </JobDetailTitleTop.Right>
           </JobDetailTitleTop>
-          <JobDetailTitleBottom>
+          <JobDetailTitleBottom name="detail-bottom">
             <JobDetailTitleBottom.Info>
               <JobDetailTitleBottom.InfoBox>
                 <JobDetailTitleBottom.Item>
@@ -51,11 +53,7 @@ const JobDetailView = props => {
                 </JobDetailTitleBottom.Item>
               </JobDetailTitleBottom.InfoBox>
             </JobDetailTitleBottom.Info>
-            <JobDetailTitleBottom.Tags>
-              {tags.map((tag, i) => (
-                <span key={i}>#{tag}</span>
-              ))}
-            </JobDetailTitleBottom.Tags>
+            <TagBox tags={tags}></TagBox>
           </JobDetailTitleBottom>
         </JobDetailTitleWrapper>
         <JobDetailInfo>
@@ -98,6 +96,19 @@ JobDetailView.defaultProps = {
     company: "농담곰 컴퍼니",
     dueDate: "05.07 (수)",
     tags: ["퍼블리싱", "프론트엔드", "채용시까지"],
+  },
+  dummyData: {
+    id: 1,
+    companyId: 1,
+    title: "프론트엔드 개발자로 활약하실 분 모집",
+    pay: "회사 내규에 따름",
+    tag: ["퍼블리싱", "프론트엔드", "채용시 까지"],
+    type: "인턴",
+    createdDate: "20210420",
+    modifiedDate: "20210427",
+    dueDate: "20210507",
+    content: "대충 이러 저러한 내용들로 구성되어 있다.",
+    isClosed: false,
   },
 };
 

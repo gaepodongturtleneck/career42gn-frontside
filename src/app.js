@@ -4,12 +4,14 @@ import resetCss from "reset-css";
 import { createGlobalStyle } from "styled-components";
 import MainContainer from "./containers/MainContainer";
 import DetailContainer from "./containers/DetailContainer";
+import LoginContainer from "./containers/LoginContainer";
 
 const GlobalStyle = createGlobalStyle`
   ${resetCss};
   html, body {
     height: 100%;
     background-color: #f9f9f9;
+    box-sizing: border-box;
   }
   #root {
     width: 100%;
@@ -24,18 +26,20 @@ const GlobalStyle = createGlobalStyle`
 	}
   .content-section{
     padding-top:120px;
-    width: 100%;
+    min-width: 850px;
     display: flex;
     justify-content: center;
   }
-  .job-container{
-    width:70%;
-  }
-  .job-filter-container{
-    min-height:100px;
+
+  .content-container{
+    display:flex;
+    max-width: 1300px;
+    flex-direction:column;
+    min-width: 70%;
+    /* min-width: 1300px; */
   }
   .job-list-container{
-    padding-top:20px;
+    padding: 20px;
   }
 `;
 
@@ -45,7 +49,8 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route path="/" exact component={MainContainer} />
-          <Route path="/detail" exact component={DetailContainer} />
+          <Route path="/jobpost/:id" exact component={DetailContainer} />
+          <Route path="/login" exact component={LoginContainer} />
         </Switch>
       </BrowserRouter>
       <GlobalStyle />

@@ -6,7 +6,11 @@ const DetailContainer = () => {
   return (
     <>
       <Header />
-      <JobDetailView />
+      <div className="content-section">
+        <div className="content-container">
+          <JobDetailView />
+        </div>
+      </div>
     </>
   );
 };

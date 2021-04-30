@@ -1,15 +1,13 @@
 import styled from "styled-components";
 
 export const JobDetailViewStyled = styled.div`
-  width: 100%;
+  /* width: 100%;
   height: 1200px;
-  padding: 150px 0 200px 0;
+  padding: 150px 0 200px 0; */
 `;
 
 export const JobDetailViewWrapper = styled.div`
-  width: 70%;
   height: 100%;
-  margin: 0 auto;
   padding: 60px;
   background-color: #fff;
 `;
@@ -24,15 +22,17 @@ export const JobDetailTitleTop = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  font-size: 36px;
 `;
 
-JobDetailTitleTop.Left = styled.div``;
+JobDetailTitleTop.Left = styled.div`
+  flex: 4;
+`;
 
 JobDetailTitleTop.SubTitle = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-
   .logo {
     width: 55px;
     height: 50px;
@@ -43,14 +43,14 @@ JobDetailTitleTop.SubTitle = styled.div`
     background-color: #b9b9b9;
   }
   .title {
-    font-size: 26px;
+    font-size: 0.5em;
     color: #4a4a4a;
     padding-left: 20px;
   }
 `;
 
 JobDetailTitleTop.Title = styled.p`
-  font-size: 38px;
+  font-size: 0.8em;
   font-weight: bold;
   color: #000;
   margin-top: 20px;
@@ -58,7 +58,12 @@ JobDetailTitleTop.Title = styled.p`
 
 JobDetailTitleTop.Right = styled.div`
   display: flex;
+  flex: 1;
   flex-direction: row;
+  max-height: 100px;
+  & * {
+    margin: 5px;
+  }
 `;
 
 JobDetailTitleTop.Bookmark = styled.button`
@@ -66,7 +71,7 @@ JobDetailTitleTop.Bookmark = styled.button`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 30px 40px 20px 40px;
+  min-width: 100px;
   border: 2px solid #d6d6d6;
   background-color: #fff;
   cursor: pointer;
@@ -104,9 +109,11 @@ JobDetailTitleTop.Date = styled.div`
 export const JobDetailTitleBottom = styled.div`
   display: flex;
   flex-direction: column;
-  border: 2px solid #27babb;
-  padding: 30px;
-  margin-top: 25px;
+  border-top: 2px solid #27babb;
+  border-bottom: 2px solid #27babb;
+  font-size: 30px;
+  padding: 10px 0 0 0;
+  margin-top: 15px;
 `;
 
 JobDetailTitleBottom.Info = styled.div`
@@ -125,20 +132,20 @@ JobDetailTitleBottom.Item = styled.div`
   p {
     display: inline-block;
     width: 110px;
-    font-size: 18px;
+    font-size: 0.5em;
     font-weight: bold;
     color: #4a4a4a;
   }
   span {
-    font-size: 18px;
+    font-size: 0.5em;
     color: #4a4a4a;
   }
 `;
 
 JobDetailTitleBottom.Tags = styled.div`
-  font-size: 18px;
+  font-size: 0.5em;
   color: #27babb;
-  margin-top: 10px;
+  margin: 10px 0 10px 0;
 
   span {
     margin-right: 30px;

@@ -20,19 +20,21 @@ export const DateBox = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  span {
-    display: block;
+
+  .d-day {
+    font-size: 1em;
     font-weight: bold;
+    color: #fff;
   }
-  span:nth-child(2) {
+  .date {
     font-size: 0.5em;
-    padding-top: 7px;
+    color: #fff;
+    margin-top: 10px;
   }
 `;
 
 export const PostContentSection = styled.div`
   display: flex;
-  margin-left: 10px;
   width: 100%;
   justify-content: center;
   align-items: center;
@@ -48,10 +50,27 @@ export const CompanyLogoBox = styled.div`
 `;
 export const PostContent = styled.div`
   flex: 1;
-  span:first-child {
+  #title {
+    text-decoration: none;
     font-weight: bold;
     display: block;
     font-size: 0.8em;
+  }
+  a:link {
+    text-decoration: none;
+    color: black;
+  }
+  a:visited {
+    text-decoration: none;
+    color: black;
+  }
+  a:active {
+    text-decoration: none;
+    color: black;
+  }
+  a:hover {
+    text-decoration: none;
+    color: gray;
   }
 `;
 

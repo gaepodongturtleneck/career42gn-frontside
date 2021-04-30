@@ -7,9 +7,9 @@ import { JobListViewStyled } from "./JobListView.styles";
 const JobListView = props => {
   const { dummyData, bookMark } = props;
   return (
-    <JobListViewStyled>
+    <JobListViewStyled name="job-list-view-container">
+      <JobListHeader totalPostsNumber={dummyData.totalElements} />
       <ul>
-        <JobListHeader totalPostsNumber={dummyData.totalElements} />
         {dummyData?.content.map(item => {
           const isBookMark = bookMark.some(isMarked => isMarked.jobpost_id === item.id);
           return <JobListItem key={item.id} data={item} isBookMark={isBookMark} />;
