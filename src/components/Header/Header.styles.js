@@ -16,10 +16,20 @@ const HeaderStyled = styled.nav`
   background-color: #252831;
   z-index: 1;
 
+  .logo-button {
+    width: 60px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    cursor: pointer;
+  }
   .profile-box {
     display: flex;
     flex-direction: row;
     align-items: center;
+    cursor: pointer;
 
     span {
       font-size: 18px;
