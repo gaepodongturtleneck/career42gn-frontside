@@ -4,7 +4,6 @@ export const JobListPaginationStyles = styled.div`
   width: 100%;
   font-size: 16px;
   min-height: 50px;
-  margin-bottom: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,14 +13,16 @@ export const JobListPaginationStyles = styled.div`
     align-items: center;
     list-style: none;
     min-height: 50px;
+    margin-top: 5px;
 
     li {
       display: inline;
       font-size: 0.8em;
+      margin: 0 1.5px;
     }
     li > span {
       box-sizing: border-box;
-      padding: 5px 10px;
+      padding: 7px 10px;
       margin-left: -1px;
       border: 1px solid #ddd;
       cursor: pointer;

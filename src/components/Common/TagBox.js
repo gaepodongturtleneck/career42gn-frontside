@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const TagChild = tags => {
-  return tags.map((tag, idx) => <a key={idx}>{tag}</a>);
+  return tags.map((tag, idx) => <a key={idx}>#{tag}</a>);
 };
 
 const TagBox = props => {
@@ -16,6 +16,6 @@ export const TagBoxWrapper = styled.div`
   font-size: 0.5em;
   & * {
     color: #27babb;
-    padding-right: 10px;
+    padding-right: 12px;
   }
 `;

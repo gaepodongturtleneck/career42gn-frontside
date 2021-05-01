@@ -14,23 +14,23 @@ const DateBox = props => {
 export default DateBox;
 
 const DateBoxWrapper = styled.div`
-  display: flex;
-  min-width: 100px;
+  min-width: 110px;
   min-height: 100%;
-  background-color: #27babb;
-  color: white;
+  display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  background-color: #27babb;
+  color: #fff;
   font-size: ${props => (props.detail ? "36px" : "30px")};
   .d-day {
-    font-size: 1em;
+    font-size: 0.95em;
     font-weight: bold;
     color: #fff;
   }
   .date {
     font-size: 0.5em;
     color: #fff;
-    margin-top: 10px;
+    margin-top: 12px;
   }
 `;
