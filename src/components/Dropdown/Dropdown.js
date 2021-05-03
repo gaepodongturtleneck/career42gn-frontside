@@ -10,7 +10,7 @@ const Dropdown = props => {
 
   return (
     <DropdownWrapper>
-      <div className="dd-header" role="button" onClick={() => toggle()}>
+      <div className="dropdown-title" role="button" onClick={() => toggle()}>
         <div>
           <p>{title}</p>
         </div>

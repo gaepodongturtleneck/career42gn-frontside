@@ -1,16 +1,16 @@
 import styled from "styled-components";
 
 const DropdownWrapper = styled.div`
-  width: 200px;
-  height: 75px;
+  width: 100%;
 
-  .dd-header {
+  .dropdown-title {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
-    border: solid #27babb 2px;
+    border: solid #d6d6d6 2px;
     box-sizing: border-box;
-    padding: 10px;
+    padding: 15px 10px;
+    margin-left: -2px;
   }
 
   .dd-list {
