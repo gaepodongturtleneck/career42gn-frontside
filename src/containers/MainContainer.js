@@ -1,12 +1,13 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Header from "../components/Header/Header";
-import Dropdown from "../components/Dropdown/Dropdown";
 import JobListItem from "../components/JobListItem/JobListItem";
 import JobListHeader from "../components/JobListHeader/JobListHeader";
 import JobListView from "../components/JobListView/JobListView";
+import JobFilter from "../components/JobFilter/JobFilter";
+//  import JobFilterContainer from '../components/JobFilter/JobFilter.styles';
 
 const MainContainer = props => {
-  const { dummyData, bookMark, tags } = props;
+  const { dummyData, bookMark, tags, locations, types } = props;
   const [location, setLocation] = useState(null);
 
   const handleChangeLocationClick = useCallback(() => {
@@ -18,12 +19,7 @@ const MainContainer = props => {
       <Header />
       <section className="content-section">
         <div className="content-container">
-          <div className="job-filter-container">
-            <button>지역</button>
-            <button>분야</button>
-            <button>경력</button>
-            <button>검색하기</button>
-          </div>
+          <JobFilter locations={locations} tags={tags} types={types} />
           <JobListView dummyData={dummyData} bookMark={bookMark} tags={tags} />
         </div>
       </section>
@@ -165,7 +161,66 @@ MainContainer.defaultProps = {
     },
   ],
 
-  tags: ["안드로이드", "iOS", "인턴"],
+  tags: [
+    {
+      id: 1,
+      value: "Web",
+    },
+    {
+      id: 2,
+      value: "Android",
+    },
+    {
+      id: 3,
+      value: "IOS",
+    },
+    {
+      id: 4,
+      value: "AI",
+    },
+    {
+      id: 5,
+      value: "Game",
+    },
+    {
+      id: 6,
+      value: "DB",
+    },
+    {
+      id: 7,
+      value: "Etc",
+    },
+  ],
+
+  locations: [
+    {
+      id: 1,
+      value: "서울",
+    },
+    {
+      id: 2,
+      value: "경기",
+    },
+    {
+      id: 3,
+      value: "부산",
+    },
+  ],
+
+  types: [
+    {
+      id: 1,
+      value: "신입",
+    },
+    {
+      id: 2,
+      value: "인턴",
+    },
+    {
+      id: 3,
+      value: "주니어",
+    },
+  ],
 };
 
 export default MainContainer;

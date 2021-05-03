@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const TagChild = tags => {
-  return tags.map((tag, idx) => <a key={idx}>#{tag}</a>);
+  return tags.map(tag => <a key={tag.id}>#{tag.value}</a>);
 };
 
 const TagBox = props => {
