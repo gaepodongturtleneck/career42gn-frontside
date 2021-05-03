@@ -49,8 +49,24 @@ const JobFilter = () => {
     },
   ];
 
+  const locationItems = [
+    {
+      id: 1,
+      value: "서울",
+    },
+    {
+      id: 2,
+      value: "경기",
+    },
+    {
+      id: 3,
+      value: "부산",
+    },
+  ];
+
   const [selectedTags, selectTags] = useState([]);
   const [selectedTypes, selectTypes] = useState([]);
+  const [selectedLocations, selectLocations] = useState([]);
 
   const isItemSelected = (item, array) => {
     if (array.find(current => current === item.value)) {
@@ -79,19 +95,33 @@ const JobFilter = () => {
     }
   };
 
+  const handleLocationSelect = item => {
+    if (!isItemSelected(item, selectedLocations)) {
+      selectLocations([...selectedLocations, item.value]);
+    } else {
+      let selectedLocationsAfterRemoval = selectedLocations;
+      selectedLocationsAfterRemoval = selectedLocationsAfterRemoval.filter(current => current !== item.value);
+      selectLocations([...selectedLocationsAfterRemoval]);
+    }
+  };
+
   const getTags = () => {
     return selectedTags.length > 0 ? selectedTags.join(",") : "분야";
   };
 
   const getTypes = () => {
-    return selectedTypes.length > 0 ? selectedTypes.join(",") : "Job Type";
+    return selectedTypes.length > 0 ? selectedTypes.join(",") : "경력";
+  };
+
+  const getLocations = () => {
+    return selectedLocations.length > 0 ? selectedLocations.join(",") : "지역";
   };
 
   return (
     <JobFilterContainer>
       <Dropdown onChange={handleTagSelect} title={getTags()} items={tagItems} />
       <Dropdown onChange={handleTypeSelect} title={getTypes()} items={typeItems} />
-      <Dropdown />
+      <Dropdown onChange={handleLocationSelect} title={getLocations()} items={locationItems} />
       <button>검색하기</button>
     </JobFilterContainer>
   );
