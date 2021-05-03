@@ -4,9 +4,9 @@ import Dropdown from "../Dropdown/Dropdown";
 
 const JobFilter = props => {
   const { locations, tags, types } = props;
-  const [selectedTags, selectTags] = useState([]);
-  const [selectedTypes, selectTypes] = useState([]);
-  const [selectedLocations, selectLocations] = useState([]);
+  const [selectedTags, setSelectedTags] = useState([]);
+  const [selectedTypes, setSelectedTypes] = useState([]);
+  const [selectedLocations, setSelectedLocations] = useState([]);
 
   const isItemSelected = (item, array) => {
     if (array.find(current => current === item.value)) {
@@ -17,31 +17,31 @@ const JobFilter = props => {
 
   const handleTagSelect = item => {
     if (!isItemSelected(item, selectedTags)) {
-      selectTags([...selectedTags, item.value]);
+      setSelectedTags([...selectedTags, item.value]);
     } else {
       let selectedTagsAfterRemoval = selectedTags;
       selectedTagsAfterRemoval = selectedTagsAfterRemoval.filter(current => current !== item.value);
-      selectTags([...selectedTagsAfterRemoval]);
+      setSelectedTags([...selectedTagsAfterRemoval]);
     }
   };
 
   const handleTypeSelect = item => {
     if (!isItemSelected(item, selectedTypes)) {
-      selectTypes([...selectedTypes, item.value]);
+      setSelectedTypes([...selectedTypes, item.value]);
     } else {
       let selectedTypesAfterRemoval = selectedTypes;
       selectedTypesAfterRemoval = selectedTypesAfterRemoval.filter(current => current !== item.value);
-      selectTypes([...selectedTypesAfterRemoval]);
+      setSelectedTypes([...selectedTypesAfterRemoval]);
     }
   };
 
   const handleLocationSelect = item => {
     if (!isItemSelected(item, selectedLocations)) {
-      selectLocations([...selectedLocations, item.value]);
+      setSelectedLocations([...selectedLocations, item.value]);
     } else {
       let selectedLocationsAfterRemoval = selectedLocations;
       selectedLocationsAfterRemoval = selectedLocationsAfterRemoval.filter(current => current !== item.value);
-      selectLocations([...selectedLocationsAfterRemoval]);
+      setSelectedLocations([...selectedLocationsAfterRemoval]);
     }
   };
 
@@ -59,9 +59,9 @@ const JobFilter = props => {
 
   return (
     <JobFilterContainer>
-      <Dropdown onChange={handleTagSelect} title={getTags()} items={tags} />
-      <Dropdown onChange={handleTypeSelect} title={getTypes()} items={types} />
-      <Dropdown onChange={handleLocationSelect} title={getLocations()} items={locations} />
+      <Dropdown selectFunction={handleTagSelect} title={getTags()} items={tags} />
+      <Dropdown selectFunction={handleTypeSelect} title={getTypes()} items={types} />
+      <Dropdown selectFunction={handleLocationSelect} title={getLocations()} items={locations} />
       <button>검색하기</button>
     </JobFilterContainer>
   );
