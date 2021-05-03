@@ -59,10 +59,12 @@ const JobFilter = props => {
 
   return (
     <JobFilterContainer>
-      <Dropdown selectFunction={handleTagSelect} title={getTags()} items={tags} />
-      <Dropdown selectFunction={handleTypeSelect} title={getTypes()} items={types} />
-      <Dropdown selectFunction={handleLocationSelect} title={getLocations()} items={locations} />
-      <button>검색하기</button>
+      <div className="filter-box">
+        <Dropdown selectFunction={handleTagSelect} title={getTags()} items={tags} />
+        <Dropdown selectFunction={handleTypeSelect} title={getTypes()} items={types} />
+        <Dropdown selectFunction={handleLocationSelect} title={getLocations()} items={locations} />
+      </div>
+      <button className="search-button">검색하기</button>
     </JobFilterContainer>
   );
 };
