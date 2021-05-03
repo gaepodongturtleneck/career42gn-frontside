@@ -7,9 +7,25 @@ const Dropdown = props => {
   const { title, items, selectFunction } = props;
   const [open, setOpen] = useState(false);
   const toggle = () => setOpen(prev => !prev);
+  const dropdownRef = useRef(null);
+
+  const handleOutsideClick = ref => {
+    useEffect(() => {
+      const handleClickOutside = event => {
+        if (ref.current && !ref.current.contains(event.target)) {
+          setOpen(false);
+        }
+      };
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [ref]);
+  };
 
   return (
-    <DropdownWrapper>
+    <DropdownWrapper ref={dropdownRef}>
+      {handleOutsideClick(dropdownRef)}
       <div className="dropdown-title" role="button" onClick={() => toggle()}>
         <div>
           <p>{title}</p>
