@@ -18,7 +18,13 @@ const JobListPagination = props => {
             </li>
           );
         })}
-        {totalPages > 10 ? <li>다음</li> : ""}
+        {totalPages > 10 ? (
+          <li>
+            <span>다음</span>
+          </li>
+        ) : (
+          ""
+        )}
       </ul>
     </JobListPaginationStyles>
   );

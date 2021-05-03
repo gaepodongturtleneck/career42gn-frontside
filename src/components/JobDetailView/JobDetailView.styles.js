@@ -1,17 +1,9 @@
 import styled from "styled-components";
 
 export const JobDetailViewStyled = styled.div`
-  width: 100%;
-  height: 1200px;
-  padding: 150px 0 200px 0;
-`;
-
-export const JobDetailViewWrapper = styled.div`
-  width: 70%;
-  height: 100%;
-  margin: 0 auto;
   padding: 60px;
   background-color: #fff;
+  margin-bottom: 50px;
 `;
 
 export const JobDetailTitleWrapper = styled.div`
@@ -24,15 +16,17 @@ export const JobDetailTitleTop = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  font-size: 34px;
 `;
 
-JobDetailTitleTop.Left = styled.div``;
+JobDetailTitleTop.Left = styled.div`
+  flex: 4;
+`;
 
 JobDetailTitleTop.SubTitle = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-
   .logo {
     width: 55px;
     height: 50px;
@@ -43,14 +37,14 @@ JobDetailTitleTop.SubTitle = styled.div`
     background-color: #b9b9b9;
   }
   .title {
-    font-size: 26px;
+    font-size: 0.5em;
     color: #4a4a4a;
     padding-left: 20px;
   }
 `;
 
 JobDetailTitleTop.Title = styled.p`
-  font-size: 38px;
+  font-size: 0.8em;
   font-weight: bold;
   color: #000;
   margin-top: 20px;
@@ -58,7 +52,11 @@ JobDetailTitleTop.Title = styled.p`
 
 JobDetailTitleTop.Right = styled.div`
   display: flex;
+  flex: 1;
   flex-direction: row;
+  & * {
+    margin: 5px;
+  }
 `;
 
 JobDetailTitleTop.Bookmark = styled.button`
@@ -66,53 +64,26 @@ JobDetailTitleTop.Bookmark = styled.button`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 30px 40px 20px 40px;
+  min-width: 100px;
   border: 2px solid #d6d6d6;
   background-color: #fff;
   cursor: pointer;
-
-  .count {
-    font-size: 24px;
-    font-weight: bold;
-    color: #d6d6d6;
-    margin-top: 11px;
-  }
-`;
-
-JobDetailTitleTop.Date = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background-color: #27babb;
-  padding: 28px 23px 28px 23px;
-  margin-left: 18px;
-
-  .d-day {
-    font-size: 42px;
-    font-weight: bold;
-    color: #fff;
-  }
-  .date {
-    font-size: 22px;
-    color: #fff;
-    margin-top: 10px;
-  }
 `;
 
 export const JobDetailTitleBottom = styled.div`
   display: flex;
   flex-direction: column;
   border: 2px solid #27babb;
-  padding: 30px;
-  margin-top: 25px;
+  font-size: 30px;
+  padding: 20px 25px 25px 25px;
+  margin-top: 15px;
 `;
 
 JobDetailTitleBottom.Info = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-bottom: 15px;
 `;
 
 JobDetailTitleBottom.InfoBox = styled.div`
@@ -120,36 +91,26 @@ JobDetailTitleBottom.InfoBox = styled.div`
 `;
 
 JobDetailTitleBottom.Item = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: 5px;
 
   p {
     display: inline-block;
     width: 110px;
-    font-size: 18px;
+    font-size: 0.5em;
     font-weight: bold;
     color: #4a4a4a;
   }
   span {
-    font-size: 18px;
+    font-size: 0.5em;
     color: #4a4a4a;
   }
 `;
 
-JobDetailTitleBottom.Tags = styled.div`
-  font-size: 18px;
-  color: #27babb;
-  margin-top: 10px;
-
-  span {
-    margin-right: 30px;
-  }
-`;
-
 export const JobDetailInfo = styled.div`
-  margin-top: 80px;
+  margin-top: 60px;
 
   p {
-    font-size: 32px;
+    font-size: 24px;
     font-weight: bold;
     color: #222;
   }
@@ -158,7 +119,7 @@ export const JobDetailInfo = styled.div`
     height: 2px;
     background-color: #d6d6d6;
     border: none;
-    margin-top: 20px;
+    margin-top: 10px;
   }
   .info {
     width: 100%;
@@ -169,6 +130,7 @@ export const JobDetailInfo = styled.div`
 export const JobCompanyInfo = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
   border: 2px solid #d6d6d6;
   padding: 35px 50px;
 
@@ -194,7 +156,7 @@ JobCompanyInfo.Title = styled.div`
   margin-bottom: 20px;
 
   span {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: bold;
     color: #4a4a4a;
   }

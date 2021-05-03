@@ -3,7 +3,7 @@ import { JobFilterContainer } from "./JobFilter.styles";
 import Dropdown from "../Dropdown/Dropdown";
 
 const JobFilter = () => {
-  const items = [
+  const tagItems = [
     {
       id: 1,
       value: "Web",
@@ -34,17 +34,33 @@ const JobFilter = () => {
     },
   ];
 
-  const [selectedTags, selectTags] = useState([]);
+  const typeItems = [
+    {
+      id: 1,
+      value: "신입",
+    },
+    {
+      id: 2,
+      value: "인턴",
+    },
+    {
+      id: 3,
+      value: "주니어",
+    },
+  ];
 
-  const isItemSelected = item => {
-    if (selectedTags.find(current => current === item.value)) {
+  const [selectedTags, selectTags] = useState([]);
+  const [selectedTypes, selectTypes] = useState([]);
+
+  const isItemSelected = (item, array) => {
+    if (array.find(current => current === item.value)) {
       return true;
     }
     return false;
   };
 
-  const handleSelect = item => {
-    if (!isItemSelected(item)) {
+  const handleTagSelect = item => {
+    if (!isItemSelected(item, selectedTags)) {
       selectTags([...selectedTags, item.value]);
     } else {
       let selectedTagsAfterRemoval = selectedTags;
@@ -53,14 +69,28 @@ const JobFilter = () => {
     }
   };
 
-  const getTitle = () => {
+  const handleTypeSelect = item => {
+    if (!isItemSelected(item, selectedTypes)) {
+      selectTypes([...selectedTypes, item.value]);
+    } else {
+      let selectedTypesAfterRemoval = selectedTypes;
+      selectedTypesAfterRemoval = selectedTypesAfterRemoval.filter(current => current !== item.value);
+      selectTypes([...selectedTypesAfterRemoval]);
+    }
+  };
+
+  const getTags = () => {
     return selectedTags.length > 0 ? selectedTags.join(",") : "분야";
+  };
+
+  const getTypes = () => {
+    return selectedTypes.length > 0 ? selectedTypes.join(",") : "Job Type";
   };
 
   return (
     <JobFilterContainer>
-      <Dropdown onChange={handleSelect} title={getTitle()} items={items} />
-      <Dropdown />
+      <Dropdown onChange={handleTagSelect} title={getTags()} items={tagItems} />
+      <Dropdown onChange={handleTypeSelect} title={getTypes()} items={typeItems} />
       <Dropdown />
       <button>검색하기</button>
     </JobFilterContainer>
