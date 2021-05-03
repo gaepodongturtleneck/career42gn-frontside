@@ -2,68 +2,8 @@ import React, { useCallback, useState, useEffect, useRef } from "react";
 import { JobFilterContainer } from "./JobFilter.styles";
 import Dropdown from "../Dropdown/Dropdown";
 
-const JobFilter = () => {
-  const tagItems = [
-    {
-      id: 1,
-      value: "Web",
-    },
-    {
-      id: 2,
-      value: "Android",
-    },
-    {
-      id: 3,
-      value: "IOS",
-    },
-    {
-      id: 4,
-      value: "AI",
-    },
-    {
-      id: 5,
-      value: "Game",
-    },
-    {
-      id: 6,
-      value: "DB",
-    },
-    {
-      id: 7,
-      value: "Etc",
-    },
-  ];
-
-  const typeItems = [
-    {
-      id: 1,
-      value: "신입",
-    },
-    {
-      id: 2,
-      value: "인턴",
-    },
-    {
-      id: 3,
-      value: "주니어",
-    },
-  ];
-
-  const locationItems = [
-    {
-      id: 1,
-      value: "서울",
-    },
-    {
-      id: 2,
-      value: "경기",
-    },
-    {
-      id: 3,
-      value: "부산",
-    },
-  ];
-
+const JobFilter = props => {
+  const { locations, tags, types } = props;
   const [selectedTags, selectTags] = useState([]);
   const [selectedTypes, selectTypes] = useState([]);
   const [selectedLocations, selectLocations] = useState([]);
@@ -119,9 +59,9 @@ const JobFilter = () => {
 
   return (
     <JobFilterContainer>
-      <Dropdown onChange={handleTagSelect} title={getTags()} items={tagItems} />
-      <Dropdown onChange={handleTypeSelect} title={getTypes()} items={typeItems} />
-      <Dropdown onChange={handleLocationSelect} title={getLocations()} items={locationItems} />
+      <Dropdown onChange={handleTagSelect} title={getTags()} items={tags} />
+      <Dropdown onChange={handleTypeSelect} title={getTypes()} items={types} />
+      <Dropdown onChange={handleLocationSelect} title={getLocations()} items={locations} />
       <button>검색하기</button>
     </JobFilterContainer>
   );
