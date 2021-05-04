@@ -11,6 +11,12 @@ const JobFilter = props => {
   const [selectedDropdown, setSelectedDropdown] = useState(null);
   const dropdownRef = useRef(null);
 
+  const [checkList, setCheckList] = useState(new Array(tags.length).fill(false));
+
+  const handleCheckClick = index => {
+    setCheckList(checks => checks.map((c, i) => (i === index ? !c : c)));
+  };
+
   const handleOutsideClick = ref => {
     useEffect(() => {
       const handleClickOutside = event => {
@@ -99,7 +105,7 @@ const JobFilter = props => {
           <Dropdown title={getTypes()} dropdownName="types" handleSelectDropdown={handleSelectDropdown} />
           <Dropdown title={getLocations()} dropdownName="locations" handleSelectDropdown={handleSelectDropdown} />
         </div>
-        {selectedDropdown && <Checkbox items={selectCheckboxMenus()} selectFunction={handleCheckboxSelect} />}
+        {selectedDropdown && <Checkbox items={selectCheckboxMenus()} checkList={checkList} selectFunction={handleCheckClick} />}
       </div>
       <button className="search-button">검색하기</button>
     </JobFilterContainer>
