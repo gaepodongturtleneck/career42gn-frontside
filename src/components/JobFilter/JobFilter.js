@@ -36,33 +36,45 @@ const JobFilter = props => {
     return false;
   };
 
-  const handleTagSelect = item => {
-    if (!isItemSelected(item, selectedTags)) {
-      setSelectedTags([...selectedTags, item.value]);
-    } else {
-      let selectedTagsAfterRemoval = selectedTags;
-      selectedTagsAfterRemoval = selectedTagsAfterRemoval.filter(current => current !== item.value);
-      setSelectedTags([...selectedTagsAfterRemoval]);
+  const selectCheckboxMenus = () => {
+    if (selectedDropdown === "tags") {
+      return tags;
+    }
+    if (selectedDropdown === "types") {
+      return types;
+    }
+    if (selectedDropdown === "locations") {
+      return locations;
     }
   };
 
-  const handleTypeSelect = item => {
-    if (!isItemSelected(item, selectedTypes)) {
-      setSelectedTypes([...selectedTypes, item.value]);
-    } else {
-      let selectedTypesAfterRemoval = selectedTypes;
-      selectedTypesAfterRemoval = selectedTypesAfterRemoval.filter(current => current !== item.value);
-      setSelectedTypes([...selectedTypesAfterRemoval]);
+  const handleCheckboxSelect = item => {
+    if (selectedDropdown === "tags") {
+      if (!isItemSelected(item, selectedTags)) {
+        setSelectedTags([...selectedTags, item.value]);
+      } else {
+        let selectedTagsAfterRemoval = selectedTags;
+        selectedTagsAfterRemoval = selectedTagsAfterRemoval.filter(current => current !== item.value);
+        setSelectedTags([...selectedTagsAfterRemoval]);
+      }
     }
-  };
-
-  const handleLocationSelect = item => {
-    if (!isItemSelected(item, selectedLocations)) {
-      setSelectedLocations([...selectedLocations, item.value]);
-    } else {
-      let selectedLocationsAfterRemoval = selectedLocations;
-      selectedLocationsAfterRemoval = selectedLocationsAfterRemoval.filter(current => current !== item.value);
-      setSelectedLocations([...selectedLocationsAfterRemoval]);
+    if (selectedDropdown === "types") {
+      if (!isItemSelected(item, selectedTypes)) {
+        setSelectedTypes([...selectedTypes, item.value]);
+      } else {
+        let selectedTypesAfterRemoval = selectedTypes;
+        selectedTypesAfterRemoval = selectedTypesAfterRemoval.filter(current => current !== item.value);
+        setSelectedTypes([...selectedTypesAfterRemoval]);
+      }
+    }
+    if (selectedDropdown === "locations") {
+      if (!isItemSelected(item, selectedLocations)) {
+        setSelectedLocations([...selectedLocations, item.value]);
+      } else {
+        let selectedLocationsAfterRemoval = selectedLocations;
+        selectedLocationsAfterRemoval = selectedLocationsAfterRemoval.filter(current => current !== item.value);
+        setSelectedLocations([...selectedLocationsAfterRemoval]);
+      }
     }
   };
 
@@ -87,7 +99,7 @@ const JobFilter = props => {
           <Dropdown title={getTypes()} dropdownName="types" handleSelectDropdown={handleSelectDropdown} />
           <Dropdown title={getLocations()} dropdownName="locations" handleSelectDropdown={handleSelectDropdown} />
         </div>
-        {selectedDropdown && <Checkbox items={tags} selectFunction={handleTagSelect} />}
+        {selectedDropdown && <Checkbox items={selectCheckboxMenus()} selectFunction={handleCheckboxSelect} />}
       </div>
       <button className="search-button">검색하기</button>
     </JobFilterContainer>
