@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 const TagChild = tags => {
   return tags.map((tag, idx) => {
-    // 이거 왜 반대죠? idx, value순서 아닌가요 ;;?
     return <a key={idx}>#{tag}</a>;
   });
 };
