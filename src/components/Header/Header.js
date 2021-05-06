@@ -6,19 +6,15 @@ import { ReactComponent as LogoIcon } from "../../images/logo.svg";
 const Header = props => {
   const { name } = props;
 
-  const handleShowProfile = () => {
-    console.log("open");
-  };
-
   return (
     <HeaderStyled>
       <Link to={`/`} className="logo-button">
         <LogoIcon width="50px" />
       </Link>
-      <div className="profile-box" onClick={handleShowProfile}>
+      <Link to={`/profile`} className="profile-box">
         <span>{name}</span>
         <div className="profile-image"></div>
-      </div>
+      </Link>
     </HeaderStyled>
   );
 };
