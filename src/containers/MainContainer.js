@@ -163,61 +163,61 @@ MainContainer.defaultProps = {
 
   tags: [
     {
-      id: 1,
+      id: 0,
       value: "Web",
     },
     {
-      id: 2,
+      id: 1,
       value: "Android",
     },
     {
-      id: 3,
+      id: 2,
       value: "IOS",
     },
     {
-      id: 4,
+      id: 3,
       value: "AI",
     },
     {
-      id: 5,
+      id: 4,
       value: "Game",
     },
     {
-      id: 6,
+      id: 5,
       value: "DB",
     },
     {
-      id: 7,
+      id: 6,
       value: "Etc",
     },
   ],
 
   locations: [
     {
-      id: 1,
+      id: 0,
       value: "서울",
     },
     {
-      id: 2,
+      id: 1,
       value: "경기",
     },
     {
-      id: 3,
+      id: 2,
       value: "부산",
     },
   ],
 
   types: [
     {
-      id: 1,
+      id: 0,
       value: "신입",
     },
     {
-      id: 2,
+      id: 1,
       value: "인턴",
     },
     {
-      id: 3,
+      id: 2,
       value: "주니어",
     },
   ],
