@@ -5,11 +5,16 @@ import Checkbox from "../Dropdown/Checkbox";
 
 const JobFilter = props => {
   const { locations, tags, types } = props;
+  const dropdownRef = useRef(null);
   const [selectedTags, setSelectedTags] = useState([]);
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [selectedLocations, setSelectedLocations] = useState([]);
-  const dropdownRef = useRef(null);
   const [openedDropdown, setOpenedDropdown] = useState([false, false, false]);
+  const [tagCheckList, setTagCheckList] = useState(new Array(tags.length).fill(false));
+  const [typeCheckList, setTypeCheckList] = useState(new Array(types.length).fill(false));
+  const [locationCheckList, setLocationCheckList] = useState(new Array(locations.length).fill(false));
+
+  const dropdownIndex = openedDropdown.indexOf(true);
 
   const handleOpenDropdown = idx => {
     if (openedDropdown[idx]) {
@@ -19,13 +24,7 @@ const JobFilter = props => {
       changed[idx] = true;
       setOpenedDropdown(changed);
     }
-    console.log(openedDropdown);
   };
-
-  const [selectedDropdown, setSelectedDropdown] = useState(null);
-  const [tagCheckList, setTagCheckList] = useState(new Array(tags.length).fill(false));
-  const [typeCheckList, setTypeCheckList] = useState(new Array(types.length).fill(false));
-  const [locationCheckList, setLocationCheckList] = useState(new Array(locations.length).fill(false));
 
   const isItemSelected = (item, array) => {
     if (array.find(current => current === item.value)) {
@@ -35,7 +34,7 @@ const JobFilter = props => {
   };
 
   const handleCheckClick = (index, item) => {
-    if (selectedDropdown === "tags") {
+    if (openedDropdown[0]) {
       setTagCheckList(check => check.map((c, i) => (i === index ? !c : c)));
       if (!isItemSelected(item, selectedTags)) {
         setSelectedTags([...selectedTags, item.value]);
@@ -45,7 +44,7 @@ const JobFilter = props => {
         setSelectedTags([...selectedTagsAfterRemoval]);
       }
     }
-    if (selectedDropdown === "types") {
+    if (openedDropdown[1]) {
       setTypeCheckList(check => check.map((c, i) => (i === index ? !c : c)));
       if (!isItemSelected(item, selectedTypes)) {
         setSelectedTypes([...selectedTypes, item.value]);
@@ -55,7 +54,7 @@ const JobFilter = props => {
         setSelectedTypes([...selectedTypesAfterRemoval]);
       }
     }
-    if (selectedDropdown === "locations") {
+    if (openedDropdown[2]) {
       setLocationCheckList(check => check.map((c, i) => (i === index ? !c : c)));
       if (!isItemSelected(item, selectedLocations)) {
         setSelectedLocations([...selectedLocations, item.value]);
@@ -94,6 +93,18 @@ const JobFilter = props => {
     }
   };
 
+  const selectCheckList = idx => {
+    if (idx === 0) {
+      return tagCheckList;
+    }
+    if (idx === 1) {
+      return typeCheckList;
+    }
+    if (idx === 2) {
+      return locationCheckList;
+    }
+  };
+
   const getTags = () => {
     return selectedTags.length > 0 ? selectedTags.join(",") : "분야";
   };
@@ -108,13 +119,14 @@ const JobFilter = props => {
 
   return (
     <JobFilterContainer>
+      {handleOutsideDropdownClick(dropdownRef)}
       <div className="filter-box">
         <Dropdown title={getTags()} isOpen={openedDropdown} idx={0} handleOpenDropdown={handleOpenDropdown} />
         <Dropdown title={getTypes()} isOpen={openedDropdown} idx={1} handleOpenDropdown={handleOpenDropdown} />
         <Dropdown title={getLocations()} isOpen={openedDropdown} idx={2} handleOpenDropdown={handleOpenDropdown} />
       </div>
       <div className="filter-checkbox-wrapper" ref={dropdownRef}>
-        {openedDropdown.indexOf(true) !== -1 ? <Checkbox items={selectCheckboxMenus(openedDropdown.indexOf(true))} checkList={tagCheckList} selectFunction={handleCheckClick} /> : null}
+        {dropdownIndex !== -1 ? <Checkbox items={selectCheckboxMenus(dropdownIndex)} checkList={selectCheckList(dropdownIndex)} selectFunction={handleCheckClick} /> : null}
       </div>
       <button className="search-button">검색하기</button>
     </JobFilterContainer>
