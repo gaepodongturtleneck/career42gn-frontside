@@ -10,13 +10,14 @@ export const JobFilterContainer = styled.div`
   background: #fff;
   box-sizing: border-box;
 
-  .filter-box {
+  .filter-checkbox-wrapper {
     width: 80%;
-    height: 100%;
+  }
+  .filter-box {
+    width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
-    padding-left: 2px;
+    justify-content: space-between;
   }
   .search-button {
     width: 15%;
