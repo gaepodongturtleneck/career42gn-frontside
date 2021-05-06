@@ -2,11 +2,14 @@ import React from "react";
 import styled from "styled-components";
 
 const TagChild = tags => {
-  return tags.map(tag => <a key={tag.id}>#{tag.value}</a>);
+  return tags.map((tag, idx) => {
+    return <a key={idx}>#{tag}</a>;
+  });
 };
 
 const TagBox = props => {
   const { tags } = props;
+  console.log(tags);
   return <TagBoxWrapper>{TagChild(tags)}</TagBoxWrapper>;
 };
 

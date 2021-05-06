@@ -54,7 +54,7 @@ const JobDetailView = props => {
               </JobDetailTitleBottom.Item>
             </JobDetailTitleBottom.InfoBox>
           </JobDetailTitleBottom.Info>
-          <TagBox tags={tags} />
+          <TagBox tags={infoData.tags} />
         </JobDetailTitleBottom>
       </JobDetailTitleWrapper>
       <JobDetailInfo>

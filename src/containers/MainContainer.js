@@ -1,18 +1,42 @@
 import React, { useCallback, useEffect, useState } from "react";
+import useSWR from "swr";
 import Header from "../components/Header/Header";
-import JobListItem from "../components/JobListItem/JobListItem";
-import JobListHeader from "../components/JobListHeader/JobListHeader";
 import JobListView from "../components/JobListView/JobListView";
 import JobFilter from "../components/JobFilter/JobFilter";
+import api from "../api/index";
+
 //  import JobFilterContainer from '../components/JobFilter/JobFilter.styles';
 
 const MainContainer = props => {
   const { dummyData, bookMark, tags, locations, types } = props;
-  const [location, setLocation] = useState(null);
+  const [jobListData, setJobListData] = useState([]);
+  const fetchListData = async () => {
+    try {
+      const res = await api.get("/jobposts/1");
+      return res.data;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  // const { data, error } = useSWR("/jobposts/1", url => {
+  //   return fetch(url).then(res => res.json());
+  // });
 
-  const handleChangeLocationClick = useCallback(() => {
-    console.log("click");
-  }, []);
+  // const { data, error } = useSWR("/jobposts/1", fetchListData);
+
+  useEffect(() => {
+    // console.log(data);
+    // const listData = await fetchListData();
+    // if (listData !== null) {
+    //   setJobListData(listData);
+    // }
+    // console.log(listData);
+    //   // clear code
+    // };
+  });
+
+  // if (error) return <div>농담곰에러</div>;
+  // if (!data) return <div>로딩스</div>;
 
   return (
     <>
@@ -38,7 +62,7 @@ MainContainer.defaultProps = {
         title: "프론트엔드 개발자 모십니다.",
         dueDate: "2021-05-07",
         isClosed: false,
-        tag: "인턴",
+        tag: ["Web", "iOS", "ETC"],
         type: "프론트엔드",
       },
       {
@@ -46,7 +70,7 @@ MainContainer.defaultProps = {
         title: "백엔드 개발자 모십니다.",
         dueDate: "2021-04-13",
         isClosed: true,
-        tag: "인턴",
+        tag: ["Web", "iOS", "ETC"],
         type: "백엔드",
       },
       {
@@ -54,7 +78,7 @@ MainContainer.defaultProps = {
         title: "농담곰 인턴 모십니다.",
         dueDate: "2021-04-29",
         isClosed: false,
-        tag: "인턴",
+        tag: ["Web", "iOS", "ETC"],
         type: "프론트엔드",
       },
       {
@@ -62,7 +86,7 @@ MainContainer.defaultProps = {
         title: "농담곰 모십니다.",
         dueDate: "2021-05-07",
         isClosed: false,
-        tag: "정규직",
+        tag: ["Web", "iOS", "ETC"],
         type: "농담곰",
       },
       {
@@ -70,7 +94,8 @@ MainContainer.defaultProps = {
         title: "농담곰 모십니다.",
         dueDate: "2021-05-07",
         isClosed: false,
-        tag: "정규직",
+        tag: ["Web", "iOS", "ETC"],
+
         type: "농담곰",
       },
       {
@@ -78,7 +103,7 @@ MainContainer.defaultProps = {
         title: "농담곰 모십니다.",
         dueDate: "2021-05-07",
         isClosed: false,
-        tag: "정규직",
+        tag: ["Web", "iOS", "ETC"],
         type: "농담곰",
       },
       {
@@ -86,7 +111,7 @@ MainContainer.defaultProps = {
         title: "농담곰 모십니다.",
         dueDate: "2021-05-07",
         isClosed: false,
-        tag: "정규직",
+        tag: ["Web", "iOS", "ETC"],
         type: "농담곰",
       },
       {
@@ -94,7 +119,7 @@ MainContainer.defaultProps = {
         title: "농담곰 모십니다.",
         dueDate: "2021-05-07",
         isClosed: false,
-        tag: "정규직",
+        tag: ["Web", "iOS", "ETC"],
         type: "농담곰",
       },
       {
@@ -102,7 +127,7 @@ MainContainer.defaultProps = {
         title: "농담곰 모십니다.",
         dueDate: "2021-05-07",
         isClosed: false,
-        tag: "정규직",
+        tag: ["Web", "iOS", "ETC"],
         type: "농담곰",
       },
       {
@@ -110,7 +135,7 @@ MainContainer.defaultProps = {
         title: "농담곰 모십니다.",
         dueDate: "2021-05-07",
         isClosed: false,
-        tag: "정규직",
+        tag: ["Web", "iOS", "ETC"],
         type: "농담곰",
       },
     ],
