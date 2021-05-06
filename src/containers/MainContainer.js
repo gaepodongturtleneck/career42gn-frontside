@@ -1,18 +1,42 @@
 import React, { useCallback, useEffect, useState } from "react";
+import useSWR from "swr";
 import Header from "../components/Header/Header";
-import JobListItem from "../components/JobListItem/JobListItem";
-import JobListHeader from "../components/JobListHeader/JobListHeader";
 import JobListView from "../components/JobListView/JobListView";
 import JobFilter from "../components/JobFilter/JobFilter";
+import api from "../api/index";
+
 //  import JobFilterContainer from '../components/JobFilter/JobFilter.styles';
 
 const MainContainer = props => {
   const { dummyData, bookMark, tags, locations, types } = props;
-  const [location, setLocation] = useState(null);
+  const [jobListData, setJobListData] = useState([]);
+  const fetchListData = async () => {
+    try {
+      const res = await api.get("/jobposts/1");
+      return res.data;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  // const { data, error } = useSWR("/jobposts/1", url => {
+  //   return fetch(url).then(res => res.json());
+  // });
 
-  const handleChangeLocationClick = useCallback(() => {
-    console.log("click");
-  }, []);
+  // const { data, error } = useSWR("/jobposts/1", fetchListData);
+
+  useEffect(() => {
+    // console.log(data);
+    // const listData = await fetchListData();
+    // if (listData !== null) {
+    //   setJobListData(listData);
+    // }
+    // console.log(listData);
+    //   // clear code
+    // };
+  });
+
+  // if (error) return <div>농담곰에러</div>;
+  // if (!data) return <div>로딩스</div>;
 
   return (
     <>
