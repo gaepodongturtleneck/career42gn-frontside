@@ -10,7 +10,6 @@ import TagBox from "../Common/TagBox";
 const JobListItem = props => {
   const { data, isBookMark, tags } = props;
   const [isClick, setClick] = useState(isBookMark);
-
   return (
     <JobListItemStyled id={data.id} isClosed={data.isClosed}>
       <DateBox dueDate={data.dueDate} />
