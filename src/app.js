@@ -5,6 +5,7 @@ import { createGlobalStyle } from "styled-components";
 import MainContainer from "./containers/MainContainer";
 import DetailContainer from "./containers/DetailContainer";
 import LoginContainer from "./containers/LoginContainer";
+import ProfileContainer from "./containers/ProfileContainer";
 
 const GlobalStyle = createGlobalStyle`
   ${resetCss};
@@ -51,6 +52,7 @@ function App() {
           <Route path="/" exact component={MainContainer} />
           <Route path="/jobpost/:id" exact component={DetailContainer} />
           <Route path="/login" exact component={LoginContainer} />
+          <Route path="/profile" exact component={ProfileContainer} />
         </Switch>
       </BrowserRouter>
       <GlobalStyle />
