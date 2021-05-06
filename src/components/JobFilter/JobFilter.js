@@ -8,32 +8,24 @@ const JobFilter = props => {
   const [selectedTags, setSelectedTags] = useState([]);
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [selectedLocations, setSelectedLocations] = useState([]);
-  const [selectedDropdown, setSelectedDropdown] = useState(null);
   const dropdownRef = useRef(null);
+  const [openedDropdown, setOpenedDropdown] = useState([false, false, false]);
 
-  const [checkList, setCheckList] = useState(new Array(tags.length).fill(false));
-
-  const handleCheckClick = index => {
-    setCheckList(checks => checks.map((c, i) => (i === index ? !c : c)));
+  const handleOpenDropdown = idx => {
+    if (openedDropdown[idx]) {
+      setOpenedDropdown([false, false, false]);
+    } else {
+      const changed = [false, false, false];
+      changed[idx] = true;
+      setOpenedDropdown(changed);
+    }
+    console.log(openedDropdown);
   };
 
-  const handleOutsideClick = ref => {
-    useEffect(() => {
-      const handleClickOutside = event => {
-        if (ref.current && !ref.current.contains(event.target)) {
-          setSelectedDropdown(null);
-        }
-      };
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
-    }, [ref]);
-  };
-
-  const handleSelectDropdown = name => {
-    setSelectedDropdown(name);
-  };
+  const [selectedDropdown, setSelectedDropdown] = useState(null);
+  const [tagCheckList, setTagCheckList] = useState(new Array(tags.length).fill(false));
+  const [typeCheckList, setTypeCheckList] = useState(new Array(types.length).fill(false));
+  const [locationCheckList, setLocationCheckList] = useState(new Array(locations.length).fill(false));
 
   const isItemSelected = (item, array) => {
     if (array.find(current => current === item.value)) {
@@ -42,20 +34,9 @@ const JobFilter = props => {
     return false;
   };
 
-  const selectCheckboxMenus = () => {
+  const handleCheckClick = (index, item) => {
     if (selectedDropdown === "tags") {
-      return tags;
-    }
-    if (selectedDropdown === "types") {
-      return types;
-    }
-    if (selectedDropdown === "locations") {
-      return locations;
-    }
-  };
-
-  const handleCheckboxSelect = item => {
-    if (selectedDropdown === "tags") {
+      setTagCheckList(check => check.map((c, i) => (i === index ? !c : c)));
       if (!isItemSelected(item, selectedTags)) {
         setSelectedTags([...selectedTags, item.value]);
       } else {
@@ -65,6 +46,7 @@ const JobFilter = props => {
       }
     }
     if (selectedDropdown === "types") {
+      setTypeCheckList(check => check.map((c, i) => (i === index ? !c : c)));
       if (!isItemSelected(item, selectedTypes)) {
         setSelectedTypes([...selectedTypes, item.value]);
       } else {
@@ -74,6 +56,7 @@ const JobFilter = props => {
       }
     }
     if (selectedDropdown === "locations") {
+      setLocationCheckList(check => check.map((c, i) => (i === index ? !c : c)));
       if (!isItemSelected(item, selectedLocations)) {
         setSelectedLocations([...selectedLocations, item.value]);
       } else {
@@ -81,6 +64,33 @@ const JobFilter = props => {
         selectedLocationsAfterRemoval = selectedLocationsAfterRemoval.filter(current => current !== item.value);
         setSelectedLocations([...selectedLocationsAfterRemoval]);
       }
+    }
+  };
+
+  const handleOutsideDropdownClick = ref => {
+    useEffect(() => {
+      const handleClickOutside = event => {
+        if (ref.current && !ref.current.contains(event.target)) {
+          setOpenedDropdown([false, false, false]);
+          console.log(openedDropdown);
+        }
+      };
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [ref]);
+  };
+
+  const selectCheckboxMenus = idx => {
+    if (idx === 0) {
+      return tags;
+    }
+    if (idx === 1) {
+      return types;
+    }
+    if (idx === 2) {
+      return locations;
     }
   };
 
@@ -98,14 +108,13 @@ const JobFilter = props => {
 
   return (
     <JobFilterContainer>
+      <div className="filter-box">
+        <Dropdown title={getTags()} isOpen={openedDropdown} idx={0} handleOpenDropdown={handleOpenDropdown} />
+        <Dropdown title={getTypes()} isOpen={openedDropdown} idx={1} handleOpenDropdown={handleOpenDropdown} />
+        <Dropdown title={getLocations()} isOpen={openedDropdown} idx={2} handleOpenDropdown={handleOpenDropdown} />
+      </div>
       <div className="filter-checkbox-wrapper" ref={dropdownRef}>
-        {handleOutsideClick(dropdownRef)}
-        <div className="filter-box">
-          <Dropdown title={getTags()} dropdownName="tags" handleSelectDropdown={handleSelectDropdown} />
-          <Dropdown title={getTypes()} dropdownName="types" handleSelectDropdown={handleSelectDropdown} />
-          <Dropdown title={getLocations()} dropdownName="locations" handleSelectDropdown={handleSelectDropdown} />
-        </div>
-        {selectedDropdown && <Checkbox items={selectCheckboxMenus()} checkList={checkList} selectFunction={handleCheckClick} />}
+        {openedDropdown.indexOf(true) !== -1 ? <Checkbox items={selectCheckboxMenus(openedDropdown.indexOf(true))} checkList={tagCheckList} selectFunction={handleCheckClick} /> : null}
       </div>
       <button className="search-button">검색하기</button>
     </JobFilterContainer>

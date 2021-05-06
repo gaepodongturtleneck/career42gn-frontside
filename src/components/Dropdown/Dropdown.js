@@ -4,25 +4,16 @@ import { ReactComponent as FilterArrow } from "../../images/filter-arrow.svg";
 import Checkbox from "./Checkbox";
 
 const Dropdown = props => {
-  const { title, items, handleSelectDropdown, dropdownName } = props;
-  const [open, setOpen] = useState(false);
-  const toggle = () => {
-    setOpen(prev => !prev);
-    if (!open) {
-      handleSelectDropdown(dropdownName);
-    } else {
-      handleSelectDropdown(null);
-    }
-  };
+  const { title, isOpen, idx, handleOpenDropdown } = props;
 
   return (
     <DropdownWrapper>
-      <div className="dropdown-title" role="button" onClick={() => toggle()}>
+      <div className="dropdown-title" role="button" onClick={() => handleOpenDropdown(idx)}>
         <div>
           <p>{title}</p>
         </div>
         <div>
-          <p>{open ? "close" : "open"}</p>
+          <p>{isOpen[idx] === true ? "close" : "open"}</p>
         </div>
       </div>
     </DropdownWrapper>
