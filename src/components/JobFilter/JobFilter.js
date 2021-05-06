@@ -119,14 +119,16 @@ const JobFilter = props => {
 
   return (
     <JobFilterContainer>
-      {handleOutsideDropdownClick(dropdownRef)}
-      <div className="filter-box">
-        <Dropdown title={getTags()} isOpen={openedDropdown} idx={0} handleOpenDropdown={handleOpenDropdown} />
-        <Dropdown title={getTypes()} isOpen={openedDropdown} idx={1} handleOpenDropdown={handleOpenDropdown} />
-        <Dropdown title={getLocations()} isOpen={openedDropdown} idx={2} handleOpenDropdown={handleOpenDropdown} />
-      </div>
       <div className="filter-checkbox-wrapper" ref={dropdownRef}>
-        {dropdownIndex !== -1 ? <Checkbox items={selectCheckboxMenus(dropdownIndex)} checkList={selectCheckList(dropdownIndex)} selectFunction={handleCheckClick} /> : null}
+        {handleOutsideDropdownClick(dropdownRef)}
+        <div className="filter-box">
+          <Dropdown title={getTags()} isOpen={openedDropdown} idx={0} handleOpenDropdown={handleOpenDropdown} />
+          <Dropdown title={getTypes()} isOpen={openedDropdown} idx={1} handleOpenDropdown={handleOpenDropdown} />
+          <Dropdown title={getLocations()} isOpen={openedDropdown} idx={2} handleOpenDropdown={handleOpenDropdown} />
+        </div>
+        <div className="checkbox-wrapper">
+          {dropdownIndex !== -1 ? <Checkbox items={selectCheckboxMenus(dropdownIndex)} checkList={selectCheckList(dropdownIndex)} selectFunction={handleCheckClick} /> : null}
+        </div>
       </div>
       <button className="search-button">검색하기</button>
     </JobFilterContainer>
