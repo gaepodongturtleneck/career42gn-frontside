@@ -14,7 +14,7 @@ const JobListView = props => {
       <ul>
         {dummyData?.content.map(item => {
           const isBookMark = bookMark.some(isMarked => isMarked.jobpost_id === item.id);
-          return <JobListItem key={item.id} data={item} isBookMark={isBookMark} tags={tags} />;
+          return <JobListItem key={item.id} data={item} isBookMark={isBookMark} tags={item.tag} />;
         })}
       </ul>
       <JobListPagination totalPages={dummyData.totalPages} />

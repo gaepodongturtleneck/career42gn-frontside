@@ -62,7 +62,7 @@ MainContainer.defaultProps = {
         title: "프론트엔드 개발자 모십니다.",
         dueDate: "2021-05-07",
         isClosed: false,
-        tag: "인턴",
+        tag: ["Web", "iOS", "ETC"],
         type: "프론트엔드",
       },
       {
@@ -70,7 +70,7 @@ MainContainer.defaultProps = {
         title: "백엔드 개발자 모십니다.",
         dueDate: "2021-04-13",
         isClosed: true,
-        tag: "인턴",
+        tag: ["Web", "iOS", "ETC"],
         type: "백엔드",
       },
       {
@@ -78,7 +78,7 @@ MainContainer.defaultProps = {
         title: "농담곰 인턴 모십니다.",
         dueDate: "2021-04-29",
         isClosed: false,
-        tag: "인턴",
+        tag: ["Web", "iOS", "ETC"],
         type: "프론트엔드",
       },
       {
@@ -86,7 +86,7 @@ MainContainer.defaultProps = {
         title: "농담곰 모십니다.",
         dueDate: "2021-05-07",
         isClosed: false,
-        tag: "정규직",
+        tag: ["Web", "iOS", "ETC"],
         type: "농담곰",
       },
       {
@@ -94,7 +94,8 @@ MainContainer.defaultProps = {
         title: "농담곰 모십니다.",
         dueDate: "2021-05-07",
         isClosed: false,
-        tag: "정규직",
+        tag: ["Web", "iOS", "ETC"],
+
         type: "농담곰",
       },
       {
@@ -102,7 +103,7 @@ MainContainer.defaultProps = {
         title: "농담곰 모십니다.",
         dueDate: "2021-05-07",
         isClosed: false,
-        tag: "정규직",
+        tag: ["Web", "iOS", "ETC"],
         type: "농담곰",
       },
       {
@@ -110,7 +111,7 @@ MainContainer.defaultProps = {
         title: "농담곰 모십니다.",
         dueDate: "2021-05-07",
         isClosed: false,
-        tag: "정규직",
+        tag: ["Web", "iOS", "ETC"],
         type: "농담곰",
       },
       {
@@ -118,7 +119,7 @@ MainContainer.defaultProps = {
         title: "농담곰 모십니다.",
         dueDate: "2021-05-07",
         isClosed: false,
-        tag: "정규직",
+        tag: ["Web", "iOS", "ETC"],
         type: "농담곰",
       },
       {
@@ -126,7 +127,7 @@ MainContainer.defaultProps = {
         title: "농담곰 모십니다.",
         dueDate: "2021-05-07",
         isClosed: false,
-        tag: "정규직",
+        tag: ["Web", "iOS", "ETC"],
         type: "농담곰",
       },
       {
@@ -134,7 +135,7 @@ MainContainer.defaultProps = {
         title: "농담곰 모십니다.",
         dueDate: "2021-05-07",
         isClosed: false,
-        tag: "정규직",
+        tag: ["Web", "iOS", "ETC"],
         type: "농담곰",
       },
     ],
