@@ -8,7 +8,7 @@ import api from "../api/index";
 //  import JobFilterContainer from '../components/JobFilter/JobFilter.styles';
 
 const MainContainer = props => {
-  const { dummyData, bookMark, tags, locations, types } = props;
+  const { dummyData, bookMark, tags, locations, types, user } = props;
   const [jobListData, setJobListData] = useState([]);
   const fetchListData = async url => {
     try {
@@ -21,7 +21,6 @@ const MainContainer = props => {
       res.data.content.forEach(value => {
         value.tag = ["WEB", "iOS"];
       });
-      console.log(res.data.content);
       setJobListData(res.data);
       return res.data;
     } catch (err) {
@@ -47,7 +46,7 @@ const MainContainer = props => {
 
   return (
     <>
-      <Header />
+      <Header user={user} />
       <section className="content-section">
         <div className="content-container">
           <JobFilter locations={locations} tags={tags} types={types} />
@@ -61,7 +60,12 @@ const MainContainer = props => {
 MainContainer.defaultProps = {
   // TODO 하기 API를 기반으로 요청, 데이터 get 후  rendering
   // * /jobposts?page=1?type=aa?tag=bb  <GET>
-
+  user: {
+    id: 5,
+    intra: "secho2",
+    email: "seCho@seCHO.com",
+    image: "https://cdn.intra.42.fr/users/small_secho.jpg",
+  },
   dummyData: {
     content: [
       {

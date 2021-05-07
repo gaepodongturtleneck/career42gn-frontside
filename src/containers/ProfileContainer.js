@@ -21,11 +21,17 @@ const ProfileContainer = props => {
 
 ProfileContainer.defaultProps = {
   user: {
-    nickname: "jiwonlee",
-    image: null,
-    email: "jiwonlee@student.42seoul.kr",
-    phone: "+82 10 1234 5678",
+    id: 5,
+    intra: "secho2",
+    email: "seCho@seCHO.com",
+    image: "https://cdn.intra.42.fr/users/small_secho.jpg",
   },
+  // user: {
+  //   nickname: "jiwonlee",
+  //   image: null,
+  //   email: "jiwonlee@student.42seoul.kr",
+  //   phone: "+82 10 1234 5678",
+  // },
 
   dummyData: {
     content: [
