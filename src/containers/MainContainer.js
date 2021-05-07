@@ -3,18 +3,30 @@ import useSWR from "swr";
 import Header from "../components/Header/Header";
 import JobListView from "../components/JobListView/JobListView";
 import JobFilter from "../components/JobFilter/JobFilter";
+import JobListPagination from "../components/JobListPagination/JobListPagination";
 import api from "../api/index";
 
 //  import JobFilterContainer from '../components/JobFilter/JobFilter.styles';
 
 const MainContainer = props => {
-  const { dummyData, bookMark, tags, locations, types, user } = props;
+  const { bookMark, tags, locations, types, user } = props;
   const [jobListData, setJobListData] = useState([]);
+  const [bookmarkList, setBookmarkList] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
+  console.log(user);
+  const fetchBookmarkList = async url => {
+    try {
+      const res = await api.get(`${url}/${user.id}`);
+      setBookmarkList(res.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
   const fetchListData = async url => {
     try {
       const res = await api.get(url, {
         params: {
-          page: 0,
+          page: currentPage,
           pageSize: 10,
         },
       });
@@ -28,9 +40,12 @@ const MainContainer = props => {
     }
   };
   const { data, error } = useSWR("/job-posts", fetchListData);
+  const { data2, error2 } = useSWR("/bookmarks", fetchBookmarkList);
 
   useEffect(() => {
-    console.log(data);
+    console.log(data2);
+    console.log(bookmarkList);
+    console.log(bookMark);
     // const listData = await fetchListData();
     // if (listData !== null) {
     //   setJobListData(listData);
@@ -38,7 +53,6 @@ const MainContainer = props => {
     // console.log(listData);
     //   // clear code
     // };
-    console.log(jobListData.content);
   });
 
   // if (error) return <div>농담곰에러</div>;
@@ -51,6 +65,7 @@ const MainContainer = props => {
         <div className="content-container">
           <JobFilter locations={locations} tags={tags} types={types} />
           <JobListView dummyData={jobListData} bookMark={bookMark} />
+          <JobListPagination totalPages={jobListData.totalPages} />
         </div>
       </section>
     </>

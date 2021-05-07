@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import JobListHeader from "../JobListHeader/JobListHeader";
 import JobListItem from "../JobListItem/JobListItem";
-import JobListPagination from "../JobListPagination/JobListPagination";
 import { JobListViewStyled } from "./JobListView.styles";
 
 const JobListView = props => {
@@ -17,7 +16,6 @@ const JobListView = props => {
           return <JobListItem key={item.id} data={item} isBookMark={isBookMark} tags={item.tag} />;
         })}
       </ul>
-      <JobListPagination totalPages={dummyData.totalPages} />
     </JobListViewStyled>
   );
 };
