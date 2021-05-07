@@ -3,30 +3,49 @@ import useSWR from "swr";
 import Header from "../components/Header/Header";
 import JobListView from "../components/JobListView/JobListView";
 import JobFilter from "../components/JobFilter/JobFilter";
+import JobListPagination from "../components/JobListPagination/JobListPagination";
 import api from "../api/index";
 
 //  import JobFilterContainer from '../components/JobFilter/JobFilter.styles';
 
 const MainContainer = props => {
-  const { dummyData, bookMark, tags, locations, types } = props;
+  const { bookMark, tags, locations, types, user } = props;
   const [jobListData, setJobListData] = useState([]);
-  const [filteredData, setFilteredData] = useState([]);
-  const fetchListData = async () => {
+  const [bookmarkList, setBookmarkList] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
+  //  console.log(user);
+  const fetchBookmarkList = async url => {
     try {
-      const res = await api.get("/jobposts/1");
+      const res = await api.get(`${url}/${user.id}`);
+      setBookmarkList(res.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  const fetchListData = async url => {
+    try {
+      const res = await api.get(url, {
+        params: {
+          page: currentPage,
+          pageSize: 10,
+        },
+      });
+      res.data.content.forEach(value => {
+        value.tag = ["WEB", "iOS"];
+      });
+      setJobListData(res.data);
       return res.data;
     } catch (err) {
       console.error(err);
     }
   };
-  // const { data, error } = useSWR("/jobposts/1", url => {
-  //   return fetch(url).then(res => res.json());
-  // });
-
-  // const { data, error } = useSWR("/jobposts/1", fetchListData);
+  const { data, error } = useSWR("/job-posts", fetchListData);
+  const { data2, error2 } = useSWR("/bookmarks", fetchBookmarkList);
 
   useEffect(() => {
-    // console.log(data);
+    // console.log(data2);
+    // console.log(bookmarkList);
+    // console.log(bookMark);
     // const listData = await fetchListData();
     // if (listData !== null) {
     //   setJobListData(listData);
@@ -39,13 +58,18 @@ const MainContainer = props => {
   // if (error) return <div>농담곰에러</div>;
   // if (!data) return <div>로딩스</div>;
 
+  const handleFilterButton = res => {
+    setJobListData(res);
+  };
+
   return (
     <>
-      <Header />
+      <Header user={user} />
       <section className="content-section">
         <div className="content-container">
-          <JobFilter locations={locations} tags={tags} types={types} />
-          <JobListView dummyData={dummyData} bookMark={bookMark} tags={tags} />
+          <JobFilter locations={locations} tags={tags} types={types} currentPage={currentPage} handleFilterButton={handleFilterButton} />
+          <JobListView dummyData={jobListData} bookMark={bookMark} />
+          <JobListPagination totalPages={jobListData.totalPages} />
         </div>
       </section>
     </>
@@ -55,7 +79,12 @@ const MainContainer = props => {
 MainContainer.defaultProps = {
   // TODO 하기 API를 기반으로 요청, 데이터 get 후  rendering
   // * /jobposts?page=1?type=aa?tag=bb  <GET>
-
+  user: {
+    id: 5,
+    intra: "secho2",
+    email: "seCho@seCHO.com",
+    image: "https://cdn.intra.42.fr/users/small_secho.jpg",
+  },
   dummyData: {
     content: [
       {

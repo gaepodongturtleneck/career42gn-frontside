@@ -4,11 +4,11 @@ import JobDetailView from "../components/JobDetailView/JobDetailView";
 import CompanyLogo from "../images/nong.png";
 
 const DetailContainer = props => {
-  const { infoData } = props;
+  const { infoData, user } = props;
 
   return (
     <>
-      <Header />
+      <Header user={user} />
       <div className="content-section">
         <div className="content-container">
           <JobDetailView infoData={infoData} imgsrc={CompanyLogo} />
@@ -19,6 +19,12 @@ const DetailContainer = props => {
 };
 
 DetailContainer.defaultProps = {
+  user: {
+    id: 5,
+    intra: "secho2",
+    email: "seCho@seCHO.com",
+    image: "https://cdn.intra.42.fr/users/small_secho.jpg",
+  },
   infoData: {
     id: 1,
     title: "프론트엔드 개발자로 활약하실 분 모집",

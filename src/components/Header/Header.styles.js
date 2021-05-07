@@ -37,11 +37,15 @@ const HeaderStyled = styled.nav`
       color: #ffffff;
     }
     .profile-image {
-      width: 30px;
-      height: 30px;
+      width: 50px;
+      height: 50px;
       background-color: #ffffff;
-      border-radius: 30px;
       margin-left: 10px;
+      img {
+        width: 100%;
+        height: 100%;
+        border-radius: 30px;
+      }
     }
   }
 `;

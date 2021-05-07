@@ -7,6 +7,7 @@ export const JobListPaginationStyles = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-bottom: 40px;
   & > ul {
     display: flex;
     justify-content: space-between;

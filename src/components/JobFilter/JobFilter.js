@@ -1,12 +1,12 @@
 import React, { useCallback, useState, useEffect, useRef } from "react";
-import axios from "axios";
 import useSWR from "swr";
 import { JobFilterContainer } from "./JobFilter.styles";
 import Dropdown from "../Dropdown/Dropdown";
 import Checkbox from "../Dropdown/Checkbox";
+import api from "../../api/index";
 
 const JobFilter = props => {
-  const { locations, tags, types } = props;
+  const { locations, tags, types, currentPage, handleFilterButton } = props;
   const dropdownRef = useRef(null);
   const [selectedTags, setSelectedTags] = useState([]);
   const [selectedTypes, setSelectedTypes] = useState([]);
@@ -123,24 +123,27 @@ const JobFilter = props => {
   const typeStr = selectedTypes.map(item => item.slice(0, 2).toLowerCase()).join("-");
   const locationStr = selectedLocations.map(item => item.slice(0, 2).toLowerCase()).join("-");
 
-  const fetcher = async url => {
+  const fetchFilterData = async url => {
     try {
-      const res = await axios.get(url, {
+      const res = await api.get(url, {
         params: {
-          page: 1,
+          page: currentPage,
           pageSize: 10,
+          tag: tagStr || "",
+          type: typeStr || "",
         },
       });
+      console.log(res.data);
       return res.data;
     } catch (err) {
       console.log(err);
     }
   };
 
-  const { data, error } = useSWR(shouldFetch ? "/job-posts" : null, fetcher);
+  const { data, error } = useSWR("/job-posts", fetchFilterData);
 
-  const handleSearchButtonClick = () => {
-    setShouldFetch(true);
+  const handleSearchButtonClick = data => {
+    handleFilterButton(data);
   };
 
   return (
@@ -156,7 +159,7 @@ const JobFilter = props => {
           {dropdownIndex !== -1 ? <Checkbox items={selectCheckboxMenus(dropdownIndex)} checkList={selectCheckList(dropdownIndex)} selectFunction={handleCheckClick} /> : null}
         </div>
       </div>
-      <button className="search-button" onClick={() => handleSearchButtonClick()}>
+      <button className="search-button" onClick={() => handleFilterButton(data)}>
         검색하기
       </button>
     </JobFilterContainer>

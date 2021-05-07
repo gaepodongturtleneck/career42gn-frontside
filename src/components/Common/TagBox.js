@@ -9,7 +9,6 @@ const TagChild = tags => {
 
 const TagBox = props => {
   const { tags } = props;
-  console.log(tags);
   return <TagBoxWrapper>{TagChild(tags)}</TagBoxWrapper>;
 };
 

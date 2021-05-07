@@ -12,7 +12,7 @@ const ProfileContainer = props => {
       <section className="content-section">
         <div className="content-container">
           <ProfileView userData={user} />
-          <ProfileBookmarkView dummyData={dummyData} tags={tags} bookmarks={bookmarks} />
+          <ProfileBookmarkView dummyData={dummyData} bookmarks={bookmarks} />
         </div>
       </section>
     </>
@@ -21,11 +21,17 @@ const ProfileContainer = props => {
 
 ProfileContainer.defaultProps = {
   user: {
-    nickname: "jiwonlee",
-    image: null,
-    email: "jiwonlee@student.42seoul.kr",
-    phone: "+82 10 1234 5678",
+    id: 5,
+    intra: "secho2",
+    email: "seCho@seCHO.com",
+    image: "https://cdn.intra.42.fr/users/small_secho.jpg",
   },
+  // user: {
+  //   nickname: "jiwonlee",
+  //   image: null,
+  //   email: "jiwonlee@student.42seoul.kr",
+  //   phone: "+82 10 1234 5678",
+  // },
 
   dummyData: {
     content: [
@@ -34,7 +40,7 @@ ProfileContainer.defaultProps = {
         title: "프론트엔드 개발자 모십니다.",
         dueDate: "2021-05-07",
         isClosed: false,
-        tag: "인턴",
+        tag: ["WEB", "iOS", "DB"],
         type: "프론트엔드",
       },
       {
@@ -42,7 +48,7 @@ ProfileContainer.defaultProps = {
         title: "백엔드 개발자 모십니다.",
         dueDate: "2021-04-13",
         isClosed: true,
-        tag: "인턴",
+        tag: ["WEB", "iOS", "DB"],
         type: "백엔드",
       },
       {
@@ -50,7 +56,7 @@ ProfileContainer.defaultProps = {
         title: "농담곰 인턴 모십니다.",
         dueDate: "2021-04-29",
         isClosed: false,
-        tag: "인턴",
+        tag: ["WEB", "iOS", "DB"],
         type: "프론트엔드",
       },
       {
@@ -58,7 +64,7 @@ ProfileContainer.defaultProps = {
         title: "농담곰 모십니다.",
         dueDate: "2021-05-07",
         isClosed: false,
-        tag: "정규직",
+        tag: ["WEB", "iOS", "DB"],
         type: "농담곰",
       },
       {
@@ -66,7 +72,7 @@ ProfileContainer.defaultProps = {
         title: "농담곰 모십니다.",
         dueDate: "2021-05-07",
         isClosed: false,
-        tag: "정규직",
+        tag: ["WEB", "iOS", "DB"],
         type: "농담곰",
       },
       {
@@ -74,7 +80,7 @@ ProfileContainer.defaultProps = {
         title: "농담곰 모십니다.",
         dueDate: "2021-05-07",
         isClosed: false,
-        tag: "정규직",
+        tag: ["WEB", "iOS", "DB"],
         type: "농담곰",
       },
       {
@@ -82,7 +88,7 @@ ProfileContainer.defaultProps = {
         title: "농담곰 모십니다.",
         dueDate: "2021-05-07",
         isClosed: false,
-        tag: "정규직",
+        tag: ["WEB", "iOS", "DB"],
         type: "농담곰",
       },
       {
@@ -90,7 +96,7 @@ ProfileContainer.defaultProps = {
         title: "농담곰 모십니다.",
         dueDate: "2021-05-07",
         isClosed: false,
-        tag: "정규직",
+        tag: ["WEB", "iOS", "DB"],
         type: "농담곰",
       },
       {
@@ -98,7 +104,7 @@ ProfileContainer.defaultProps = {
         title: "농담곰 모십니다.",
         dueDate: "2021-05-07",
         isClosed: false,
-        tag: "정규직",
+        tag: ["WEB", "iOS", "DB"],
         type: "농담곰",
       },
       {
@@ -106,7 +112,7 @@ ProfileContainer.defaultProps = {
         title: "농담곰 모십니다.",
         dueDate: "2021-05-07",
         isClosed: false,
-        tag: "정규직",
+        tag: ["WEB", "iOS", "DB"],
         type: "농담곰",
       },
     ],
