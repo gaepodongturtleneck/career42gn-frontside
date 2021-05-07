@@ -10,6 +10,7 @@ import api from "../api/index";
 const MainContainer = props => {
   const { dummyData, bookMark, tags, locations, types } = props;
   const [jobListData, setJobListData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const fetchListData = async () => {
     try {
       const res = await api.get("/jobposts/1");

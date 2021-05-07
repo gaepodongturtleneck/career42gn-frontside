@@ -1,4 +1,6 @@
 import React, { useCallback, useState, useEffect, useRef } from "react";
+import axios from "axios";
+import useSWR from "swr";
 import { JobFilterContainer } from "./JobFilter.styles";
 import Dropdown from "../Dropdown/Dropdown";
 import Checkbox from "../Dropdown/Checkbox";
@@ -13,6 +15,7 @@ const JobFilter = props => {
   const [tagCheckList, setTagCheckList] = useState(new Array(tags.length).fill(false));
   const [typeCheckList, setTypeCheckList] = useState(new Array(types.length).fill(false));
   const [locationCheckList, setLocationCheckList] = useState(new Array(locations.length).fill(false));
+  const [shouldFetch, setShouldFetch] = useState(false);
 
   const dropdownIndex = openedDropdown.indexOf(true);
 
@@ -71,7 +74,6 @@ const JobFilter = props => {
       const handleClickOutside = event => {
         if (ref.current && !ref.current.contains(event.target)) {
           setOpenedDropdown([false, false, false]);
-          console.log(openedDropdown);
         }
       };
       document.addEventListener("mousedown", handleClickOutside);
@@ -117,6 +119,30 @@ const JobFilter = props => {
     return selectedLocations.length > 0 ? selectedLocations.join(",") : "지역";
   };
 
+  const tagStr = selectedTags.map(item => item.slice(0, 2).toLowerCase()).join("-");
+  const typeStr = selectedTypes.map(item => item.slice(0, 2).toLowerCase()).join("-");
+  const locationStr = selectedLocations.map(item => item.slice(0, 2).toLowerCase()).join("-");
+
+  const fetcher = async url => {
+    try {
+      const res = await axios.get(url, {
+        params: {
+          page: 1,
+          pageSize: 10,
+        },
+      });
+      return res.data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const { data, error } = useSWR(shouldFetch ? "/job-posts" : null, fetcher);
+
+  const handleSearchButtonClick = () => {
+    setShouldFetch(true);
+  };
+
   return (
     <JobFilterContainer>
       <div className="filter-checkbox-wrapper" ref={dropdownRef}>
@@ -130,7 +156,9 @@ const JobFilter = props => {
           {dropdownIndex !== -1 ? <Checkbox items={selectCheckboxMenus(dropdownIndex)} checkList={selectCheckList(dropdownIndex)} selectFunction={handleCheckClick} /> : null}
         </div>
       </div>
-      <button className="search-button">검색하기</button>
+      <button className="search-button" onClick={() => handleSearchButtonClick()}>
+        검색하기
+      </button>
     </JobFilterContainer>
   );
 };
