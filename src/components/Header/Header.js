@@ -5,7 +5,6 @@ import { ReactComponent as LogoIcon } from "../../images/logo.svg";
 
 const Header = props => {
   const { user } = props;
-  console.log(user);
   return (
     <HeaderStyled>
       <Link to={`/`} className="logo-button">
