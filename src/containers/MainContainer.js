@@ -13,6 +13,12 @@ const MainContainer = props => {
   const [jobListData, setJobListData] = useState([]);
   const [bookmarkList, setBookmarkList] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
+  const [filteredTag, setFilteredTag] = useState(null);
+
+  const handleFilterButton = data => {
+    setFilteredTag(data);
+    console.log(filteredTag);
+  };
   //  console.log(user);
   const fetchBookmarkList = async url => {
     try {
@@ -28,6 +34,7 @@ const MainContainer = props => {
         params: {
           page: currentPage,
           pageSize: 10,
+          tag: filteredTag,
         },
       });
       res.data.content.forEach(value => {
@@ -43,6 +50,7 @@ const MainContainer = props => {
   const { data2, error2 } = useSWR("/bookmarks", fetchBookmarkList);
 
   useEffect(() => {
+    console.log(filteredTag);
     // console.log(data2);
     // console.log(bookmarkList);
     // console.log(bookMark);
@@ -57,10 +65,6 @@ const MainContainer = props => {
 
   // if (error) return <div>농담곰에러</div>;
   // if (!data) return <div>로딩스</div>;
-
-  const handleFilterButton = res => {
-    setJobListData(res);
-  };
 
   return (
     <>
