@@ -10,22 +10,28 @@ import api from "../api/index";
 const MainContainer = props => {
   const { dummyData, bookMark, tags, locations, types } = props;
   const [jobListData, setJobListData] = useState([]);
-  const fetchListData = async () => {
+  const fetchListData = async url => {
     try {
-      const res = await api.get("/jobposts/1");
+      const res = await api.get(url, {
+        params: {
+          page: 0,
+          pageSize: 10,
+        },
+      });
+      res.data.content.forEach(value => {
+        value.tag = ["WEB", "iOS"];
+      });
+      console.log(res.data.content);
+      setJobListData(res.data);
       return res.data;
     } catch (err) {
       console.error(err);
     }
   };
-  // const { data, error } = useSWR("/jobposts/1", url => {
-  //   return fetch(url).then(res => res.json());
-  // });
-
-  // const { data, error } = useSWR("/jobposts/1", fetchListData);
+  const { data, error } = useSWR("/job-posts", fetchListData);
 
   useEffect(() => {
-    // console.log(data);
+    console.log(data);
     // const listData = await fetchListData();
     // if (listData !== null) {
     //   setJobListData(listData);
@@ -33,6 +39,7 @@ const MainContainer = props => {
     // console.log(listData);
     //   // clear code
     // };
+    console.log(jobListData.content);
   });
 
   // if (error) return <div>농담곰에러</div>;
@@ -44,7 +51,7 @@ const MainContainer = props => {
       <section className="content-section">
         <div className="content-container">
           <JobFilter locations={locations} tags={tags} types={types} />
-          <JobListView dummyData={dummyData} bookMark={bookMark} tags={tags} />
+          <JobListView dummyData={jobListData} bookMark={bookMark} />
         </div>
       </section>
     </>
