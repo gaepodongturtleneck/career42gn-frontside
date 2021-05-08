@@ -16,8 +16,13 @@ const JobFilter = props => {
   const [typeCheckList, setTypeCheckList] = useState(new Array(types.length).fill(false));
   const [locationCheckList, setLocationCheckList] = useState(new Array(locations.length).fill(false));
   const [shouldFetch, setShouldFetch] = useState(false);
+  //  const [typeFilter, setTypeFilter] = useState([]);
+  //  const [locationFilter, setLocationFilter] = useState([]);
 
   const dropdownIndex = openedDropdown.indexOf(true);
+  let locationFilter = [];
+  let typeFilter = [];
+  const tagStr = selectedTags.map(item => item.slice(0, 2).toLowerCase()).join("-");
 
   const handleOpenDropdown = idx => {
     if (openedDropdown[idx]) {
@@ -51,20 +56,24 @@ const JobFilter = props => {
       setTypeCheckList(check => check.map((c, i) => (i === index ? !c : c)));
       if (!isItemSelected(item, selectedTypes)) {
         setSelectedTypes([...selectedTypes, item.value]);
+        typeFilter.push(item.keyword);
       } else {
         let selectedTypesAfterRemoval = selectedTypes;
         selectedTypesAfterRemoval = selectedTypesAfterRemoval.filter(current => current !== item.value);
         setSelectedTypes([...selectedTypesAfterRemoval]);
+        typeFilter = typeFilter.filter(current => current !== item.keyword);
       }
     }
     if (openedDropdown[2]) {
       setLocationCheckList(check => check.map((c, i) => (i === index ? !c : c)));
       if (!isItemSelected(item, selectedLocations)) {
         setSelectedLocations([...selectedLocations, item.value]);
+        locationFilter.push(item.keyword);
       } else {
         let selectedLocationsAfterRemoval = selectedLocations;
         selectedLocationsAfterRemoval = selectedLocationsAfterRemoval.filter(current => current !== item.value);
         setSelectedLocations([...selectedLocationsAfterRemoval]);
+        locationFilter = locationFilter.filter(current => current !== item.keyword);
       }
     }
   };
@@ -118,10 +127,6 @@ const JobFilter = props => {
   const getLocations = () => {
     return selectedLocations.length > 0 ? selectedLocations.join(",") : "지역";
   };
-
-  const tagStr = selectedTags.map(item => item.slice(0, 2).toLowerCase()).join("-");
-  const typeStr = selectedTypes.map(item => item.slice(0, 2).toLowerCase()).join("-");
-  const locationStr = selectedLocations.map(item => item.slice(0, 2).toLowerCase()).join("-");
 
   const fetchFilterData = async url => {
     try {
