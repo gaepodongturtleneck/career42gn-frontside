@@ -15,11 +15,10 @@ const JobFilter = props => {
   const [tagCheckList, setTagCheckList] = useState(new Array(tags.length).fill(false));
   const [typeCheckList, setTypeCheckList] = useState(new Array(types.length).fill(false));
   const [locationCheckList, setLocationCheckList] = useState(new Array(locations.length).fill(false));
-  const [shouldFetch, setShouldFetch] = useState(false);
   const dropdownIndex = openedDropdown.indexOf(true);
-  //  let locationFilter = [];
-  //  let typeFilter = [];
   const tagStr = selectedTags.map(item => item.slice(0, 2).toLowerCase()).join("-");
+  const typeStr = selectedTypes.map(item => item.slice(0, 2).toLowerCase()).join("-");
+  const locationStr = selectedLocations.map(item => item.slice(0, 2).toLowerCase()).join("-");
 
   const handleOpenDropdown = idx => {
     if (openedDropdown[idx]) {
@@ -130,10 +129,12 @@ const JobFilter = props => {
         params: {
           pageSize: 10,
           tag: tagStr,
+          type: typeStr,
+          location: locationStr,
         },
       });
-      console.log(`fetchFilterData 실행됨`);
-      console.log({ ...res.data });
+      console.log(typeStr);
+      console.log(locationStr);
       handleFilterButton({ ...res.data });
       return res.data;
     } catch (err) {
@@ -145,9 +146,7 @@ const JobFilter = props => {
 
   const handleSearchButtonClick = () => {
     //  setShouldFetch(true);
-    console.log(tagStr);
     fetchFilterData("/job-posts");
-    //  console.log(`fetch? : ${shouldFetch}`);
   };
 
   return (
