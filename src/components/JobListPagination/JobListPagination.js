@@ -1,26 +1,51 @@
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
+import Pagination from "react-bootstrap/Pagination";
 import { Link } from "react-router-dom";
 import { JobListPaginationStyles } from "./JobListPagination.styles";
 
 const JobListPagination = props => {
+  const pageSizeRef = useRef(10);
   const { totalPages, currentPage, handleCurrentPage } = props;
+  const [offset, setOffset] = useState(Math.floor((currentPage - 1) / 10));
   // 10개 이상일 때,
   // 이전 버튼,
   // 10개씩 뿌리기
+  useEffect(() => {
+    console.log("tP: ", totalPages, " cP: ", currentPage);
+    setOffset(Math.floor((currentPage - 1) / 10));
+    console.log(pageSizeRef);
+  }, [currentPage]);
   return (
     <JobListPaginationStyles>
       <ul>
-        {new Array(totalPages).fill(0).map((value, page) => {
-          return (
-            <Link to={`/job-posts/${page + 1}`} key={page + 1} onClick={() => handleCurrentPage(page)}>
-              <span>{page + 1}</span>
-            </Link>
-          );
-        })}
-        {totalPages > 10 ? (
-          <li>
-            <span>다음</span>
-          </li>
+        {currentPage > 10 ? (
+          <Link to={`/job-posts/${currentPage - (currentPage % 10)}`} onClick={() => handleCurrentPage(currentPage - (currentPage % 10))}>
+            Prev
+          </Link>
+        ) : (
+          ""
+        )}
+        {offset !== Math.floor((totalPages - 1) / 10)
+          ? new Array(pageSizeRef.current).fill(0).map((_, idx) => {
+              const pageNumber = offset * 10 + 1 + idx;
+              return (
+                <Link to={`/job-posts/${pageNumber}`} key={idx}>
+                  <span>{pageNumber}</span>
+                </Link>
+              );
+            })
+          : new Array(totalPages % 10).fill(0).map((_, idx) => {
+              const pageNumber = offset * 10 + 1 + idx;
+              return (
+                <Link to={`/job-posts/${pageNumber}`} key={idx}>
+                  <span>{pageNumber}</span>
+                </Link>
+              );
+            })}
+        {Math.floor((totalPages - 1) / 10) - Math.floor((currentPage - 1) / 10) >= 1 ? (
+          <Link to={`/job-posts/${(Math.floor((currentPage - 1) / 10) + 1) * 10 + 1}`} onClick={() => handleCurrentPage((Math.floor((currentPage - 1) / 10) + 1) * 10 + 1)}>
+            Next
+          </Link>
         ) : (
           ""
         )}

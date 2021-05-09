@@ -22,7 +22,7 @@ const JobListItem = props => {
           <CompanyInfoBox>
             <a>농담곰 컴퍼니</a>
             <span>서울 강남구</span>
-            <span>{data.tag}</span>
+            <span>{data.type}</span>
             <span>학력무관</span>
           </CompanyInfoBox>
           <TagBox tags={tags} />

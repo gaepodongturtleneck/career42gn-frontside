@@ -11,11 +11,10 @@ import api from "../api/index";
 
 const MainContainer = props => {
   const { pageNumber } = useParams();
-  console.log(pageNumber);
   const { bookMark, tags, locations, types, user } = props;
   const [jobListData, setJobListData] = useState([]);
   const [bookmarkList, setBookmarkList] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(pageNumber || 1);
   const [isMovePage, setIsMovePage] = useState(false);
   const fetchBookmarkList = async url => {
     try {
@@ -26,15 +25,15 @@ const MainContainer = props => {
     }
   };
   const fetchListData = async url => {
-    console.log("hhlshlshgksdfkjfdsdf");
     try {
       let page = 0;
-      page = pageNumber === undefined ? 0 : pageNumber - 1;
-      const res = await api.get(`${url}?page=${page}`, {
+      page = pageNumber === undefined ? 1 : pageNumber;
+      const res = await api.get(`${url}?page=${page - 1}`, {
         params: {
           pageSize: 10,
         },
       });
+      console.log(res.data);
       res.data.content.forEach(value => {
         value.tag = ["WEB", "iOS"];
       });
@@ -46,6 +45,7 @@ const MainContainer = props => {
   };
   const { data, error } = useSWR("/bookmarks", fetchBookmarkList);
   const handleCurrentPage = reqPage => {
+    window.scrollTo(0, 0);
     if (reqPage !== currentPage) {
       setIsMovePage(true);
       setCurrentPage(reqPage);
