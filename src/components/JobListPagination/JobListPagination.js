@@ -3,6 +3,16 @@ import Pagination from "react-bootstrap/Pagination";
 import { Link } from "react-router-dom";
 import { JobListPaginationStyles } from "./JobListPagination.styles";
 
+const pageButton = (size, offset) => {
+  return new Array(size).fill(0).map((_, idx) => {
+    const pageNumber = offset * 10 + 1 + idx;
+    return (
+      <Link to={`/job-posts/${pageNumber}`} key={idx}>
+        <span>{pageNumber}</span>
+      </Link>
+    );
+  });
+};
 const JobListPagination = props => {
   const pageSizeRef = useRef(10);
   const { totalPages, currentPage, handleCurrentPage } = props;
@@ -11,9 +21,7 @@ const JobListPagination = props => {
   // 이전 버튼,
   // 10개씩 뿌리기
   useEffect(() => {
-    console.log("tP: ", totalPages, " cP: ", currentPage);
     setOffset(Math.floor((currentPage - 1) / 10));
-    console.log(pageSizeRef);
   }, [currentPage]);
   return (
     <JobListPaginationStyles>
@@ -25,23 +33,7 @@ const JobListPagination = props => {
         ) : (
           ""
         )}
-        {offset !== Math.floor((totalPages - 1) / 10)
-          ? new Array(pageSizeRef.current).fill(0).map((_, idx) => {
-              const pageNumber = offset * 10 + 1 + idx;
-              return (
-                <Link to={`/job-posts/${pageNumber}`} key={idx}>
-                  <span>{pageNumber}</span>
-                </Link>
-              );
-            })
-          : new Array(totalPages % 10).fill(0).map((_, idx) => {
-              const pageNumber = offset * 10 + 1 + idx;
-              return (
-                <Link to={`/job-posts/${pageNumber}`} key={idx}>
-                  <span>{pageNumber}</span>
-                </Link>
-              );
-            })}
+        {offset !== Math.floor((totalPages - 1) / 10) ? pageButton(pageSizeRef.current, offset) : pageButton(totalPages % 10, offset)}
         {Math.floor((totalPages - 1) / 10) - Math.floor((currentPage - 1) / 10) >= 1 ? (
           <Link to={`/job-posts/${(Math.floor((currentPage - 1) / 10) + 1) * 10 + 1}`} onClick={() => handleCurrentPage((Math.floor((currentPage - 1) / 10) + 1) * 10 + 1)}>
             Next
