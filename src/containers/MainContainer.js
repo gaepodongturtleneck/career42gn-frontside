@@ -16,16 +16,7 @@ const MainContainer = props => {
   const [jobListData, setJobListData] = useState([]);
   const [bookmarkList, setBookmarkList] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
-  const [filteredTag, setFilteredTag] = useState(null);
-  const [filteredType, setFilteredType] = useState(null);
-  const [filteredLocation, setFilteredLocation] = useState(null);
   const [isMovePage, setIsMovePage] = useState(false);
-
-  const handleFilterButton = (tag, type, location) => {
-    setFilteredTag(tag);
-    setFilteredType(type);
-    setFilteredLocation(location);
-  };
 
   const fetchBookmarkList = async url => {
     try {
@@ -43,8 +34,6 @@ const MainContainer = props => {
       const res = await api.get(`${url}?page=${page}`, {
         params: {
           pageSize: 10,
-          tag: filteredTag,
-          type: filteredType,
         },
       });
       res.data.content.forEach(value => {
@@ -66,9 +55,14 @@ const MainContainer = props => {
     }
   };
 
+  const handleFilterButton = data => {
+    setJobListData(data);
+  };
+
   useEffect(async () => {
     await fetchListData("/job-posts");
-  }, [pageNumber, filteredTag, filteredType, filteredLocation]);
+    console.log(`filtered: ${filteredTag}`);
+  }, [pageNumber]);
 
   // if (error) return <div>농담곰에러</div>;
   // if (!data) return <div>로딩스</div>;
@@ -78,7 +72,7 @@ const MainContainer = props => {
       <Header user={user} />
       <section className="content-section">
         <div className="content-container">
-          <JobFilter locations={locations} tags={tags} types={types} currentPage={currentPage} handleFilterButton={handleFilterButton} />
+          <JobFilter locations={locations} tags={tags} types={types} pageNumber={pageNumber} handleFilterButton={handleFilterButton} />
           {/* <JobTest /> */}
           <JobListView dummyData={jobListData} bookMark={bookMark} />
           <JobListPagination totalPages={jobListData.totalPages} currentPage={currentPage} handleCurrentPage={handleCurrentPage} />
