@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Header from "../components/Header/Header";
 import JobDetailView from "../components/JobDetailView/JobDetailView";
-import CompanyLogo from "../images/nong.png";
 import api from "../api/index";
 
 const DetailContainer = props => {
   const { id } = useParams();
   const [detailData, setDetailData] = useState({});
+  const [isBookmark, setIsBookmark] = useState({});
   const { infoData, user } = props;
   const fetchCheckBookmark = async url => {
     try {
@@ -17,7 +17,10 @@ const DetailContainer = props => {
           jobpost_id: id,
         },
       });
+      console.log(res);
+      setIsBookmark({ ismark: true });
     } catch (err) {
+      setIsBookmark({ ismark: false });
       console.error(err);
     }
   };
@@ -36,13 +39,14 @@ const DetailContainer = props => {
   };
   useEffect(async () => {
     await fecthDetailData("/jobposts");
+    await fetchCheckBookmark("/bookmarks");
   }, []);
   return (
     <>
       <Header user={user} />
       <div className="content-section">
         <div className="content-container">
-          <JobDetailView detailData={detailData} />
+          <JobDetailView user={user} detailData={detailData} bookmark={isBookmark} />
         </div>
       </div>
     </>

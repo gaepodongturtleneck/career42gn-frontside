@@ -5,16 +5,38 @@ import DateBox from "../Common/DateBox";
 import CompanyLogoBox from "../Common/CompanyLogoBox";
 import TagBox from "../Common/TagBox";
 import ScrollToTop from "../CustomHook/ScrollToTop";
+import api from "../../api/index";
 
 const JobDetailView = props => {
   ScrollToTop();
-  const { detailData } = props;
-  const { title, content, dueDate, pay, tag, type, company, isClosed } = detailData;
-  const [isClick, setClick] = useState(true);
-
+  const { detailData, bookmark, user } = props;
+  const { id, title, content, dueDate, pay, tag, type, company, isClosed } = detailData;
+  const [isClick, setClick] = useState(false);
+  const registBookmark = async url => {
+    try {
+      const res = await api.post(`${url}`, {
+        cadetId: user.id,
+        jobpostId: id,
+      });
+      console.log(res);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  const handleBookmark = () => {
+    console.log("clicked");
+    console.log(isClick);
+    if (isClick === false) {
+      console.log("hhe");
+      registBookmark("/bookmarks");
+    }
+    setClick(prev => !prev);
+  };
   useEffect(() => {
-    console.log(detailData);
-  });
+    if (bookmark.ismark) {
+      setClick(true);
+    }
+  }, [bookmark.ismark]);
   return (
     <JobDetailViewStyled>
       <JobDetailTitleWrapper>
@@ -28,7 +50,7 @@ const JobDetailView = props => {
           </JobDetailTitleTop.Left>
           <JobDetailTitleTop.Right>
             <JobDetailTitleTop.Bookmark>
-              <Heart ismark={isClick ? 1 : 0} onClick={() => setClick(!isClick)} />
+              <Heart ismark={isClick ? 1 : 0} onClick={handleBookmark} />
             </JobDetailTitleTop.Bookmark>
             <DateBox detail={true} dueDate={dueDate} />
           </JobDetailTitleTop.Right>
