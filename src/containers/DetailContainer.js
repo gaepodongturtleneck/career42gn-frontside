@@ -17,10 +17,11 @@ const DetailContainer = props => {
           jobpost_id: id,
         },
       });
+      const bookmarkId = res.data;
       console.log(res);
-      setIsBookmark({ ismark: true });
+      setIsBookmark({ ismark: true, id: bookmarkId });
     } catch (err) {
-      setIsBookmark({ ismark: false });
+      setIsBookmark({ ismark: false, id: null });
       console.error(err);
     }
   };
@@ -28,8 +29,6 @@ const DetailContainer = props => {
   const fecthDetailData = async url => {
     try {
       const res = await api.get(`${url}/${id}`);
-      // delete res.data.company;
-      // res.data.tag = res.data.tag.split(",");
       res.data.tag = ["WEB", "iOS"];
       setDetailData({ ...res.data });
       return res.data;
