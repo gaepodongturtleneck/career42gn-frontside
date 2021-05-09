@@ -1,17 +1,48 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import Header from "../components/Header/Header";
 import JobDetailView from "../components/JobDetailView/JobDetailView";
 import CompanyLogo from "../images/nong.png";
+import api from "../api/index";
 
 const DetailContainer = props => {
+  const { id } = useParams();
+  const [detailData, setDetailData] = useState({});
   const { infoData, user } = props;
+  const fetchCheckBookmark = async url => {
+    try {
+      const res = await api.get(`${url}`, {
+        params: {
+          cadet_id: user.id,
+          jobpost_id: id,
+        },
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
+  const fecthDetailData = async url => {
+    try {
+      const res = await api.get(`${url}/${id}`);
+      // delete res.data.company;
+      // res.data.tag = res.data.tag.split(",");
+      res.data.tag = ["WEB", "iOS"];
+      setDetailData({ ...res.data });
+      return res.data;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  useEffect(async () => {
+    await fecthDetailData("/jobposts");
+  }, []);
   return (
     <>
       <Header user={user} />
       <div className="content-section">
         <div className="content-container">
-          <JobDetailView infoData={infoData} imgsrc={CompanyLogo} />
+          <JobDetailView detailData={detailData} />
         </div>
       </div>
     </>

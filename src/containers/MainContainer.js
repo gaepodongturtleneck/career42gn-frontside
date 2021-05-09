@@ -19,7 +19,6 @@ const MainContainer = props => {
   const fetchBookmarkList = async url => {
     try {
       const res = await api.get(`${url}/${user.id}`);
-      console.log(res.data);
       setBookmarkList([...res.data]);
     } catch (err) {
       console.error(err);
