@@ -6,10 +6,34 @@ import CompanyLogo from "../../images/nong.png";
 import DateBox from "../Common/DateBox";
 import CompanyLogoBox from "../Common/CompanyLogoBox";
 import TagBox from "../Common/TagBox";
+import api from "../../api/index";
 
 const JobListItem = props => {
   const { data, isBookMark, tags } = props;
   const [isClick, setClick] = useState(isBookMark);
+  const registBookmark = async url => {
+    try {
+      const res = await api.post(`${url}`, {
+        cadetId: 5,
+        jobpostId: data.id,
+      });
+      console.log(res);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  const handleBookmark = () => {
+    console.log("clicked");
+    console.log(isClick);
+    if (isClick === false) {
+      console.log("request");
+      registBookmark("/bookmarks");
+    } else {
+      console.log("cancel");
+      // cancelBookmark("/bookmarks");
+    }
+    setClick(prev => !prev);
+  };
   return (
     <JobListItemStyled id={data.id} isClosed={data.isClosed}>
       <DateBox dueDate={data.dueDate} />
@@ -27,7 +51,7 @@ const JobListItem = props => {
           </CompanyInfoBox>
           <TagBox tags={tags} />
         </PostContent>
-        <Heart ismark={isClick ? 1 : 0} onClick={() => setClick(!isClick)} />
+        <Heart ismark={isClick ? 1 : 0} onClick={handleBookmark} />
       </PostContentSection>
     </JobListItemStyled>
   );

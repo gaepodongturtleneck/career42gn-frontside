@@ -54,6 +54,7 @@ const MainContainer = props => {
   };
 
   useEffect(async () => {
+    console.log("hello");
     await fetchListData("/job-posts");
   }, [pageNumber]);
 
