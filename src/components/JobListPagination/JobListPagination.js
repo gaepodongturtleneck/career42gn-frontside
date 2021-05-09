@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from "react";
-import Pagination from "react-bootstrap/Pagination";
 import { Link } from "react-router-dom";
 import { JobListPaginationStyles } from "./JobListPagination.styles";
 
