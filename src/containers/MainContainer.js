@@ -18,6 +18,8 @@ const MainContainer = props => {
   const [currentPage, setCurrentPage] = useState(0);
   const [isMovePage, setIsMovePage] = useState(false);
 
+  const [filteredTag, setFilteredTag] = useState(null);
+
   const fetchBookmarkList = async url => {
     try {
       const res = await api.get(`${url}/${user.id}`);
@@ -27,7 +29,6 @@ const MainContainer = props => {
     }
   };
   const fetchListData = async url => {
-    console.log("hhlshlshgksdfkjfdsdf");
     try {
       let page = 0;
       page = pageNumber === undefined ? 0 : pageNumber - 1;
@@ -57,11 +58,11 @@ const MainContainer = props => {
 
   const handleFilterButton = data => {
     setJobListData(data);
+    console.log(data);
   };
 
   useEffect(async () => {
     await fetchListData("/job-posts");
-    console.log(`filtered: ${filteredTag}`);
   }, [pageNumber]);
 
   // if (error) return <div>농담곰에러</div>;

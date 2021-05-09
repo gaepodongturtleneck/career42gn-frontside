@@ -126,14 +126,14 @@ const JobFilter = props => {
     try {
       let page = 0;
       page = pageNumber === undefined ? 0 : pageNumber - 1;
-      console.log(page);
       const res = await api.get(`${url}?page=${page}`, {
         params: {
           pageSize: 10,
-          tag: tagStr || "",
+          tag: tagStr,
         },
       });
-      console.log(tagStr);
+      console.log(`fetchFilterData 실행됨`);
+      console.log({ ...res.data });
       handleFilterButton({ ...res.data });
       return res.data;
     } catch (err) {
@@ -144,12 +144,11 @@ const JobFilter = props => {
   //  const { data, error } = useSWR(shouldFetch ? "/job-posts" : null, fetchFilterData);
 
   const handleSearchButtonClick = () => {
-    setShouldFetch(true);
+    //  setShouldFetch(true);
+    console.log(tagStr);
+    fetchFilterData("/job-posts");
+    //  console.log(`fetch? : ${shouldFetch}`);
   };
-
-  useEffect(async () => {
-    await fetchFilterData("/job-posts");
-  }, [shouldFetch]);
 
   return (
     <JobFilterContainer>
