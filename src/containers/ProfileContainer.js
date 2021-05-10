@@ -8,7 +8,7 @@ const ProfileContainer = props => {
 
   return (
     <>
-      <Header />
+      <Header user={user} />
       <section className="content-section">
         <div className="content-container">
           <ProfileView userData={user} />
