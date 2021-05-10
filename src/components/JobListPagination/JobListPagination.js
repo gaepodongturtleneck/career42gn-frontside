@@ -33,8 +33,8 @@ const JobListPagination = props => {
     <JobListPaginationStyles>
       <ul>
         {currentPage > 10 ? (
-          <Link className="page-button" to={`/job-posts/${currentPage - (currentPage % 10)}`} onClick={() => handleCurrentPage(currentPage - (currentPage % 10))}>
-            {"<"} Prev
+          <Link to={`/job-posts/${offset * 10}`} onClick={() => handleCurrentPage(offset * 10)}>
+            Prev
           </Link>
         ) : (
           ""
