@@ -21,7 +21,6 @@ const JobListPagination = props => {
   // 10개씩 뿌리기
   useEffect(() => {
     setOffset(Math.floor((currentPage - 1) / 10));
-    console.log(offset);
   }, [currentPage]);
   return (
     <JobListPaginationStyles>
