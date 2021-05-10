@@ -5,7 +5,8 @@ const DateBox = props => {
   const { dueDate, detail } = props;
   return (
     <DateBoxWrapper detail={detail}>
-      <span className="d-day">D-{dueDate}</span>
+      <span className="d-day">D-10</span>
+      <span className="date">{dueDate}</span>
     </DateBoxWrapper>
   );
 };
