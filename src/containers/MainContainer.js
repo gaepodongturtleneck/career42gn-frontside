@@ -11,18 +11,16 @@ import api from "../api/index";
 
 const MainContainer = props => {
   const { pageNumber } = useParams();
-  console.log(pageNumber);
   const { bookMark, tags, locations, types, user } = props;
   const [jobListData, setJobListData] = useState([]);
   const [bookmarkList, setBookmarkList] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(pageNumber || 1);
   const [isMovePage, setIsMovePage] = useState(false);
 
   const fetchBookmarkList = async url => {
     try {
       const res = await api.get(`${url}/${user.id}`);
-      setBookmarkList(res.data);
-      console.log(bookmarkList);
+      setBookmarkList([...res.data]);
     } catch (err) {
       console.error(err);
     }
@@ -31,8 +29,8 @@ const MainContainer = props => {
   const fetchListData = async url => {
     try {
       let page = 0;
-      page = pageNumber === undefined ? 0 : pageNumber - 1;
-      const res = await api.get(`${url}?page=${page}`, {
+      page = pageNumber === undefined ? 1 : pageNumber;
+      const res = await api.get(`${url}?page=${page - 1}`, {
         params: {
           pageSize: 10,
         },
@@ -48,6 +46,7 @@ const MainContainer = props => {
   };
   const { data, error } = useSWR("/bookmarks", fetchBookmarkList);
   const handleCurrentPage = reqPage => {
+    window.scrollTo(0, 0);
     if (reqPage !== currentPage) {
       setIsMovePage(true);
       setCurrentPage(reqPage);
@@ -66,6 +65,7 @@ const MainContainer = props => {
   };
   */
   useEffect(async () => {
+    console.log("hello");
     await fetchListData("/job-posts");
   }, [pageNumber]);
 
@@ -77,9 +77,8 @@ const MainContainer = props => {
       <Header user={user} />
       <section className="content-section">
         <div className="content-container">
-          <JobFilter locations={locations} tags={tags} types={types} pageNumber={pageNumber} handleFilterButton={handleFilterButton} />
-          {/* <JobTest /> */}
-          <JobListView dummyData={jobListData} bookMark={bookMark} />
+          <JobFilter locations={locations} tags={tags} types={types} pageNumber={pageNumber} handleFilterButton={handleFilterButton} />        
+          <JobListView dummyData={jobListData} bookMark={bookmarkList} />
           <JobListPagination totalPages={jobListData.totalPages} currentPage={currentPage} handleCurrentPage={handleCurrentPage} />
         </div>
       </section>

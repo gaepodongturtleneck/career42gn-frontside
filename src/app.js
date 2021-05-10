@@ -52,7 +52,7 @@ function App() {
           <Route path="/job-posts" exact component={MainContainer} />
           <Route path="/job-posts/:pageNumber" component={MainContainer} />
           <Route path="/jobpost/:id" exact component={DetailContainer} />
-          <Route path="/login" exact component={LoginContainer} />
+          <Route path="/" exact component={LoginContainer} />
           <Route path="/profile" exact component={ProfileContainer} />
         </Switch>
       </BrowserRouter>
