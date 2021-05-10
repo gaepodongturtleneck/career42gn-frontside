@@ -25,4 +25,8 @@ export const BookmarkListView = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 50px;
+
+  ul {
+    width: 100%;
+  }
 `;
