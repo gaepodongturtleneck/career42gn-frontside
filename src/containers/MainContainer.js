@@ -81,7 +81,7 @@ const MainContainer = props => {
       <Header user={user} />
       <section className="content-section">
         <div className="content-container">
-          <JobFilter locations={locations} tags={tags} types={types} pageNumber={pageNumber} handleFilterButton={handleFilterButton} />        
+          <JobFilter locations={locations} tags={tags} types={types} pageNumber={pageNumber} handleFilterButton={handleFilterButton} />
           <JobListView dummyData={jobListData} bookMark={bookmarkList} />
           <JobListPagination totalPages={jobListData.totalPages} currentPage={currentPage} handleCurrentPage={handleCurrentPage} />
         </div>
