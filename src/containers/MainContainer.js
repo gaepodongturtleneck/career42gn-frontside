@@ -19,7 +19,7 @@ const MainContainer = props => {
   const fetchBookmarkList = async url => {
     try {
       const res = await api.get(`${url}/${user.id}`);
-      setBookmarkList(res.data);
+      setBookmarkList([...res.data]);
     } catch (err) {
       console.error(err);
     }
@@ -33,7 +33,6 @@ const MainContainer = props => {
           pageSize: 10,
         },
       });
-      console.log(res.data);
       res.data.content.forEach(value => {
         value.tag = ["WEB", "iOS"];
       });
@@ -55,6 +54,7 @@ const MainContainer = props => {
   };
 
   useEffect(async () => {
+    console.log("hello");
     await fetchListData("/job-posts");
   }, [pageNumber]);
 
@@ -67,8 +67,7 @@ const MainContainer = props => {
       <section className="content-section">
         <div className="content-container">
           <JobFilter locations={locations} tags={tags} types={types} />
-          {/* <JobTest /> */}
-          <JobListView dummyData={jobListData} bookMark={bookMark} />
+          <JobListView dummyData={jobListData} bookMark={bookmarkList} />
           <JobListPagination totalPages={jobListData.totalPages} currentPage={currentPage} handleCurrentPage={handleCurrentPage} />
         </div>
       </section>

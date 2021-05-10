@@ -1,17 +1,51 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import Header from "../components/Header/Header";
 import JobDetailView from "../components/JobDetailView/JobDetailView";
-import CompanyLogo from "../images/nong.png";
+import api from "../api/index";
 
 const DetailContainer = props => {
+  const { id } = useParams();
+  const [detailData, setDetailData] = useState({});
+  const [isBookmark, setIsBookmark] = useState({});
   const { infoData, user } = props;
+  const fetchCheckBookmark = async url => {
+    try {
+      const res = await api.get(`${url}`, {
+        params: {
+          cadet_id: user.id,
+          jobpost_id: id,
+        },
+      });
+      const bookmarkId = res.data;
+      console.log(res);
+      setIsBookmark({ ismark: true, id: bookmarkId });
+    } catch (err) {
+      setIsBookmark({ ismark: false, id: null });
+      console.error(err);
+    }
+  };
 
+  const fecthDetailData = async url => {
+    try {
+      const res = await api.get(`${url}/${id}`);
+      res.data.tag = ["WEB", "iOS"];
+      setDetailData({ ...res.data });
+      return res.data;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  useEffect(async () => {
+    await fecthDetailData("/jobposts");
+    await fetchCheckBookmark("/bookmarks");
+  }, []);
   return (
     <>
       <Header user={user} />
       <div className="content-section">
         <div className="content-container">
-          <JobDetailView infoData={infoData} imgsrc={CompanyLogo} />
+          <JobDetailView user={user} detailData={detailData} bookmark={isBookmark} />
         </div>
       </div>
     </>
