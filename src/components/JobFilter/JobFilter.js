@@ -1,10 +1,12 @@
 import React, { useCallback, useState, useEffect, useRef } from "react";
+import useSWR from "swr";
 import { JobFilterContainer } from "./JobFilter.styles";
 import Dropdown from "../Dropdown/Dropdown";
 import Checkbox from "../Dropdown/Checkbox";
+import api from "../../api/index";
 
 const JobFilter = props => {
-  const { locations, tags, types } = props;
+  const { locations, tags, types, pageNumber, handleFilterButton } = props;
   const dropdownRef = useRef(null);
   const [selectedTags, setSelectedTags] = useState([]);
   const [selectedTypes, setSelectedTypes] = useState([]);
@@ -13,8 +15,10 @@ const JobFilter = props => {
   const [tagCheckList, setTagCheckList] = useState(new Array(tags.length).fill(false));
   const [typeCheckList, setTypeCheckList] = useState(new Array(types.length).fill(false));
   const [locationCheckList, setLocationCheckList] = useState(new Array(locations.length).fill(false));
-
   const dropdownIndex = openedDropdown.indexOf(true);
+  const tagStr = selectedTags.map(item => item.slice(0, 2).toLowerCase()).join("-");
+  const typeStr = selectedTypes.map(item => item.slice(0, 2).toLowerCase()).join("-");
+  const locationStr = selectedLocations.map(item => item.slice(0, 2).toLowerCase()).join("-");
 
   const handleOpenDropdown = idx => {
     if (openedDropdown[idx]) {
@@ -117,6 +121,31 @@ const JobFilter = props => {
     return selectedLocations.length > 0 ? selectedLocations.join(",") : "지역";
   };
 
+  const fetchFilterData = async url => {
+    try {
+      let page = 0;
+      page = pageNumber === undefined ? 0 : pageNumber - 1;
+      const res = await api.get(`${url}?page=${page}`, {
+        params: {
+          pageSize: 10,
+          tag: tagStr,
+          type: typeStr,
+          location: locationStr,
+        },
+      });
+      handleFilterButton(res.data);
+      return res.data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleSearchButtonClick = () => {
+    if (selectedLocations.length + selectedTags.length + selectedTypes.length) {
+      fetchFilterData("/job-posts");
+    }
+  };
+
   return (
     <JobFilterContainer>
       <div className="filter-checkbox-wrapper" ref={dropdownRef}>
@@ -130,7 +159,9 @@ const JobFilter = props => {
           {dropdownIndex !== -1 ? <Checkbox items={selectCheckboxMenus(dropdownIndex)} checkList={selectCheckList(dropdownIndex)} selectFunction={handleCheckClick} /> : null}
         </div>
       </div>
-      <button className="search-button">검색하기</button>
+      <button className="search-button" onClick={handleSearchButtonClick}>
+        검색하기
+      </button>
     </JobFilterContainer>
   );
 };

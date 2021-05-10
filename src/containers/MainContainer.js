@@ -16,6 +16,7 @@ const MainContainer = props => {
   const [bookmarkList, setBookmarkList] = useState([]);
   const [currentPage, setCurrentPage] = useState(pageNumber || 1);
   const [isMovePage, setIsMovePage] = useState(false);
+
   const fetchBookmarkList = async url => {
     try {
       const res = await api.get(`${url}/${user.id}`);
@@ -24,6 +25,7 @@ const MainContainer = props => {
       console.error(err);
     }
   };
+
   const fetchListData = async url => {
     try {
       let page = 0;
@@ -42,7 +44,7 @@ const MainContainer = props => {
       console.error(err);
     }
   };
-  // const { data, error } = useSWR("/bookmarks", fetchBookmarkList);
+
   const handleCurrentPage = reqPage => {
     window.scrollTo(0, 0);
     if (reqPage !== currentPage) {
@@ -51,6 +53,10 @@ const MainContainer = props => {
     } else {
       setIsMovePage(false);
     }
+  };
+
+  const handleFilterButton = data => {
+    setJobListData({ ...data });
   };
 
   useEffect(async () => {
@@ -70,7 +76,7 @@ const MainContainer = props => {
       <Header user={user} />
       <section className="content-section">
         <div className="content-container">
-          <JobFilter locations={locations} tags={tags} types={types} />
+          <JobFilter locations={locations} tags={tags} types={types} pageNumber={pageNumber} handleFilterButton={handleFilterButton} />
           <JobListView dummyData={jobListData} bookMark={bookmarkList} />
           <JobListPagination totalPages={jobListData.totalPages} currentPage={currentPage} handleCurrentPage={handleCurrentPage} />
         </div>
@@ -254,14 +260,17 @@ MainContainer.defaultProps = {
     {
       id: 0,
       value: "서울",
+      keyword: "se",
     },
     {
       id: 1,
       value: "경기",
+      keyword: "gy",
     },
     {
       id: 2,
       value: "부산",
+      keyword: "bu",
     },
   ],
 
@@ -269,14 +278,17 @@ MainContainer.defaultProps = {
     {
       id: 0,
       value: "신입",
+      keyword: "no",
     },
     {
       id: 1,
       value: "인턴",
+      keyword: "in",
     },
     {
       id: 2,
       value: "주니어",
+      keyword: "ju",
     },
   ],
 };
