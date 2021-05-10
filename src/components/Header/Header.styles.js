@@ -30,6 +30,7 @@ const HeaderStyled = styled.nav`
     flex-direction: row;
     align-items: center;
     cursor: pointer;
+    text-decoration: none;
 
     span {
       font-size: 18px;
