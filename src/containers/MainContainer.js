@@ -42,7 +42,7 @@ const MainContainer = props => {
       console.error(err);
     }
   };
-  const { data, error } = useSWR("/bookmarks", fetchBookmarkList);
+  // const { data, error } = useSWR("/bookmarks", fetchBookmarkList);
   const handleCurrentPage = reqPage => {
     window.scrollTo(0, 0);
     if (reqPage !== currentPage) {
@@ -56,6 +56,10 @@ const MainContainer = props => {
   useEffect(async () => {
     console.log("hello");
     await fetchListData("/job-posts");
+    if (bookmarkList.length === 0) {
+      console.log("bookmarkList: ", bookmarkList);
+      await fetchBookmarkList("/bookmarks");
+    }
   }, [pageNumber]);
 
   // if (error) return <div>농담곰에러</div>;
@@ -73,54 +77,6 @@ const MainContainer = props => {
       </section>
     </>
   );
-};
-
-const JobTest = props => {
-  const { bookMark } = props;
-  const fetchListData = async url => {
-    try {
-      let page = 0;
-      page = pageNumber === undefined ? 0 : pageNumber - 1;
-      const res = await api.get(`${url}?page=${page}`, {
-        params: {
-          pageSize: 10,
-        },
-      });
-      res.data.content.forEach(value => {
-        value.tag = ["WEB", "iOS"];
-      });
-      console.log(res.data);
-      return res.data;
-    } catch (err) {
-      console.error(err);
-    }
-  };
-  const { data, error } = useSWR("/job-posts", fetchListData);
-  if (data) {
-    console.log(data);
-  }
-  return <JobListView dummyData={data} bookMark={bookMark} />;
-};
-
-JobTest.defaultProps = {
-  bookMark: [
-    {
-      id: 1,
-      jobpost_id: 1,
-    },
-    {
-      id: 2,
-      jobpost_id: 2,
-    },
-    {
-      id: 3,
-      jobpost_id: 3,
-    },
-    {
-      id: 7,
-      jobpost_id: 7,
-    },
-  ],
 };
 
 MainContainer.defaultProps = {
