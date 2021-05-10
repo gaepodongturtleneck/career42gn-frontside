@@ -32,7 +32,6 @@ const JobDetailView = props => {
     //   console.error(err);
     // }
   };
-  console.log(bookmark.id);
   const handleBookmark = () => {
     console.log("clicked");
     console.log(isClick);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Heart from "react-animated-heart";
 import { Link, useHistory } from "react-router-dom";
 import { JobListItemStyled, PostContentSection, PostContent, CompanyInfoBox } from "./JobListItem.styles";
@@ -10,7 +10,7 @@ import api from "../../api/index";
 
 const JobListItem = props => {
   const { data, isBookMark, tags } = props;
-  const [isClick, setClick] = useState(isBookMark);
+  const [isClick, setClick] = useState(false);
   const registBookmark = async url => {
     try {
       const res = await api.post(`${url}`, {
@@ -24,7 +24,6 @@ const JobListItem = props => {
   };
   const handleBookmark = () => {
     console.log("clicked");
-    console.log(isClick);
     if (isClick === false) {
       console.log("request");
       registBookmark("/bookmarks");
@@ -32,8 +31,14 @@ const JobListItem = props => {
       console.log("cancel");
       // cancelBookmark("/bookmarks");
     }
+    console.log(isClick);
     setClick(prev => !prev);
   };
+  useEffect(() => {
+    if (isBookMark === true) {
+      setClick(true);
+    }
+  }, [isBookMark]);
   return (
     <JobListItemStyled id={data.id} isClosed={data.isClosed}>
       <DateBox dueDate={data.dueDate} />
