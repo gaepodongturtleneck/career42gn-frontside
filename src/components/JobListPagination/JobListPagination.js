@@ -21,12 +21,13 @@ const JobListPagination = props => {
   // 10개씩 뿌리기
   useEffect(() => {
     setOffset(Math.floor((currentPage - 1) / 10));
+    console.log(offset);
   }, [currentPage]);
   return (
     <JobListPaginationStyles>
       <ul>
         {currentPage > 10 ? (
-          <Link to={`/job-posts/${currentPage - (currentPage % 10)}`} onClick={() => handleCurrentPage(currentPage - (currentPage % 10))}>
+          <Link to={`/job-posts/${offset * 10}`} onClick={() => handleCurrentPage(offset * 10)}>
             Prev
           </Link>
         ) : (
