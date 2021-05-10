@@ -2,16 +2,23 @@ import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { JobListPaginationStyles } from "./JobListPagination.styles";
 
-const pageButton = (size, offset) => {
+const pageButton = (size, offset, currentPage, handleCurrentPage) => {
   return new Array(size).fill(0).map((_, idx) => {
     const pageNumber = offset * 10 + 1 + idx;
     return (
-      <Link to={`/job-posts/${pageNumber}`} key={idx}>
+      <Link
+        className="page-id"
+        style={{ borderColor: Number(currentPage) === pageNumber ? "#000" : "#ddd", color: Number(currentPage) === pageNumber ? "#000" : "#b9b9b9" }}
+        to={`/job-posts/${pageNumber}`}
+        key={idx}
+        onClick={() => handleCurrentPage(pageNumber)}
+      >
         <span>{pageNumber}</span>
       </Link>
     );
   });
 };
+
 const JobListPagination = props => {
   const pageSizeRef = useRef(10);
   const { totalPages, currentPage, handleCurrentPage } = props;
@@ -26,16 +33,16 @@ const JobListPagination = props => {
     <JobListPaginationStyles>
       <ul>
         {currentPage > 10 ? (
-          <Link to={`/job-posts/${offset * 10}`} onClick={() => handleCurrentPage(offset * 10)}>
-            Prev
+          <Link className="page-button" to={`/job-posts/${currentPage - (currentPage % 10)}`} onClick={() => handleCurrentPage(currentPage - (currentPage % 10))}>
+            {"<"} Prev
           </Link>
         ) : (
           ""
         )}
-        {offset !== Math.floor((totalPages - 1) / 10) ? pageButton(pageSizeRef.current, offset) : pageButton(totalPages % 10, offset)}
+        {offset !== Math.floor((totalPages - 1) / 10) ? pageButton(pageSizeRef.current, offset, currentPage, handleCurrentPage) : pageButton(totalPages % 10, offset)}
         {Math.floor((totalPages - 1) / 10) - Math.floor((currentPage - 1) / 10) >= 1 ? (
-          <Link to={`/job-posts/${(Math.floor((currentPage - 1) / 10) + 1) * 10 + 1}`} onClick={() => handleCurrentPage((Math.floor((currentPage - 1) / 10) + 1) * 10 + 1)}>
-            Next
+          <Link className="page-button" to={`/job-posts/${(Math.floor((currentPage - 1) / 10) + 1) * 10 + 1}`} onClick={() => handleCurrentPage((Math.floor((currentPage - 1) / 10) + 1) * 10 + 1)}>
+            Next {">"}
           </Link>
         ) : (
           ""
