@@ -1,8 +1,8 @@
 import React from "react";
-import LoginContainer from "../components/LoginView/LoginView";
+import LoginView from "../components/LoginView/LoginView";
 
-const LoginView = () => {
-  return <LoginContainer></LoginContainer>;
+const LoginContainer = () => {
+  return <LoginView />;
 };
 
-export default LoginView;
+export default LoginContainer;

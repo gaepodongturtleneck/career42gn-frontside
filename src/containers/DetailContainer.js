@@ -30,7 +30,9 @@ const DetailContainer = props => {
     try {
       const res = await api.get(`${url}/${id}`);
       res.data.tag = ["WEB", "iOS"];
+      console.log(res.data);
       setDetailData({ ...res.data });
+
       return res.data;
     } catch (err) {
       console.error(err);

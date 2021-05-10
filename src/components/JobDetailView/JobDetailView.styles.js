@@ -135,7 +135,7 @@ export const JobCompanyInfo = styled.div`
   padding: 35px 50px;
 
   .logo {
-    width: 190px;
+    min-width: 190px;
     height: 160px;
     display: flex;
     justify-content: center;
