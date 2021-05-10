@@ -6,7 +6,7 @@ import Checkbox from "../Dropdown/Checkbox";
 import api from "../../api/index";
 
 const JobFilter = props => {
-  const { locations, tags, types, pageNumber, handleFilterButton } = props;
+  const { locations, tags, types, pageNumber, handleFilterButton, user, handleBookmarkFilter } = props;
   const dropdownRef = useRef(null);
   const [selectedTags, setSelectedTags] = useState([]);
   const [selectedTypes, setSelectedTypes] = useState([]);
@@ -133,8 +133,6 @@ const JobFilter = props => {
           location: locationStr,
         },
       });
-      console.log(typeStr);
-      console.log(locationStr);
       handleFilterButton({ ...res.data });
       return res.data;
     } catch (err) {
@@ -142,11 +140,19 @@ const JobFilter = props => {
     }
   };
 
-  //  const { data, error } = useSWR(shouldFetch ? "/job-posts" : null, fetchFilterData);
+  const fetchBookmarkData = async url => {
+    try {
+      const res = await api.get(`${url}/${user.id}`);
+      handleBookmarkFilter({ ...res.data });
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const handleSearchButtonClick = () => {
     //  setShouldFetch(true);
     fetchFilterData("/job-posts");
+    fetchBookmarkData("/job-posts");
   };
 
   return (

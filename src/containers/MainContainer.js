@@ -18,8 +18,6 @@ const MainContainer = props => {
   const [currentPage, setCurrentPage] = useState(0);
   const [isMovePage, setIsMovePage] = useState(false);
 
-  const [filteredTag, setFilteredTag] = useState(null);
-
   const fetchBookmarkList = async url => {
     try {
       const res = await api.get(`${url}/${user.id}`);
@@ -28,6 +26,7 @@ const MainContainer = props => {
       console.error(err);
     }
   };
+
   const fetchListData = async url => {
     try {
       let page = 0;
@@ -58,7 +57,10 @@ const MainContainer = props => {
 
   const handleFilterButton = data => {
     setJobListData(data);
-    console.log(data);
+  };
+
+  const handleBookmakrFilter = data => {
+    setBookmarkList(data);
   };
 
   useEffect(async () => {
@@ -73,7 +75,16 @@ const MainContainer = props => {
       <Header user={user} />
       <section className="content-section">
         <div className="content-container">
-          <JobFilter locations={locations} tags={tags} types={types} pageNumber={pageNumber} handleFilterButton={handleFilterButton} />
+          <JobFilter
+            locations={locations}
+            tags={tags}
+            types={types}
+            pageNumber={pageNumber}
+            handleFilterButton={handleFilterButton}
+            handleBookmarkFilter={handleBookmakrFilter}
+            user={user}
+            handleBookmark={setBookmarkList}
+          />
           {/* <JobTest /> */}
           <JobListView dummyData={jobListData} bookMark={bookMark} />
           <JobListPagination totalPages={jobListData.totalPages} currentPage={currentPage} handleCurrentPage={handleCurrentPage} />
