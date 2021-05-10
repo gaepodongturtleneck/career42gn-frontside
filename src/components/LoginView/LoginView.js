@@ -8,9 +8,9 @@ const LoginView = () => {
     <>
       <LoginViewContainer>
         <LoginViewSection>
-          <LogoIcon></LogoIcon>
-          <Link to="/job-posts">move to</Link>
+          <LogoIcon />
           <button>42 Login</button>
+          <Link to="/job-posts">move to</Link>
         </LoginViewSection>
       </LoginViewContainer>
     </>
