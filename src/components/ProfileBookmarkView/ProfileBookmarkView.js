@@ -2,7 +2,7 @@ import React from "react";
 import JobListItem from "../JobListItem/JobListItem";
 import { ProfileBookmarkViewStyled, BookmarkListTitle, BookmarkListView } from "./ProfileBookmarkView.styles";
 
-const ProfileBookmarkView = ({ bookmarks, dummyData, tags }) => {
+const ProfileBookmarkView = ({ bookmarks, dummyData }) => {
   // 여기에 set되는 isbookMark 전부 true
   // 들어온 dummyData출력만해주면됨.
   return (
@@ -15,7 +15,7 @@ const ProfileBookmarkView = ({ bookmarks, dummyData, tags }) => {
         {bookmarks.length ? (
           <ul>
             {dummyData?.content.map(item => {
-              return <JobListItem key={item.id} data={item} isBookMark={true} tags={tags} />;
+              return <JobListItem key={item.id} data={item} isBookMark={true} tags={item.tag} />;
             })}
           </ul>
         ) : (

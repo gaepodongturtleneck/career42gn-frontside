@@ -13,7 +13,7 @@ const ProfileView = ({ userData }) => {
         <ProfileInfo.Text>
           <p className="title">{nickname}</p>
           <p className="info">{email}</p>
-          <p className="info">{phone}</p>
+          {/* <p className="info">{phone}</p> */}
         </ProfileInfo.Text>
       </ProfileInfo>
       <LogoutButton>로그아웃</LogoutButton>

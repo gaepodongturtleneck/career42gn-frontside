@@ -1,60 +1,138 @@
 import React, { useCallback, useEffect, useState } from "react";
 import useSWR from "swr";
+import { useParams } from "react-router-dom";
 import Header from "../components/Header/Header";
 import JobListView from "../components/JobListView/JobListView";
 import JobFilter from "../components/JobFilter/JobFilter";
+import JobListPagination from "../components/JobListPagination/JobListPagination";
 import api from "../api/index";
 
 //  import JobFilterContainer from '../components/JobFilter/JobFilter.styles';
 
 const MainContainer = props => {
-  const { dummyData, bookMark, tags, locations, types } = props;
+  const { pageNumber } = useParams();
+  const { bookMark, tags, locations, types, user } = props;
   const [jobListData, setJobListData] = useState([]);
-  const fetchListData = async () => {
+  const [bookmarkList, setBookmarkList] = useState([]);
+  const [currentPage, setCurrentPage] = useState(pageNumber || 1);
+  const [isMovePage, setIsMovePage] = useState(false);
+  const fetchBookmarkList = async url => {
     try {
-      const res = await api.get("/jobposts/1");
+      const res = await api.get(`${url}/${user.id}`);
+      setBookmarkList(res.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  const fetchListData = async url => {
+    try {
+      let page = 0;
+      page = pageNumber === undefined ? 1 : pageNumber;
+      const res = await api.get(`${url}?page=${page - 1}`, {
+        params: {
+          pageSize: 10,
+        },
+      });
+      console.log(res.data);
+      res.data.content.forEach(value => {
+        value.tag = ["WEB", "iOS"];
+      });
+      setJobListData({ ...res.data });
       return res.data;
     } catch (err) {
       console.error(err);
     }
   };
-  // const { data, error } = useSWR("/jobposts/1", url => {
-  //   return fetch(url).then(res => res.json());
-  // });
+  const { data, error } = useSWR("/bookmarks", fetchBookmarkList);
+  const handleCurrentPage = reqPage => {
+    window.scrollTo(0, 0);
+    if (reqPage !== currentPage) {
+      setIsMovePage(true);
+      setCurrentPage(reqPage);
+    } else {
+      setIsMovePage(false);
+    }
+  };
 
-  // const { data, error } = useSWR("/jobposts/1", fetchListData);
-
-  useEffect(() => {
-    // console.log(data);
-    // const listData = await fetchListData();
-    // if (listData !== null) {
-    //   setJobListData(listData);
-    // }
-    // console.log(listData);
-    //   // clear code
-    // };
-  });
+  useEffect(async () => {
+    await fetchListData("/job-posts");
+  }, [pageNumber]);
 
   // if (error) return <div>농담곰에러</div>;
   // if (!data) return <div>로딩스</div>;
 
   return (
     <>
-      <Header />
+      <Header user={user} />
       <section className="content-section">
         <div className="content-container">
           <JobFilter locations={locations} tags={tags} types={types} />
-          <JobListView dummyData={dummyData} bookMark={bookMark} tags={tags} />
+          {/* <JobTest /> */}
+          <JobListView dummyData={jobListData} bookMark={bookMark} />
+          <JobListPagination totalPages={jobListData.totalPages} currentPage={currentPage} handleCurrentPage={handleCurrentPage} />
         </div>
       </section>
     </>
   );
 };
 
+const JobTest = props => {
+  const { bookMark } = props;
+  const fetchListData = async url => {
+    try {
+      let page = 0;
+      page = pageNumber === undefined ? 0 : pageNumber - 1;
+      const res = await api.get(`${url}?page=${page}`, {
+        params: {
+          pageSize: 10,
+        },
+      });
+      res.data.content.forEach(value => {
+        value.tag = ["WEB", "iOS"];
+      });
+      console.log(res.data);
+      return res.data;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  const { data, error } = useSWR("/job-posts", fetchListData);
+  if (data) {
+    console.log(data);
+  }
+  return <JobListView dummyData={data} bookMark={bookMark} />;
+};
+
+JobTest.defaultProps = {
+  bookMark: [
+    {
+      id: 1,
+      jobpost_id: 1,
+    },
+    {
+      id: 2,
+      jobpost_id: 2,
+    },
+    {
+      id: 3,
+      jobpost_id: 3,
+    },
+    {
+      id: 7,
+      jobpost_id: 7,
+    },
+  ],
+};
+
 MainContainer.defaultProps = {
   // TODO 하기 API를 기반으로 요청, 데이터 get 후  rendering
   // * /jobposts?page=1?type=aa?tag=bb  <GET>
-
+  user: {
+    id: 5,
+    intra: "secho2",
+    email: "seCho@seCHO.com",
+    image: "https://cdn.intra.42.fr/users/small_secho.jpg",
+  },
   dummyData: {
     content: [
       {

@@ -7,6 +7,7 @@ export const JobListPaginationStyles = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-bottom: 40px;
   & > ul {
     display: flex;
     justify-content: space-between;
@@ -15,12 +16,12 @@ export const JobListPaginationStyles = styled.div`
     min-height: 50px;
     margin-top: 5px;
 
-    li {
+    a {
       display: inline;
       font-size: 0.8em;
       margin: 0 1.5px;
     }
-    li > span {
+    a > span {
       box-sizing: border-box;
       padding: 7px 10px;
       margin-left: -1px;
