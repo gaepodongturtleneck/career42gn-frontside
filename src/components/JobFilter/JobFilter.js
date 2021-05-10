@@ -139,22 +139,11 @@ const JobFilter = props => {
       console.log(err);
     }
   };
-  /*
-  const fetchBookmarkData = async url => {
-    try {
-      const res = await api.get(`${url}/${user.id}`);
-      handleBookmarkFilter({ ...res.data });
-    } catch (err) {
-      console.error(err);
-    }
-  };
-  */
+
   const handleSearchButtonClick = () => {
-    //  setShouldFetch(true);
-    if (selectedLocations.length + selectedTags.length + selectedTypes.length !== 0) {
+    if (selectedLocations.length + selectedTags.length + selectedTypes.length) {
       fetchFilterData("/job-posts");
     }
-    //  fetchBookmarkData("/job-posts");
   };
 
   return (
@@ -170,7 +159,7 @@ const JobFilter = props => {
           {dropdownIndex !== -1 ? <Checkbox items={selectCheckboxMenus(dropdownIndex)} checkList={selectCheckList(dropdownIndex)} selectFunction={handleCheckClick} /> : null}
         </div>
       </div>
-      <button className="search-button" onClick={() => handleSearchButtonClick()}>
+      <button className="search-button" onClick={handleSearchButtonClick}>
         검색하기
       </button>
     </JobFilterContainer>

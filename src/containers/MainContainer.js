@@ -44,7 +44,7 @@ const MainContainer = props => {
       console.error(err);
     }
   };
-  // const { data, error } = useSWR("/bookmarks", fetchBookmarkList);
+
   const handleCurrentPage = reqPage => {
     window.scrollTo(0, 0);
     if (reqPage !== currentPage) {
@@ -58,12 +58,7 @@ const MainContainer = props => {
   const handleFilterButton = data => {
     setJobListData({ ...data });
   };
-  /*
-  const handleBookmakrFilter = data => {
-    setBookmarkList(data);
-    console.log(`bookmark data: ${bookmarkList}`);
-  };
-  */
+
   useEffect(async () => {
     console.log("hello");
     await fetchListData("/job-posts");
