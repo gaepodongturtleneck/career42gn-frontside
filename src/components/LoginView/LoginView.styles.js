@@ -12,36 +12,22 @@ export const LoginViewSection = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  max-width: 1300px;
-  height: 100%;
-  width: 70%;
-  padding-bottom: 150px;
+  padding-bottom: 35px;
+
   svg {
     padding-right: 28px;
-    width: 250px;
-    height: 250px;
-    @media screen and (max-width: 576px) {
-      width: 230px;
-      height: 230px;
-    }
+    width: 180px;
+    height: 180px;
+    margin-bottom: 35px;
   }
   button {
-    cursor: pointer;
     font-size: 20px;
     font-weight: bold;
-    border-radius: 5px;
-    width: 350px;
-    height: 30px;
+    padding: 10px 120px;
     color: white;
+    cursor: pointer;
     transition: 0.2s;
     background-color: #15b2b3;
-    @media screen and (max-width: 576px) {
-      width: 280px;
-      height: 30px;
-    }
-    &:hover {
-      color: black;
-    }
   }
   & path,
   rect {
