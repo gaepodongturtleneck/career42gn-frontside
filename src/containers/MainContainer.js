@@ -22,6 +22,7 @@ const MainContainer = props => {
     try {
       const res = await api.get(`${url}/${user.id}`);
       setBookmarkList(res.data);
+      console.log(bookmarkList);
     } catch (err) {
       console.error(err);
     }
@@ -56,13 +57,14 @@ const MainContainer = props => {
   };
 
   const handleFilterButton = data => {
-    setJobListData(data);
+    setJobListData({ ...data });
   };
-
+  /*
   const handleBookmakrFilter = data => {
     setBookmarkList(data);
+    console.log(`bookmark data: ${bookmarkList}`);
   };
-
+  */
   useEffect(async () => {
     await fetchListData("/job-posts");
   }, [pageNumber]);
@@ -75,16 +77,7 @@ const MainContainer = props => {
       <Header user={user} />
       <section className="content-section">
         <div className="content-container">
-          <JobFilter
-            locations={locations}
-            tags={tags}
-            types={types}
-            pageNumber={pageNumber}
-            handleFilterButton={handleFilterButton}
-            handleBookmarkFilter={handleBookmakrFilter}
-            user={user}
-            handleBookmark={setBookmarkList}
-          />
+          <JobFilter locations={locations} tags={tags} types={types} pageNumber={pageNumber} handleFilterButton={handleFilterButton} />
           {/* <JobTest /> */}
           <JobListView dummyData={jobListData} bookMark={bookMark} />
           <JobListPagination totalPages={jobListData.totalPages} currentPage={currentPage} handleCurrentPage={handleCurrentPage} />
