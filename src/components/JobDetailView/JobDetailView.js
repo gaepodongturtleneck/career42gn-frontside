@@ -24,13 +24,12 @@ const JobDetailView = props => {
     }
   };
   const cancelBookmark = async url => {
-    // try {
-    // 해당 부분, parameter변경될 것임, PK말고 jobId, userId로 요청.
-    //   const res = await api.delete(`${url}/${bookmark.id}`);
-    //   console.log(res);
-    // } catch (err) {
-    //   console.error(err);
-    // }
+    try {
+      const res = await api.delete(`${url}/${bookmark.id}`);
+      console.log(res);
+    } catch (err) {
+      console.error(err);
+    }
   };
   const handleBookmark = () => {
     console.log("clicked");

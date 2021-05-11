@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { JobListPaginationStyles } from "./JobListPagination.styles";
 
 const pageButton = (size, offset, currentPage, handleCurrentPage) => {
+  console.log(size);
   return new Array(size).fill(0).map((_, idx) => {
     const pageNumber = offset * 10 + 1 + idx;
     return (
@@ -26,6 +27,7 @@ const JobListPagination = props => {
   // 10개 이상일 때,
   // 이전 버튼,
   // 10개씩 뿌리기
+  console.log(Math.floor((totalPages - 1) / 10), offset);
   useEffect(() => {
     setOffset(Math.floor((currentPage - 1) / 10));
   }, [currentPage]);
@@ -39,7 +41,7 @@ const JobListPagination = props => {
         ) : (
           ""
         )}
-        {offset !== Math.floor((totalPages - 1) / 10) ? pageButton(pageSizeRef.current, offset, currentPage, handleCurrentPage) : pageButton(totalPages % 10, offset)}
+        {offset !== Math.floor(totalPages / 10) ? pageButton(pageSizeRef.current, offset, currentPage, handleCurrentPage) : pageButton(totalPages % 10, offset)}
         {Math.floor((totalPages - 1) / 10) - Math.floor((currentPage - 1) / 10) >= 1 ? (
           <Link className="page-button" to={`/job-posts/${(Math.floor((currentPage - 1) / 10) + 1) * 10 + 1}`} onClick={() => handleCurrentPage((Math.floor((currentPage - 1) / 10) + 1) * 10 + 1)}>
             Next {">"}

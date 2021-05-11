@@ -61,7 +61,7 @@ const MainContainer = props => {
 
   useEffect(async () => {
     console.log("hello");
-    await fetchListData("/job-posts");
+    await fetchListData("/jobposts");
     if (bookmarkList.length === 0) {
       console.log("bookmarkList: ", bookmarkList);
       await fetchBookmarkList("/bookmarks");
@@ -78,7 +78,7 @@ const MainContainer = props => {
         <div className="content-container">
           <JobFilter locations={locations} tags={tags} types={types} pageNumber={pageNumber} handleFilterButton={handleFilterButton} />
           <JobListView dummyData={jobListData} bookMark={bookmarkList} />
-          <JobListPagination totalPages={jobListData.totalPages} currentPage={currentPage} handleCurrentPage={handleCurrentPage} />
+          <JobListPagination totalPages={jobListData.totalPages || 0} currentPage={currentPage} handleCurrentPage={handleCurrentPage} />
         </div>
       </section>
     </>
