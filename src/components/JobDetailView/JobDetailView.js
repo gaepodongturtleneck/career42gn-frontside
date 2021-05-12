@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Heart from "react-animated-heart";
+import { Link, useHistory } from "react-router-dom";
 import { JobDetailViewStyled, JobDetailTitleWrapper, JobDetailTitleTop, JobDetailTitleBottom, JobDetailInfo, JobCompanyInfo } from "./JobDetailView.styles";
 import DateBox from "../Common/DateBox";
 import CompanyLogoBox from "../Common/CompanyLogoBox";
@@ -103,7 +104,7 @@ const JobDetailView = props => {
         <JobCompanyInfo.InfoBox>
           <JobCompanyInfo.Title>
             <span>{company?.name}</span>
-            {homepage ? <button>홈페이지 {">"}</button> : null}
+            {homepage ? <Link to={homepage}>홈페이지 {">"}</Link> : null}
           </JobCompanyInfo.Title>
           <JobCompanyInfo.Info>
             <JobCompanyInfo.Item>
