@@ -61,7 +61,7 @@ const MainContainer = props => {
 
   useEffect(async () => {
     console.log("hello");
-    await fetchListData("/job-posts");
+    await fetchListData("/jobposts");
     if (bookmarkList.length === 0) {
       console.log("bookmarkList: ", bookmarkList);
       await fetchBookmarkList("/bookmarks");

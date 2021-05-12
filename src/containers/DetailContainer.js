@@ -73,6 +73,7 @@ DetailContainer.defaultProps = {
     id: 1,
     companyId: 1,
     title: "프론트엔드 개발자로 활약하실 분 모집",
+    homepage: "https://about.google/google-in-korea",
     pay: "회사 내규에 따름",
     tag: ["퍼블리싱", "프론트엔드", "채용시 까지"],
     type: "인턴",

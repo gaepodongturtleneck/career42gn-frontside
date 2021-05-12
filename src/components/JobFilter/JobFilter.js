@@ -124,8 +124,8 @@ const JobFilter = props => {
   const fetchFilterData = async url => {
     try {
       let page = 0;
-      page = pageNumber === undefined ? 0 : pageNumber - 1;
-      const res = await api.get(`${url}?page=${page}`, {
+      page = pageNumber === undefined ? 0 : pageNumber;
+      const res = await api.get(`${url}?page=${page - 1}`, {
         params: {
           pageSize: 10,
           tag: tagStr,
@@ -142,7 +142,7 @@ const JobFilter = props => {
 
   const handleSearchButtonClick = () => {
     if (selectedLocations.length + selectedTags.length + selectedTypes.length) {
-      fetchFilterData("/job-posts");
+      fetchFilterData("/jobposts");
     }
   };
 

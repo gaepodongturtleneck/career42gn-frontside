@@ -10,7 +10,7 @@ import api from "../../api/index";
 const JobDetailView = props => {
   ScrollToTop();
   const { detailData, bookmark, user } = props;
-  const { id, title, content, dueDate, pay, tag, type, company, isClosed } = detailData;
+  const { id, title, content, dueDate, pay, tag, type, company, isClosed, homepage } = detailData;
   const [isClick, setClick] = useState(false);
   const registBookmark = async url => {
     try {
@@ -103,7 +103,7 @@ const JobDetailView = props => {
         <JobCompanyInfo.InfoBox>
           <JobCompanyInfo.Title>
             <span>{company?.name}</span>
-            <button>홈페이지 {">"}</button>
+            {homepage ? <button>홈페이지 {">"}</button> : null}
           </JobCompanyInfo.Title>
           <JobCompanyInfo.Info>
             <JobCompanyInfo.Item>
