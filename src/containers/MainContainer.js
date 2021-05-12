@@ -260,17 +260,14 @@ MainContainer.defaultProps = {
     {
       id: 0,
       value: "서울",
-      keyword: "se",
     },
     {
       id: 1,
       value: "경기",
-      keyword: "gy",
     },
     {
       id: 2,
       value: "부산",
-      keyword: "bu",
     },
   ],
 
@@ -278,17 +275,14 @@ MainContainer.defaultProps = {
     {
       id: 0,
       value: "신입",
-      keyword: "no",
     },
     {
       id: 1,
       value: "인턴",
-      keyword: "in",
     },
     {
       id: 2,
       value: "주니어",
-      keyword: "ju",
     },
   ],
 };
