@@ -104,7 +104,7 @@ const JobDetailView = props => {
         <JobCompanyInfo.InfoBox>
           <JobCompanyInfo.Title>
             <span>{company?.name}</span>
-            {homepage ? <Link to={homepage}>홈페이지 {">"}</Link> : null}
+            {homepage && <Link to={homepage}>홈페이지 {">"}</Link>}
           </JobCompanyInfo.Title>
           <JobCompanyInfo.Info>
             <JobCompanyInfo.Item>

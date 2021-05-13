@@ -35,7 +35,6 @@ const JobFilter = props => {
       const handleClickOutside = event => {
         if (ref.current && !ref.current.contains(event.target)) {
           setOpenedDropdown([false, false, false]);
-          console.log(openedDropdown);
         }
       };
       document.addEventListener("mousedown", handleClickOutside);
