@@ -1,4 +1,5 @@
 {
+  "homepage": "https://gaepodongturtleneck.github.io/career42gn-frontside/",
   "name": "career42gn",
   "version": "0.1.0",
   "private": true,
@@ -9,6 +10,7 @@
     "api": "^3.0.2",
     "axios": "^0.21.1",
     "bootstrap": "^5.0.0",
+    "gh-pages": "^3.1.0",
     "goober": "^2.0.37",
     "react": "^17.0.2",
     "react-animated-heart": "^0.0.7-alpha.1",
@@ -27,7 +29,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
