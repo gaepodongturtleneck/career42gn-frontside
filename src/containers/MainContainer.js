@@ -92,7 +92,7 @@ MainContainer.defaultProps = {
   // * /jobposts?page=1?type=aa?tag=bb  <GET>
   user: {
     id: 5,
-    intra: "jae-kim",
+    intra: "secho",
     email: "seCho@seCHO.com",
     image: "https://cdn.intra.42.fr/users/small_secho.jpg",
   },

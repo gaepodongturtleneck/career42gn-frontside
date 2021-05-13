@@ -16,7 +16,7 @@ const DateBox = props => {
   const { dueDate, detail } = props;
   return (
     <DateBoxWrapper detail={detail}>
-      <span className="d-day">{CalDate(dueDateg)}</span>
+      <span className="d-day">{CalDate(dueDate)}</span>
       <span className="date">{dueDate}</span>
     </DateBoxWrapper>
   );
