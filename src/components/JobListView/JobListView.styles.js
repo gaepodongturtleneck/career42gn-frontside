@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
 export const JobListViewStyled = styled.div`
-  padding-top: 20px;
+  padding: 40px;
+  padding-bottom: 0;
+  background-color: #fff;
 `;

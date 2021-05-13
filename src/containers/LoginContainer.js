@@ -1,9 +1,8 @@
 import React from "react";
+import LoginView from "../components/LoginView/LoginView";
 
 const LoginContainer = () => {
-  return (
-    <div>Login</div>
-  );
+  return <LoginView />;
 };
 
 export default LoginContainer;

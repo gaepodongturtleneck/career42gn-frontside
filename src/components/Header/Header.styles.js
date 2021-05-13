@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const HeaderStyled = styled.div`
+const HeaderStyled = styled.nav`
   position: fixed;
   top: 0;
   left: 0;
@@ -16,10 +16,21 @@ const HeaderStyled = styled.div`
   background-color: #252831;
   z-index: 1;
 
+  .logo-button {
+    width: 60px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    cursor: pointer;
+  }
   .profile-box {
     display: flex;
     flex-direction: row;
     align-items: center;
+    cursor: pointer;
+    text-decoration: none;
 
     span {
       font-size: 18px;
@@ -27,11 +38,15 @@ const HeaderStyled = styled.div`
       color: #ffffff;
     }
     .profile-image {
-      width: 30px;
-      height: 30px;
+      width: 50px;
+      height: 50px;
       background-color: #ffffff;
-      border-radius: 30px;
       margin-left: 10px;
+      img {
+        width: 100%;
+        height: 100%;
+        border-radius: 30px;
+      }
     }
   }
 `;

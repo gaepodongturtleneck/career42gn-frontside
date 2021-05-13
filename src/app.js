@@ -3,11 +3,16 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import resetCss from "reset-css";
 import { createGlobalStyle } from "styled-components";
 import MainContainer from "./containers/MainContainer";
+import DetailContainer from "./containers/DetailContainer";
+import LoginContainer from "./containers/LoginContainer";
+import ProfileContainer from "./containers/ProfileContainer";
 
 const GlobalStyle = createGlobalStyle`
   ${resetCss};
   html, body {
     height: 100%;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
   }
   #root {
     width: 100%;
@@ -20,25 +25,22 @@ const GlobalStyle = createGlobalStyle`
 		padding: 0;
     font-family: 'Spoqa Han Sans', sans-serif;
 	}
-  ::-webkit-scrollbar {
-    display: none;
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-  }
   .content-section{
     padding-top:120px;
-    width: 100%;
+    min-width: 850px;
     display: flex;
     justify-content: center;
   }
-  .job-container{
-    width:70%;
-  }
-  .job-filter-container{
-    min-height:100px;
+
+  .content-container{
+    display:flex;
+    max-width: 1300px;
+    flex-direction:column;
+    min-width: 70%;
+    /* min-width: 1300px; */
   }
   .job-list-container{
-    padding-top:20px;
+    padding: 20px;
   }
 `;
 
@@ -47,7 +49,11 @@ function App() {
     <>
       <BrowserRouter>
         <Switch>
-          <Route path="/" exact component={MainContainer} />
+          <Route path="/job-posts" exact component={MainContainer} />
+          <Route path="/job-posts/:pageNumber" component={MainContainer} />
+          <Route path="/jobpost/:id" exact component={DetailContainer} />
+          <Route path="/" exact component={LoginContainer} />
+          <Route path="/profile" exact component={ProfileContainer} />
         </Switch>
       </BrowserRouter>
       <GlobalStyle />
