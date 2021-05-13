@@ -92,7 +92,7 @@ MainContainer.defaultProps = {
   // * /jobposts?page=1?type=aa?tag=bb  <GET>
   user: {
     id: 5,
-    intra: "secho2",
+    intra: "jae-kim",
     email: "seCho@seCHO.com",
     image: "https://cdn.intra.42.fr/users/small_secho.jpg",
   },
@@ -101,7 +101,7 @@ MainContainer.defaultProps = {
       {
         id: 1,
         title: "프론트엔드 개발자 모십니다.",
-        dueDate: "2021-05-07",
+        dueDate: "2021-06-07",
         isClosed: false,
         tag: ["Web", "iOS", "ETC"],
         type: "프론트엔드",
@@ -109,7 +109,7 @@ MainContainer.defaultProps = {
       {
         id: 2,
         title: "백엔드 개발자 모십니다.",
-        dueDate: "2021-04-13",
+        dueDate: "2021-06-13",
         isClosed: true,
         tag: ["Web", "iOS", "ETC"],
         type: "백엔드",
@@ -117,7 +117,7 @@ MainContainer.defaultProps = {
       {
         id: 3,
         title: "농담곰 인턴 모십니다.",
-        dueDate: "2021-04-29",
+        dueDate: "2021-06-29",
         isClosed: false,
         tag: ["Web", "iOS", "ETC"],
         type: "프론트엔드",
@@ -125,7 +125,7 @@ MainContainer.defaultProps = {
       {
         id: 4,
         title: "농담곰 모십니다.",
-        dueDate: "2021-05-07",
+        dueDate: "2021-06-07",
         isClosed: false,
         tag: ["Web", "iOS", "ETC"],
         type: "농담곰",
@@ -142,7 +142,7 @@ MainContainer.defaultProps = {
       {
         id: 6,
         title: "농담곰 모십니다.",
-        dueDate: "2021-05-07",
+        dueDate: "2021-06-07",
         isClosed: false,
         tag: ["Web", "iOS", "ETC"],
         type: "농담곰",
@@ -150,7 +150,7 @@ MainContainer.defaultProps = {
       {
         id: 7,
         title: "농담곰 모십니다.",
-        dueDate: "2021-05-07",
+        dueDate: "2021-06-07",
         isClosed: false,
         tag: ["Web", "iOS", "ETC"],
         type: "농담곰",
@@ -158,7 +158,7 @@ MainContainer.defaultProps = {
       {
         id: 8,
         title: "농담곰 모십니다.",
-        dueDate: "2021-05-07",
+        dueDate: "2021-06-07",
         isClosed: false,
         tag: ["Web", "iOS", "ETC"],
         type: "농담곰",
@@ -166,7 +166,7 @@ MainContainer.defaultProps = {
       {
         id: 9,
         title: "농담곰 모십니다.",
-        dueDate: "2021-05-07",
+        dueDate: "2021-06-07",
         isClosed: false,
         tag: ["Web", "iOS", "ETC"],
         type: "농담곰",
@@ -174,7 +174,7 @@ MainContainer.defaultProps = {
       {
         id: 10,
         title: "농담곰 모십니다.",
-        dueDate: "2021-05-07",
+        dueDate: "2021-06-07",
         isClosed: false,
         tag: ["Web", "iOS", "ETC"],
         type: "농담곰",

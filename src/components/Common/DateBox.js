@@ -1,11 +1,22 @@
 import React from "react";
 import styled from "styled-components";
 
+const CalDate = date => {
+  const today = new Date();
+  const DateInput = date.concat("T00:00:00+0900");
+  const dday = new Date(DateInput);
+  const gap = dday.getTime() - today.getTime();
+  if (gap >= 0) {
+    return "D-".concat(Math.floor(gap / (1000 * 60 * 60 * 24)));
+  }
+  return "OVER";
+};
+
 const DateBox = props => {
   const { dueDate, detail } = props;
   return (
     <DateBoxWrapper detail={detail}>
-      <span className="d-day">D-10</span>
+      <span className="d-day">{CalDate(dueDateg)}</span>
       <span className="date">{dueDate}</span>
     </DateBoxWrapper>
   );
