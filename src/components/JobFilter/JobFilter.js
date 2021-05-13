@@ -104,7 +104,7 @@ const JobFilter = props => {
   const fetchFilterData = async url => {
     try {
       let page = 0;
-      page = pageNumber === undefined ? 0 : pageNumber;
+      page = pageNumber === undefined ? 1 : pageNumber;
       const res = await api.get(`${url}?page=${page - 1}`, {
         params: {
           pageSize: 10,
