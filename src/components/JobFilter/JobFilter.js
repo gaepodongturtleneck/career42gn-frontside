@@ -101,18 +101,6 @@ const JobFilter = props => {
     }
   };
 
-  const getTags = () => {
-    return selectedTags.length > 0 ? selectedTags.join(",") : "분야";
-  };
-
-  const getTypes = () => {
-    return selectedTypes.length > 0 ? selectedTypes.join(",") : "경력";
-  };
-
-  const getLocations = () => {
-    return selectedLocations.length > 0 ? selectedLocations.join(",") : "지역";
-  };
-
   const fetchFilterData = async url => {
     try {
       let page = 0;
@@ -143,9 +131,9 @@ const JobFilter = props => {
       <div className="filter-checkbox-wrapper" ref={dropdownRef}>
         {handleOutsideDropdownClick(dropdownRef)}
         <div className="filter-box">
-          <Dropdown title={getTags()} isOpen={openedDropdown} idx={0} handleOpenDropdown={handleOpenDropdown} />
-          <Dropdown title={getTypes()} isOpen={openedDropdown} idx={1} handleOpenDropdown={handleOpenDropdown} />
-          <Dropdown title={getLocations()} isOpen={openedDropdown} idx={2} handleOpenDropdown={handleOpenDropdown} />
+          <Dropdown title={selectedTags.join(",") || "분야"} isOpen={openedDropdown} idx={0} handleOpenDropdown={handleOpenDropdown} />
+          <Dropdown title={selectedTypes.join(",") || "경력"} isOpen={openedDropdown} idx={1} handleOpenDropdown={handleOpenDropdown} />
+          <Dropdown title={selectedLocations.join(",") || "지역"} isOpen={openedDropdown} idx={2} handleOpenDropdown={handleOpenDropdown} />
         </div>
         <div className="checkbox-wrapper">
           {dropdownIndex !== -1 ? <Checkbox items={selectCheckboxMenus(dropdownIndex)} checkList={selectCheckList(dropdownIndex)} selectFunction={handleCheckClick} /> : null}
