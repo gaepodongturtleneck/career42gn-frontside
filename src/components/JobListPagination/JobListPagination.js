@@ -10,7 +10,7 @@ const pageButton = (size, offset, currentPage, handleCurrentPage) => {
       <Link
         className="page-id"
         style={{ borderColor: Number(currentPage) === pageNumber ? "#000" : "#ddd", color: Number(currentPage) === pageNumber ? "#000" : "#b9b9b9" }}
-        to={`/job-posts/${pageNumber}`}
+        to={`/jobposts/${pageNumber}`}
         key={idx}
         onClick={() => handleCurrentPage(pageNumber)}
       >
@@ -41,7 +41,7 @@ const JobListPagination = props => {
         ) : (
           ""
         )}
-        {offset !== Math.floor(totalPages / 10) ? pageButton(pageSizeRef.current, offset, currentPage, handleCurrentPage) : pageButton(totalPages % 10, offset)}
+        {offset !== Math.floor(totalPages / 10) ? pageButton(pageSizeRef.current, offset, currentPage, handleCurrentPage) : pageButton(totalPages % 10, offset, currentPage, handleCurrentPage)}
         {Math.floor((totalPages - 1) / 10) - Math.floor((currentPage - 1) / 10) >= 1 ? (
           <Link className="page-button" to={`/job-posts/${(Math.floor((currentPage - 1) / 10) + 1) * 10 + 1}`} onClick={() => handleCurrentPage((Math.floor((currentPage - 1) / 10) + 1) * 10 + 1)}>
             Next {">"}
