@@ -56,6 +56,9 @@ const MainContainer = props => {
   };
 
   const handleFilterButton = data => {
+    data.content.forEach(value => {
+      value.tag = ["WEB", "iOS"];
+    });
     setJobListData({ ...data });
   };
 

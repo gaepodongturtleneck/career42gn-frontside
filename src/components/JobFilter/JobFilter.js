@@ -107,9 +107,9 @@ const JobFilter = props => {
       const res = await api.get(`${url}?page=${page - 1}`, {
         params: {
           pageSize: 10,
-          tag: tagStr,
-          type: typeStr,
-          location: locationStr,
+          ...(tagStr ? { tag: tagStr } : {}),
+          ...(typeStr ? { tag: typeStr } : {}),
+          ...(locationStr ? { tag: locationStr } : {}),
         },
       });
       handleFilterButton(res.data);
@@ -120,9 +120,7 @@ const JobFilter = props => {
   };
 
   const handleSearchButtonClick = () => {
-    if (selectedLocations.length + selectedTags.length + selectedTypes.length) {
-      fetchFilterData("/jobposts");
-    }
+    fetchFilterData("/jobposts");
   };
 
   return (
@@ -138,13 +136,9 @@ const JobFilter = props => {
           {dropdownIndex !== -1 ? <Checkbox items={selectCheckboxMenus(dropdownIndex)} checkList={selectCheckList(dropdownIndex)} selectFunction={handleCheckClick} /> : null}
         </div>
       </div>
-      {selectedLocations.length + selectedTags.length + selectedTypes.length ? (
-        <button className="search-button" onClick={handleSearchButtonClick}>
-          검색하기
-        </button>
-      ) : (
-        <button className="search-button-off">필터선택</button>
-      )}
+      <button className="search-button" onClick={handleSearchButtonClick}>
+        검색하기
+      </button>
     </JobFilterContainer>
   );
 };
