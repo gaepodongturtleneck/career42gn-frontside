@@ -9,6 +9,7 @@
     "api": "^3.0.2",
     "axios": "^0.21.1",
     "bootstrap": "^5.0.0",
+    "goober": "^2.0.37",
     "react": "^17.0.2",
     "react-animated-heart": "^0.0.7-alpha.1",
     "react-bootstrap": "^1.5.2",

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Heart from "react-animated-heart";
+import { Link, useHistory } from "react-router-dom";
 import { JobDetailViewStyled, JobDetailTitleWrapper, JobDetailTitleTop, JobDetailTitleBottom, JobDetailInfo, JobCompanyInfo } from "./JobDetailView.styles";
 import DateBox from "../Common/DateBox";
 import CompanyLogoBox from "../Common/CompanyLogoBox";
@@ -10,7 +11,7 @@ import api from "../../api/index";
 const JobDetailView = props => {
   ScrollToTop();
   const { detailData, bookmark, user } = props;
-  const { id, title, content, dueDate, pay, tag, type, company, isClosed } = detailData;
+  const { id, title, content, dueDate, pay, tag, type, company, isClosed, homepage } = detailData;
   const [isClick, setClick] = useState(false);
   const registBookmark = async url => {
     try {
@@ -24,13 +25,12 @@ const JobDetailView = props => {
     }
   };
   const cancelBookmark = async url => {
-    // try {
-    // 해당 부분, parameter변경될 것임, PK말고 jobId, userId로 요청.
-    //   const res = await api.delete(`${url}/${bookmark.id}`);
-    //   console.log(res);
-    // } catch (err) {
-    //   console.error(err);
-    // }
+    try {
+      const res = await api.delete(`${url}/${bookmark.id}`);
+      console.log(res);
+    } catch (err) {
+      console.error(err);
+    }
   };
   const handleBookmark = () => {
     console.log("clicked");
@@ -103,7 +103,7 @@ const JobDetailView = props => {
         <JobCompanyInfo.InfoBox>
           <JobCompanyInfo.Title>
             <span>{company?.name}</span>
-            <button>홈페이지 {">"}</button>
+            {homepage && <Link to={homepage}>홈페이지 {">"}</Link>}
           </JobCompanyInfo.Title>
           <JobCompanyInfo.Info>
             <JobCompanyInfo.Item>

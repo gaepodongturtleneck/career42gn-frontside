@@ -61,7 +61,7 @@ const MainContainer = props => {
 
   useEffect(async () => {
     console.log("hello");
-    await fetchListData("/job-posts");
+    await fetchListData("/jobposts");
     if (bookmarkList.length === 0) {
       console.log("bookmarkList: ", bookmarkList);
       await fetchBookmarkList("/bookmarks");
@@ -70,7 +70,6 @@ const MainContainer = props => {
 
   // if (error) return <div>농담곰에러</div>;
   // if (!data) return <div>로딩스</div>;
-
   return (
     <>
       <Header user={user} />
@@ -78,7 +77,7 @@ const MainContainer = props => {
         <div className="content-container">
           <JobFilter locations={locations} tags={tags} types={types} pageNumber={pageNumber} handleFilterButton={handleFilterButton} />
           <JobListView dummyData={jobListData} bookMark={bookmarkList} />
-          <JobListPagination totalPages={jobListData.totalPages} currentPage={currentPage} handleCurrentPage={handleCurrentPage} />
+          {jobListData.totalPages !== 0 ? <JobListPagination id="job-list-pagination" totalPages={jobListData.totalPages || 0} currentPage={currentPage} handleCurrentPage={handleCurrentPage} /> : ""}
         </div>
       </section>
     </>
@@ -260,17 +259,14 @@ MainContainer.defaultProps = {
     {
       id: 0,
       value: "서울",
-      keyword: "se",
     },
     {
       id: 1,
       value: "경기",
-      keyword: "gy",
     },
     {
       id: 2,
       value: "부산",
-      keyword: "bu",
     },
   ],
 
@@ -278,17 +274,14 @@ MainContainer.defaultProps = {
     {
       id: 0,
       value: "신입",
-      keyword: "no",
     },
     {
       id: 1,
       value: "인턴",
-      keyword: "in",
     },
     {
       id: 2,
       value: "주니어",
-      keyword: "ju",
     },
   ],
 };
