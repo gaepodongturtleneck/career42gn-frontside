@@ -16,7 +16,7 @@ const LoginView = () => {
         <LoginViewSection>
           <LogoIcon />
           <button onClick={handleLoginButton}>42 Login</button>
-          <Link to="/job-posts">move to</Link>
+          <Link to="/jobposts">move to</Link>
         </LoginViewSection>
       </LoginViewContainer>
     </>

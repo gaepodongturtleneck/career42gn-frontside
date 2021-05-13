@@ -1,5 +1,4 @@
 import React, { useCallback, useState, useEffect, useRef } from "react";
-import useSWR from "swr";
 import { JobFilterContainer } from "./JobFilter.styles";
 import Dropdown from "../Dropdown/Dropdown";
 import Checkbox from "../Dropdown/Checkbox";
@@ -15,6 +14,7 @@ const JobFilter = props => {
   const [tagCheckList, setTagCheckList] = useState(new Array(tags.length).fill(false));
   const [typeCheckList, setTypeCheckList] = useState(new Array(types.length).fill(false));
   const [locationCheckList, setLocationCheckList] = useState(new Array(locations.length).fill(false));
+
   const dropdownIndex = openedDropdown.indexOf(true);
   const tagStr = selectedTags.map(item => item.slice(0, 2).toLowerCase()).join("-");
   const typeStr = selectedTypes.map(item => item.slice(0, 2).toLowerCase()).join("-");
@@ -30,52 +30,11 @@ const JobFilter = props => {
     }
   };
 
-  const isItemSelected = (item, array) => {
-    if (array.find(current => current === item.value)) {
-      return true;
-    }
-    return false;
-  };
-
-  const handleCheckClick = (index, item) => {
-    if (openedDropdown[0]) {
-      setTagCheckList(check => check.map((c, i) => (i === index ? !c : c)));
-      if (!isItemSelected(item, selectedTags)) {
-        setSelectedTags([...selectedTags, item.value]);
-      } else {
-        let selectedTagsAfterRemoval = selectedTags;
-        selectedTagsAfterRemoval = selectedTagsAfterRemoval.filter(current => current !== item.value);
-        setSelectedTags([...selectedTagsAfterRemoval]);
-      }
-    }
-    if (openedDropdown[1]) {
-      setTypeCheckList(check => check.map((c, i) => (i === index ? !c : c)));
-      if (!isItemSelected(item, selectedTypes)) {
-        setSelectedTypes([...selectedTypes, item.value]);
-      } else {
-        let selectedTypesAfterRemoval = selectedTypes;
-        selectedTypesAfterRemoval = selectedTypesAfterRemoval.filter(current => current !== item.value);
-        setSelectedTypes([...selectedTypesAfterRemoval]);
-      }
-    }
-    if (openedDropdown[2]) {
-      setLocationCheckList(check => check.map((c, i) => (i === index ? !c : c)));
-      if (!isItemSelected(item, selectedLocations)) {
-        setSelectedLocations([...selectedLocations, item.value]);
-      } else {
-        let selectedLocationsAfterRemoval = selectedLocations;
-        selectedLocationsAfterRemoval = selectedLocationsAfterRemoval.filter(current => current !== item.value);
-        setSelectedLocations([...selectedLocationsAfterRemoval]);
-      }
-    }
-  };
-
   const handleOutsideDropdownClick = ref => {
     useEffect(() => {
       const handleClickOutside = event => {
         if (ref.current && !ref.current.contains(event.target)) {
           setOpenedDropdown([false, false, false]);
-          console.log(openedDropdown);
         }
       };
       document.addEventListener("mousedown", handleClickOutside);
@@ -83,6 +42,38 @@ const JobFilter = props => {
         document.removeEventListener("mousedown", handleClickOutside);
       };
     }, [ref]);
+  };
+
+  const isItemSelected = (item, array) => {
+    if (array.find(current => current === item.value)) {
+      return true;
+    }
+    return false;
+  };
+
+  const setSelection = (item, poolArr, setpoolArr) => {
+    if (!isItemSelected(item, poolArr)) {
+      setpoolArr([...poolArr, item.value]);
+    } else {
+      let poolArrAfterRemoval = poolArr;
+      poolArrAfterRemoval = poolArrAfterRemoval.filter(current => current !== item.value);
+      setpoolArr([...poolArrAfterRemoval]);
+    }
+  };
+
+  const handleCheckClick = (index, item) => {
+    if (openedDropdown[0]) {
+      setTagCheckList(check => check.map((c, i) => (i === index ? !c : c)));
+      setSelection(item, selectedTags, setSelectedTags);
+    }
+    if (openedDropdown[1]) {
+      setTypeCheckList(check => check.map((c, i) => (i === index ? !c : c)));
+      setSelection(item, selectedTypes, setSelectedTypes);
+    }
+    if (openedDropdown[2]) {
+      setLocationCheckList(check => check.map((c, i) => (i === index ? !c : c)));
+      setSelection(item, selectedLocations, setSelectedLocations);
+    }
   };
 
   const selectCheckboxMenus = idx => {
@@ -109,23 +100,11 @@ const JobFilter = props => {
     }
   };
 
-  const getTags = () => {
-    return selectedTags.length > 0 ? selectedTags.join(",") : "분야";
-  };
-
-  const getTypes = () => {
-    return selectedTypes.length > 0 ? selectedTypes.join(",") : "경력";
-  };
-
-  const getLocations = () => {
-    return selectedLocations.length > 0 ? selectedLocations.join(",") : "지역";
-  };
-
   const fetchFilterData = async url => {
     try {
       let page = 0;
-      page = pageNumber === undefined ? 0 : pageNumber - 1;
-      const res = await api.get(`${url}?page=${page}`, {
+      page = pageNumber === undefined ? 1 : pageNumber;
+      const res = await api.get(`${url}?page=${page - 1}`, {
         params: {
           pageSize: 10,
           tag: tagStr,
@@ -142,7 +121,7 @@ const JobFilter = props => {
 
   const handleSearchButtonClick = () => {
     if (selectedLocations.length + selectedTags.length + selectedTypes.length) {
-      fetchFilterData("/job-posts");
+      fetchFilterData("/jobposts");
     }
   };
 
@@ -151,9 +130,9 @@ const JobFilter = props => {
       <div className="filter-checkbox-wrapper" ref={dropdownRef}>
         {handleOutsideDropdownClick(dropdownRef)}
         <div className="filter-box">
-          <Dropdown title={getTags()} isOpen={openedDropdown} idx={0} handleOpenDropdown={handleOpenDropdown} />
-          <Dropdown title={getTypes()} isOpen={openedDropdown} idx={1} handleOpenDropdown={handleOpenDropdown} />
-          <Dropdown title={getLocations()} isOpen={openedDropdown} idx={2} handleOpenDropdown={handleOpenDropdown} />
+          <Dropdown title={selectedTags.join(",") || "분야"} isOpen={openedDropdown} idx={0} handleOpenDropdown={handleOpenDropdown} />
+          <Dropdown title={selectedTypes.join(",") || "경력"} isOpen={openedDropdown} idx={1} handleOpenDropdown={handleOpenDropdown} />
+          <Dropdown title={selectedLocations.join(",") || "지역"} isOpen={openedDropdown} idx={2} handleOpenDropdown={handleOpenDropdown} />
         </div>
         <div className="checkbox-wrapper">
           {dropdownIndex !== -1 ? <Checkbox items={selectCheckboxMenus(dropdownIndex)} checkList={selectCheckList(dropdownIndex)} selectFunction={handleCheckClick} /> : null}
