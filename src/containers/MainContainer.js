@@ -70,7 +70,6 @@ const MainContainer = props => {
 
   // if (error) return <div>농담곰에러</div>;
   // if (!data) return <div>로딩스</div>;
-
   return (
     <>
       <Header user={user} />
@@ -78,7 +77,7 @@ const MainContainer = props => {
         <div className="content-container">
           <JobFilter locations={locations} tags={tags} types={types} pageNumber={pageNumber} handleFilterButton={handleFilterButton} />
           <JobListView dummyData={jobListData} bookMark={bookmarkList} />
-          <JobListPagination totalPages={jobListData.totalPages || 0} currentPage={currentPage} handleCurrentPage={handleCurrentPage} />
+          {jobListData.totalPages !== 0 ? <JobListPagination id="job-list-pagination" totalPages={jobListData.totalPages || 0} currentPage={currentPage} handleCurrentPage={handleCurrentPage} /> : ""}
         </div>
       </section>
     </>
