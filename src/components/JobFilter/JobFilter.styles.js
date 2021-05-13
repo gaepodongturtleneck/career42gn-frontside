@@ -28,6 +28,14 @@ export const JobFilterContainer = styled.div`
     color: #fff;
     cursor: pointer;
   }
+  .search-button-off {
+    width: 15%;
+    height: 50px;
+    display: inline-block;
+    background-color: #d6d6d6;
+    font-size: 16px;
+    color: #fff;
+  }
 `;
 
 export default JobFilterContainer;
