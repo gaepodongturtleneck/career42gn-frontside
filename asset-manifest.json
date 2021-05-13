@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.js": "/career42gn-frontside/static/js/main.27a3ae6d.chunk.js",
-    "main.js.map": "/career42gn-frontside/static/js/main.27a3ae6d.chunk.js.map",
+    "main.js": "/career42gn-frontside/static/js/main.d867ace2.chunk.js",
+    "main.js.map": "/career42gn-frontside/static/js/main.d867ace2.chunk.js.map",
     "runtime-main.js": "/career42gn-frontside/static/js/runtime-main.1026ecc8.js",
     "runtime-main.js.map": "/career42gn-frontside/static/js/runtime-main.1026ecc8.js.map",
     "static/css/2.0978f8b3.chunk.css": "/career42gn-frontside/static/css/2.0978f8b3.chunk.css",
-    "static/js/2.9eb277d9.chunk.js": "/career42gn-frontside/static/js/2.9eb277d9.chunk.js",
-    "static/js/2.9eb277d9.chunk.js.map": "/career42gn-frontside/static/js/2.9eb277d9.chunk.js.map",
+    "static/js/2.36749073.chunk.js": "/career42gn-frontside/static/js/2.36749073.chunk.js",
+    "static/js/2.36749073.chunk.js.map": "/career42gn-frontside/static/js/2.36749073.chunk.js.map",
     "index.html": "/career42gn-frontside/index.html",
     "static/css/2.0978f8b3.chunk.css.map": "/career42gn-frontside/static/css/2.0978f8b3.chunk.css.map",
-    "static/js/2.9eb277d9.chunk.js.LICENSE.txt": "/career42gn-frontside/static/js/2.9eb277d9.chunk.js.LICENSE.txt",
+    "static/js/2.36749073.chunk.js.LICENSE.txt": "/career42gn-frontside/static/js/2.36749073.chunk.js.LICENSE.txt",
     "static/media/icon-dropdown.1b993998.svg": "/career42gn-frontside/static/media/icon-dropdown.1b993998.svg",
     "static/media/logo.c1a2b73f.svg": "/career42gn-frontside/static/media/logo.c1a2b73f.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.1026ecc8.js",
     "static/css/2.0978f8b3.chunk.css",
-    "static/js/2.9eb277d9.chunk.js",
-    "static/js/main.27a3ae6d.chunk.js"
+    "static/js/2.36749073.chunk.js",
+    "static/js/main.d867ace2.chunk.js"
   ]
 }
