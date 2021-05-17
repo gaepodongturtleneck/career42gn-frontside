@@ -18,11 +18,12 @@ app.use(express.urlencoded({ extended: true }));
 // Redirect url
 app.get("/api/get-token", async function (req, res) {
   const code = url.parse(req.url).query.substr(5);
+  console.log(code);
 
   let token = await getAccessToken("https://api.intra.42.fr/oauth/token", code);
   let userData = await getUserData("https://api.intra.42.fr/v2/me", token);
   res.cookie("userName", userData.login);
-  return res.redirect(302, "http://localhost:3000/jobposts");
+  return res.redirect(302, `http://localhost:3000/jobposts?at=${token.access_token}`);
 });
 
 app.listen(port, () => {
