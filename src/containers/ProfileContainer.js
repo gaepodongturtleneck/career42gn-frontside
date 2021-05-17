@@ -38,7 +38,7 @@ ProfileContainer.defaultProps = {
       {
         id: 1,
         title: "프론트엔드 개발자 모십니다.",
-        dueDate: "2021-05-07",
+        dueDate: "2021-06-01",
         isClosed: false,
         tag: ["WEB", "iOS", "DB"],
         type: "프론트엔드",
@@ -46,7 +46,7 @@ ProfileContainer.defaultProps = {
       {
         id: 2,
         title: "백엔드 개발자 모십니다.",
-        dueDate: "2021-04-13",
+        dueDate: "2021-04-29",
         isClosed: true,
         tag: ["WEB", "iOS", "DB"],
         type: "백엔드",
@@ -54,7 +54,7 @@ ProfileContainer.defaultProps = {
       {
         id: 3,
         title: "농담곰 인턴 모십니다.",
-        dueDate: "2021-04-29",
+        dueDate: "2021-06-07",
         isClosed: false,
         tag: ["WEB", "iOS", "DB"],
         type: "프론트엔드",
@@ -62,7 +62,7 @@ ProfileContainer.defaultProps = {
       {
         id: 4,
         title: "농담곰 모십니다.",
-        dueDate: "2021-05-07",
+        dueDate: "2021-06-07",
         isClosed: false,
         tag: ["WEB", "iOS", "DB"],
         type: "농담곰",
@@ -70,7 +70,7 @@ ProfileContainer.defaultProps = {
       {
         id: 5,
         title: "농담곰 모십니다.",
-        dueDate: "2021-05-07",
+        dueDate: "2021-06-07",
         isClosed: false,
         tag: ["WEB", "iOS", "DB"],
         type: "농담곰",
@@ -78,7 +78,7 @@ ProfileContainer.defaultProps = {
       {
         id: 6,
         title: "농담곰 모십니다.",
-        dueDate: "2021-05-07",
+        dueDate: "2021-06-07",
         isClosed: false,
         tag: ["WEB", "iOS", "DB"],
         type: "농담곰",
@@ -86,7 +86,7 @@ ProfileContainer.defaultProps = {
       {
         id: 7,
         title: "농담곰 모십니다.",
-        dueDate: "2021-05-07",
+        dueDate: "2021-06-07",
         isClosed: false,
         tag: ["WEB", "iOS", "DB"],
         type: "농담곰",
@@ -94,7 +94,7 @@ ProfileContainer.defaultProps = {
       {
         id: 8,
         title: "농담곰 모십니다.",
-        dueDate: "2021-05-07",
+        dueDate: "2021-05-27",
         isClosed: false,
         tag: ["WEB", "iOS", "DB"],
         type: "농담곰",
@@ -102,7 +102,7 @@ ProfileContainer.defaultProps = {
       {
         id: 9,
         title: "농담곰 모십니다.",
-        dueDate: "2021-05-07",
+        dueDate: "2021-05-20",
         isClosed: false,
         tag: ["WEB", "iOS", "DB"],
         type: "농담곰",
@@ -110,7 +110,7 @@ ProfileContainer.defaultProps = {
       {
         id: 10,
         title: "농담곰 모십니다.",
-        dueDate: "2021-05-07",
+        dueDate: "2021-05-17",
         isClosed: false,
         tag: ["WEB", "iOS", "DB"],
         type: "농담곰",
