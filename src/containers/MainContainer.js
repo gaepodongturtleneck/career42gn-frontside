@@ -20,10 +20,15 @@ const MainContainer = props => {
 
   const [userToken, setUserToken] = useState(null);
   const { userData, isUserDataLoading, isUserDataError } = useFetchUserData(userToken);
+  console.log(userData, "userData");
 
   // 딱 한 번 호출하고 끝내야 함!
   useEffect(() => {
-    setUserToken(urlParams.get("at"));
+    console.log(props.location.search.split("=")[1], "test");
+    if (props.location.search.split("=")[1].length > 0) {
+      setUserToken(props.location.search.split("=")[1]);
+    }
+    // setUserToken(urlParams.get("at"));
   }, []);
 
   const fetchBookmarkList = async url => {
@@ -80,7 +85,7 @@ const MainContainer = props => {
     }
   }, [pageNumber]);
 
-  if (isUserDataLoading) return <div>로딩스</div>;
+  if (isUserDataLoading && !userData.data?.userName) return <div>로딩스</div>;
   if (isUserDataError) return <div>농담곰에러</div>;
 
   return (
@@ -92,6 +97,7 @@ const MainContainer = props => {
           <JobListView dummyData={jobListData} bookMark={bookmarkList} />
           {jobListData.totalPages !== 0 ? <JobListPagination id="job-list-pagination" totalPages={jobListData.totalPages || 0} currentPage={currentPage} handleCurrentPage={handleCurrentPage} /> : ""}
         </div>
+        <div>{userData.data?.userName}</div>
       </section>
     </>
   );
