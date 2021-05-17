@@ -25,12 +25,14 @@ async function getUserData(url, token) {
   try {
     const res = await axios.get(url, {
       headers: {
-        Authorization: "Bearer " + token.access_token,
+        Authorization: "Bearer " + token,
       },
     });
     return res.data;
   } catch (err) {
-    console.error(err);
+    console.log('getUser에러');
+    
+    // console.error(err);
   }
 }
 module.exports = {
