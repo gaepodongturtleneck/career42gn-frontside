@@ -47,7 +47,7 @@ const GlobalStyle = createGlobalStyle`
 function App() {
   return (
     <>
-      <BrowserRouter>
+      <BrowserRouter basename="/career42gn-frontside">
         <Switch>
           <Route path="/jobposts" exact component={MainContainer} />
           <Route path="/jobposts/:pageNumber" component={MainContainer} />

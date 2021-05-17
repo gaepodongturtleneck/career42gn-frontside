@@ -6,7 +6,7 @@ const JobListHeader = props => {
   return (
     <JobListHeaderStyled>
       <span>전체 채용정보</span>
-      <span>{totalPostsNumber}건</span>
+      <span>{totalPostsNumber || 0}건</span>
     </JobListHeaderStyled>
   );
 };
