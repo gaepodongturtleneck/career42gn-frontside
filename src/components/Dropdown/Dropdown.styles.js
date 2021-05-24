@@ -12,6 +12,7 @@ const DropdownWrapper = styled.div`
     border: solid #d6d6d6 2px;
     box-sizing: border-box;
     padding: 15px 10px;
+    font-size: 1rem;
     cursor: pointer;
   }
 
