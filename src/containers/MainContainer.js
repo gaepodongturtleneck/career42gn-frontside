@@ -16,6 +16,17 @@ const MainContainer = props => {
   const [bookmarkList, setBookmarkList] = useState([]);
   const [currentPage, setCurrentPage] = useState(pageNumber || 1);
   const [isMovePage, setIsMovePage] = useState(false);
+  const [cadetData, setCadetData] = useState({});
+
+  const fetchCadetData = async (url, intraId) => {
+    try {
+      const res = await api.get(`${url}/${intraId}`);
+      console.log(res.data);
+      setCadetData(res.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const fetchBookmarkList = async url => {
     try {
@@ -65,6 +76,7 @@ const MainContainer = props => {
   useEffect(async () => {
     console.log("hello");
     await fetchListData("/jobposts");
+    await fetchCadetData("/cadets", "secho");
     if (bookmarkList.length === 0) {
       console.log("bookmarkList: ", bookmarkList);
       await fetchBookmarkList("/bookmarks");
