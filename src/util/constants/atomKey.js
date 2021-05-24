@@ -1,0 +1,1 @@
+export const USER_INFO_ATOM_KEY = "USER_INFO_ATOM_KEY";
