@@ -1,17 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useRecoilState } from "recoil";
+import { userInfoAtom, tokenWithLogin } from "../recoil/user/index";
 import Header from "../components/Header/Header";
 import ProfileView from "../components/ProfileView/ProfileView";
 import ProfileBookmarkView from "../components/ProfileBookmarkView/ProfileBookmarkView";
 
 const ProfileContainer = props => {
   const { user, dummyData, tags, bookmarks } = props;
-
+  const [userData, setUserData] = useRecoilState(userInfoAtom);
   return (
     <>
-      <Header user={user} />
+      <Header />
       <section className="content-section">
         <div className="content-container">
-          <ProfileView userData={user} />
+          <ProfileView userData={userData} />
           <ProfileBookmarkView dummyData={dummyData} bookmarks={bookmarks} />
         </div>
       </section>

@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
+import { atom, selector, useRecoilState, useRecoilValue, useRecoilValueLoadable } from "recoil";
 import useSWR from "swr";
 import axios from "axios";
 import { useParams } from "react-router-dom";
@@ -12,14 +13,15 @@ import { useFetchUserData } from "../hooks/useUserData";
 //  import JobFilterContainer from '../components/JobFilter/JobFilter.styles';
 
 const MainContainer = props => {
+  const accessToken = localStorage.getItem("accessToken");
   const { pageNumber } = useParams();
   const { bookMark, tags, locations, types, user } = props;
   const [jobListData, setJobListData] = useState([]);
   const [bookmarkList, setBookmarkList] = useState([]);
   const [currentPage, setCurrentPage] = useState(pageNumber || 1);
   const [isMovePage, setIsMovePage] = useState(false);
-  const [userData, setUserData] = useState({});
   const [userToken, setUserToken] = useState(null);
+
   // const { userData, isUserDataLoading, isUserDataError } = useFetchUserData(userToken);
 
   const fetchUserData = async () => {
@@ -33,17 +35,19 @@ const MainContainer = props => {
       console.error(err);
     }
   };
+  // const result = useRecoilValue(tokenWithLogin(accessToken));
+  // console.log(tokenWithLogin, result);
 
-  useEffect(async () => {
-    const res = await fetchUserData();
-    console.log(res);
-  }, []);
+  // useEffect(async () => {
+  //   // const res = await fetchUserData();
+  //   // console.log(res);
+  // }, []);
 
   // 딱 한 번 호출하고 끝내야 함!
   useEffect(() => {
     const localAccessToken = localStorage.getItem("accessToken");
-    const sliceIndex = props.location.search.indexOf("=");
-    if (localAccessToken === null && sliceIndex > 0) {
+    if (localAccessToken === null) {
+      const sliceIndex = props.location.search.indexOf("=");
       const localAccessToken = props.location.search.substr(sliceIndex + 1);
       // 엑세스토큰 서버에 보내서 유저정보 get. 액세스토큰을 헤더로 넣어야함. api사용할 때마다 이걸 보냄.
       // 유효성도 체크해야함. 만료되었다면 새로 발급받아야함.
@@ -107,12 +111,9 @@ const MainContainer = props => {
     }
   }, [pageNumber]);
 
-  // if (isUserDataLoading && !userData.data?.userName) return <div>로딩스</div>;
-  // if (isUserDataError) return <div>농담곰에러</div>;
-
   return (
     <>
-      <Header user={userData} />
+      <Header />
       <section className="content-section">
         <div className="content-container">
           <JobFilter locations={locations} tags={tags} types={types} pageNumber={pageNumber} handleFilterButton={handleFilterButton} />

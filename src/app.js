@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import resetCss from "reset-css";
+import { RecoilRoot, atom, selector, useRecoilState, useRecoilValue } from "recoil";
 import { createGlobalStyle } from "styled-components";
 import MainContainer from "./containers/MainContainer";
 import DetailContainer from "./containers/DetailContainer";
@@ -53,9 +54,30 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error) {
+    // Update state so the next render will show the fallback UI.
+    return { hasError: true };
+  }
+
+  render() {
+    if (this.state.hasError) {
+      // You can render any custom fallback UI
+      return <h1>Something went wrong.</h1>;
+    }
+
+    return this.props.children;
+  }
+}
+
 function App() {
   return (
-    <>
+    <RecoilRoot>
       <BrowserRouter basename="/career42gn-frontside">
         <Switch>
           <Route path="/jobpost:token" exact component={MainContainer} />
@@ -66,7 +88,7 @@ function App() {
         </Switch>
       </BrowserRouter>
       <GlobalStyle />
-    </>
+    </RecoilRoot>
   );
 }
 

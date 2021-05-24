@@ -2,8 +2,10 @@ import React from "react";
 import { ProfileViewStyled, ProfileInfo, LogoutButton } from "./ProfileView.styles";
 
 const ProfileView = ({ userData }) => {
-  const { nickname, email, phone, image } = userData;
-
+  const { nickname, email, image } = userData;
+  if (userData.id === null) {
+    return <div>Login이 필요합니다.</div>;
+  }
   return (
     <ProfileViewStyled>
       <ProfileInfo>
@@ -13,7 +15,6 @@ const ProfileView = ({ userData }) => {
         <ProfileInfo.Text>
           <p className="title">{nickname}</p>
           <p className="info">{email}</p>
-          {/* <p className="info">{phone}</p> */}
         </ProfileInfo.Text>
       </ProfileInfo>
       <LogoutButton>로그아웃</LogoutButton>
