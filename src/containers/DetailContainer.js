@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { useParams } from "react-router-dom";
 import Header from "../components/Header/Header";
 import JobDetailView from "../components/JobDetailView/JobDetailView";
@@ -28,7 +29,8 @@ const DetailContainer = props => {
 
   const fecthDetailData = async url => {
     try {
-      const res = await api.get(`${url}/${id}`);
+      // const res = await api.get(`${url}/${id}`);
+      const res = await axios.get(`http://localhost:5000/jobposts/${1}`);
       res.data.tag = ["WEB", "iOS"];
       console.log(res.data);
       setDetailData({ ...res.data });
@@ -44,7 +46,7 @@ const DetailContainer = props => {
   }, []);
   return (
     <>
-      <Header user={user} />
+      <Header />
       <div className="content-section">
         <div className="content-container">
           <JobDetailView user={user} detailData={detailData} bookmark={isBookmark} />

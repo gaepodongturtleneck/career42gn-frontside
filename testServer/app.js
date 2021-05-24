@@ -71,6 +71,29 @@ app.get("/users", async (req, res) => {
   return res.json({ ok: true, userName: userData?.login });
 });
 
+app.get("/jobposts/:id", async (req, res) => {
+  console.log("jpsid");
+  return res.json({
+    company: {
+      email: "sb@sb.com",
+      id: 1,
+      img_url: "string",
+      info: "대충",
+      loc: "서울",
+      location: "어딘가",
+      name: "있는회사",
+    },
+    content: "암나와",
+    dueDate: "2021-06-17",
+    id: 0,
+    isClosed: true,
+    pay: "천원",
+    tag: "맥주태그",
+    title: "암나오던가",
+    type: "시닙",
+  });
+});
+
 app.get("/bookmarks", async (req, res) => {
   const userId = req.query.userId;
   return res.json([
