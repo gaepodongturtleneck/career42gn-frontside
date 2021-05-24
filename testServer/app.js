@@ -60,20 +60,69 @@ app.get("/cadets", async (req, res) => {
   const accessToken = req.query.token;
   const userData = await getUserData("https://api.intra.42.fr/v2/me", accessToken);
   const { id, login, email, image_url } = userData;
-  console.log(userData);
-
   return res.json({ id: id, intra: login, email: email, image: image_url });
 });
 
 app.get("/users", async (req, res) => {
   const accessToken = url.parse(req.url).query.substr(6);
-  console.log("파라미터로 받은 액세스토큰", accessToken);
 
   if (accessToken === "null") return;
-  console.log("/user", accessToken);
   let userData = await getUserData("https://api.intra.42.fr/v2/me", accessToken);
-  console.log("userName is", userData?.login);
   return res.json({ ok: true, userName: userData?.login });
+});
+
+app.get("/bookmarks", async (req, res) => {
+  const userId = req.query.userId;
+  return res.json([
+    {
+      id: 1,
+      jobpostId: 1,
+    },
+    {
+      id: 2,
+      jobpostId: 3,
+    },
+  ]);
+});
+
+app.get("/bookmarkslist", async (req, res) => {
+  const userId = req.query.userId;
+  return res.json({
+    content: [
+      {
+        id: 1,
+        title: "쩦 개발자 모십니다.",
+        dueDate: "2021-06-08",
+        isClosed: false,
+        tag: ["WEB", "iOS", "DB"],
+        type: "프론트엔드",
+      },
+      {
+        id: 2,
+        title: "2쩦 개발자 모십니다.",
+        dueDate: "2021-06-03",
+        isClosed: false,
+        tag: ["WEB", "iOS", "DB"],
+        type: "프론트엔드",
+      },
+      {
+        id: 3,
+        title: "3쩦 개발자 모십니다.",
+        dueDate: "2021-05-01",
+        isClosed: false,
+        tag: ["WEB", "iOS", "DB"],
+        type: "프론트엔드",
+      },
+      {
+        id: 4,
+        title: "4쩦 개발자 모십니다.",
+        dueDate: "2021-06-23",
+        isClosed: false,
+        tag: ["WEB", "iOS", "DB"],
+        type: "프론트엔드",
+      },
+    ],
+  });
 });
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
