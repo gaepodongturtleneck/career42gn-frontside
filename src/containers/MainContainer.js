@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import useSWR from "swr";
+import axios from "axios";
 import { useParams } from "react-router-dom";
 import Header from "../components/Header/Header";
 import JobListView from "../components/JobListView/JobListView";
@@ -17,18 +18,40 @@ const MainContainer = props => {
   const [bookmarkList, setBookmarkList] = useState([]);
   const [currentPage, setCurrentPage] = useState(pageNumber || 1);
   const [isMovePage, setIsMovePage] = useState(false);
-
+  const [userData, setUserData] = useState({});
   const [userToken, setUserToken] = useState(null);
-  const { userData, isUserDataLoading, isUserDataError } = useFetchUserData(userToken);
-  console.log(userData, "userData");
+  // const { userData, isUserDataLoading, isUserDataError } = useFetchUserData(userToken);
+
+  const fetchUserData = async () => {
+    const accessToken = localStorage.getItem("accessToken");
+    try {
+      const res = await axios.get(`http://localhost:5000/cadets?token=${accessToken}`);
+      // 성공시
+      setUserData({ ...res.data });
+      return res.data;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(async () => {
+    const res = await fetchUserData();
+    console.log(res);
+  }, []);
 
   // 딱 한 번 호출하고 끝내야 함!
   useEffect(() => {
-    console.log(props.location.search.split("=")[1], "test");
-    if (props.location.search.split("=")[1].length > 0) {
-      setUserToken(props.location.search.split("=")[1]);
+    const localAccessToken = localStorage.getItem("accessToken");
+    const sliceIndex = props.location.search.indexOf("=");
+    if (localAccessToken === null && sliceIndex > 0) {
+      const localAccessToken = props.location.search.substr(sliceIndex + 1);
+      // 엑세스토큰 서버에 보내서 유저정보 get. 액세스토큰을 헤더로 넣어야함. api사용할 때마다 이걸 보냄.
+      // 유효성도 체크해야함. 만료되었다면 새로 발급받아야함.
+      console.log("at", localAccessToken);
+      localStorage.setItem("accessToken", localAccessToken);
+    } else {
+      console.log("sdfjksdfkj");
     }
-    // setUserToken(urlParams.get("at"));
   }, []);
 
   const fetchBookmarkList = async url => {
@@ -77,7 +100,6 @@ const MainContainer = props => {
   };
 
   useEffect(async () => {
-    console.log("hello");
     await fetchListData("/jobposts");
     if (bookmarkList.length === 0) {
       console.log("bookmarkList: ", bookmarkList);
@@ -85,19 +107,18 @@ const MainContainer = props => {
     }
   }, [pageNumber]);
 
-  if (isUserDataLoading && !userData.data?.userName) return <div>로딩스</div>;
-  if (isUserDataError) return <div>농담곰에러</div>;
+  // if (isUserDataLoading && !userData.data?.userName) return <div>로딩스</div>;
+  // if (isUserDataError) return <div>농담곰에러</div>;
 
   return (
     <>
-      <Header user={user} />
+      <Header user={userData} />
       <section className="content-section">
         <div className="content-container">
           <JobFilter locations={locations} tags={tags} types={types} pageNumber={pageNumber} handleFilterButton={handleFilterButton} />
           <JobListView dummyData={jobListData} bookMark={bookmarkList} />
           {jobListData.totalPages !== 0 ? <JobListPagination id="job-list-pagination" totalPages={jobListData.totalPages || 0} currentPage={currentPage} handleCurrentPage={handleCurrentPage} /> : ""}
         </div>
-        <div>{userData.data?.userName}</div>
       </section>
     </>
   );
