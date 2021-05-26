@@ -8,7 +8,7 @@ const JobFilter = props => {
   const { locations, tags, types, pageNumber, handleFilterButton } = props;
   const dropdownRef = useRef(null);
   const [selectedTags, setSelectedTags] = useState([]);
-  const [selectedTypes, setSelectedTypes] = useState([]);
+  const [selectedTypes, setSelectedTypes] = useState([[]]);
   const [selectedLocations, setSelectedLocations] = useState([]);
   const [openedDropdown, setOpenedDropdown] = useState([false, false, false]);
   const [tagCheckList, setTagCheckList] = useState(new Array(tags.length).fill(false));
@@ -16,9 +16,12 @@ const JobFilter = props => {
   const [locationCheckList, setLocationCheckList] = useState(new Array(locations.length).fill(false));
 
   const dropdownIndex = openedDropdown.indexOf(true);
+  const typeQuery = [];
+  const locationQuery = [];
   const tagStr = selectedTags.map(item => item.slice(0, 2).toLowerCase()).join("-");
-  const typeStr = selectedTypes.map(item => item.slice(0, 2).toLowerCase()).join("-");
-  const locationStr = selectedLocations.map(item => item.slice(0, 2).toLowerCase()).join("-");
+  const typeStr = typeQuery.join("-");
+  const locationStr = locationQuery.join("-");
+  //  const locationStr = selectedLocations.map(item => item.slice(0, 2).toLowerCase()).join("-");
 
   const handleOpenDropdown = idx => {
     if (openedDropdown[idx]) {
@@ -61,6 +64,18 @@ const JobFilter = props => {
     }
   };
 
+  const setTypes = (item, poolArr, setpoolArr, queryArr) => {
+    if (!isItemSelected(item, poolArr)) {
+      setpoolArr([...poolArr, item.value]);
+      queryArr.push(item.query);
+    } else {
+      let poolArrAfterRemoval = poolArr;
+      poolArrAfterRemoval = poolArrAfterRemoval.filter(current => current !== item.value);
+      setpoolArr([...poolArrAfterRemoval]);
+      queryArr = queryArr.filter(current => current !== item.query);
+    }
+  };
+
   const handleCheckClick = (index, item) => {
     if (openedDropdown[0]) {
       setTagCheckList(check => check.map((c, i) => (i === index ? !c : c)));
@@ -68,11 +83,12 @@ const JobFilter = props => {
     }
     if (openedDropdown[1]) {
       setTypeCheckList(check => check.map((c, i) => (i === index ? !c : c)));
-      setSelection(item, selectedTypes, setSelectedTypes);
+      setTypes(item, selectedTypes, setSelectedTypes, typeQuery);
+      console.log(typeStr);
     }
     if (openedDropdown[2]) {
       setLocationCheckList(check => check.map((c, i) => (i === index ? !c : c)));
-      setSelection(item, selectedLocations, setSelectedLocations);
+      setTypes(item, selectedLocations, setSelectedLocations, locationQuery);
     }
   };
 
@@ -120,6 +136,7 @@ const JobFilter = props => {
   };
 
   const handleSearchButtonClick = () => {
+    console.log(typeStr);
     fetchFilterData("/jobposts");
   };
 

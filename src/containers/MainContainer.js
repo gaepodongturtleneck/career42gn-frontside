@@ -277,14 +277,17 @@ MainContainer.defaultProps = {
     {
       id: 0,
       value: "신입",
+      query: "ne",
     },
     {
       id: 1,
       value: "인턴",
+      query: "in",
     },
     {
       id: 2,
       value: "주니어",
+      query: "ju",
     },
   ],
 };
