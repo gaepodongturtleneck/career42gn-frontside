@@ -15,13 +15,14 @@ const JobFilter = props => {
   const [typeCheckList, setTypeCheckList] = useState(new Array(types.length).fill(false));
   const [locationCheckList, setLocationCheckList] = useState(new Array(locations.length).fill(false));
 
+  const typeHashmap = { 신입: "ne", 인턴: "in", 주니어: "ju" };
+  const locationHashmap = { 서울: "se", 경기: "gy", 부산: "bu" };
   const dropdownIndex = openedDropdown.indexOf(true);
-  const typeQuery = [];
-  const locationQuery = [];
+  //  const typeQuery = [];
+  //  const locationQuery = [];
   const tagStr = selectedTags.map(item => item.slice(0, 2).toLowerCase()).join("-");
-  const typeStr = typeQuery.join("-");
-  const locationStr = locationQuery.join("-");
-  //  const locationStr = selectedLocations.map(item => item.slice(0, 2).toLowerCase()).join("-");
+  const typeStr = selectedTypes.map(item => typeHashmap[item]).join("-");
+  const locationStr = selectedLocations.map(item => locationHashmap[item]).join("-");
 
   const handleOpenDropdown = idx => {
     if (openedDropdown[idx]) {
@@ -63,7 +64,7 @@ const JobFilter = props => {
       setpoolArr([...poolArrAfterRemoval]);
     }
   };
-
+  /*
   const setTypes = (item, poolArr, setpoolArr, queryArr) => {
     if (!isItemSelected(item, poolArr)) {
       setpoolArr([...poolArr, item.value]);
@@ -75,7 +76,7 @@ const JobFilter = props => {
       queryArr = queryArr.filter(current => current !== item.query);
     }
   };
-
+*/
   const handleCheckClick = (index, item) => {
     if (openedDropdown[0]) {
       setTagCheckList(check => check.map((c, i) => (i === index ? !c : c)));
@@ -83,12 +84,11 @@ const JobFilter = props => {
     }
     if (openedDropdown[1]) {
       setTypeCheckList(check => check.map((c, i) => (i === index ? !c : c)));
-      setTypes(item, selectedTypes, setSelectedTypes, typeQuery);
-      console.log(typeStr);
+      setSelection(item, selectedTypes, setSelectedTypes);
     }
     if (openedDropdown[2]) {
       setLocationCheckList(check => check.map((c, i) => (i === index ? !c : c)));
-      setTypes(item, selectedLocations, setSelectedLocations, locationQuery);
+      setSelection(item, selectedLocations, setSelectedLocations);
     }
   };
 
