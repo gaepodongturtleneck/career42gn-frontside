@@ -2,7 +2,7 @@ import React, { useCallback, useState, useEffect, useRef } from "react";
 import { JobFilterContainer } from "./JobFilter.styles";
 import Dropdown from "../Dropdown/Dropdown";
 import Checkbox from "../Dropdown/Checkbox";
-import api from "../../api/index";
+import api from "../../api";
 
 const JobFilter = props => {
   const { locations, tags, types, pageNumber, handleFilterButton } = props;
@@ -11,14 +11,16 @@ const JobFilter = props => {
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [selectedLocations, setSelectedLocations] = useState([]);
   const [openedDropdown, setOpenedDropdown] = useState([false, false, false]);
-  const [tagCheckList, setTagCheckList] = useState(new Array(tags.length).fill(false));
-  const [typeCheckList, setTypeCheckList] = useState(new Array(types.length).fill(false));
-  const [locationCheckList, setLocationCheckList] = useState(new Array(locations.length).fill(false));
+  const [checkboxTags, setCheckboxTags] = useState(new Array(tags.length).fill(false));
+  const [checkboxTypes, setCheckboxTypes] = useState(new Array(types.length).fill(false));
+  const [checkboxLocations, setCheckboxLocations] = useState(new Array(locations.length).fill(false));
 
+  const typeHashmap = { 신입: "ne", 인턴: "in", 주니어: "ju" };
+  const locationHashmap = { 서울: "se", 경기: "gy", 부산: "bu" };
   const dropdownIndex = openedDropdown.indexOf(true);
-  const tagStr = selectedTags.map(item => item.slice(0, 2).toLowerCase()).join("-");
-  const typeStr = selectedTypes.map(item => item.slice(0, 2).toLowerCase()).join("-");
-  const locationStr = selectedLocations.map(item => item.slice(0, 2).toLowerCase()).join("-");
+  const tagQuery = selectedTags.map(item => item.slice(0, 2).toLowerCase()).join("-");
+  const typeQuery = selectedTypes.map(item => typeHashmap[item]).join("-");
+  const locationQuery = selectedLocations.map(item => locationHashmap[item]).join("-");
 
   const handleOpenDropdown = idx => {
     if (openedDropdown[idx]) {
@@ -51,27 +53,27 @@ const JobFilter = props => {
     return false;
   };
 
-  const setSelection = (item, poolArr, setpoolArr) => {
-    if (!isItemSelected(item, poolArr)) {
-      setpoolArr([...poolArr, item.value]);
+  const setSelection = (item, selected, setSelected) => {
+    if (!isItemSelected(item, selected)) {
+      setSelected([...selected, item.value]);
     } else {
-      let poolArrAfterRemoval = poolArr;
-      poolArrAfterRemoval = poolArrAfterRemoval.filter(current => current !== item.value);
-      setpoolArr([...poolArrAfterRemoval]);
+      let selectedAfterRemoval = selected;
+      selectedAfterRemoval = selectedAfterRemoval.filter(current => current !== item.value);
+      setSelected([...selectedAfterRemoval]);
     }
   };
 
   const handleCheckClick = (index, item) => {
     if (openedDropdown[0]) {
-      setTagCheckList(check => check.map((c, i) => (i === index ? !c : c)));
+      setCheckboxTags(check => check.map((c, i) => (i === index ? !c : c)));
       setSelection(item, selectedTags, setSelectedTags);
     }
     if (openedDropdown[1]) {
-      setTypeCheckList(check => check.map((c, i) => (i === index ? !c : c)));
+      setCheckboxTypes(check => check.map((c, i) => (i === index ? !c : c)));
       setSelection(item, selectedTypes, setSelectedTypes);
     }
     if (openedDropdown[2]) {
-      setLocationCheckList(check => check.map((c, i) => (i === index ? !c : c)));
+      setCheckboxLocations(check => check.map((c, i) => (i === index ? !c : c)));
       setSelection(item, selectedLocations, setSelectedLocations);
     }
   };
@@ -90,13 +92,13 @@ const JobFilter = props => {
 
   const selectCheckList = idx => {
     if (idx === 0) {
-      return tagCheckList;
+      return checkboxTags;
     }
     if (idx === 1) {
-      return typeCheckList;
+      return checkboxTypes;
     }
     if (idx === 2) {
-      return locationCheckList;
+      return checkboxLocations;
     }
   };
 
@@ -107,9 +109,9 @@ const JobFilter = props => {
       const res = await api.get(`${url}?page=${page - 1}`, {
         params: {
           pageSize: 10,
-          ...(tagStr ? { tag: tagStr } : {}),
-          ...(typeStr ? { tag: typeStr } : {}),
-          ...(locationStr ? { tag: locationStr } : {}),
+          ...(tagQuery ? { tag: tagQuery } : {}),
+          ...(typeQuery ? { type: typeQuery } : {}),
+          ...(locationQuery ? { location: locationQuery } : {}),
         },
       });
       handleFilterButton(res.data);
