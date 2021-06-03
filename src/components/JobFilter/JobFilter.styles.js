@@ -9,7 +9,12 @@ export const JobFilterContainer = styled.div`
   margin-bottom: 20px;
   background: #fff;
   box-sizing: border-box;
-
+  @media screen and (min-width: 768px) {
+    font-size: 24px;
+  }
+  @media screen and (min-width: 1024px) {
+    font-size: 22px;
+  }
   .filter-checkbox-wrapper {
     width: 80%;
   }
@@ -24,7 +29,7 @@ export const JobFilterContainer = styled.div`
     height: 50px;
     display: inline-block;
     background-color: #27babb;
-    font-size: 16px;
+    font-size: 1rem;
     color: #fff;
     cursor: pointer;
   }

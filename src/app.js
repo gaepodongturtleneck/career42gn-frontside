@@ -27,9 +27,15 @@ const GlobalStyle = createGlobalStyle`
 	}
   .content-section{
     padding-top:120px;
-    min-width: 850px;
-    display: flex;
-    justify-content: center;
+    @media screen and (min-width: 768px){
+      display: block;
+      padding: 120px 10px 10px 10px;
+    }
+    @media screen and (min-width: 1024px){
+      display: flex;
+      justify-content: center;
+      min-width: 850px;
+    }
   }
 
   .content-container{
@@ -38,6 +44,9 @@ const GlobalStyle = createGlobalStyle`
     flex-direction:column;
     min-width: 70%;
     /* min-width: 1300px; */
+    @media screen and (min-width: 768px){
+      font-size: 32px;
+    }
   }
   .job-list-container{
     padding: 20px;

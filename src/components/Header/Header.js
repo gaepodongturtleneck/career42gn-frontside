@@ -7,7 +7,7 @@ const Header = props => {
   const { user } = props;
   return (
     <HeaderStyled>
-      <Link to={`/`} className="logo-button">
+      <Link to={`/jobposts`} className="logo-button">
         <LogoIcon width="50px" />
       </Link>
       <Link to={`/profile`} className="profile-box">
