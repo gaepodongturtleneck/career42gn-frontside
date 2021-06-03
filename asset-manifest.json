@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/career42gn-frontside/static/js/main.f5e1e94e.chunk.js",
-    "main.js.map": "/career42gn-frontside/static/js/main.f5e1e94e.chunk.js.map",
+    "main.js": "/career42gn-frontside/static/js/main.4f6cb04a.chunk.js",
+    "main.js.map": "/career42gn-frontside/static/js/main.4f6cb04a.chunk.js.map",
     "runtime-main.js": "/career42gn-frontside/static/js/runtime-main.1026ecc8.js",
     "runtime-main.js.map": "/career42gn-frontside/static/js/runtime-main.1026ecc8.js.map",
     "static/css/2.0978f8b3.chunk.css": "/career42gn-frontside/static/css/2.0978f8b3.chunk.css",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.1026ecc8.js",
     "static/css/2.0978f8b3.chunk.css",
     "static/js/2.9ac419c9.chunk.js",
-    "static/js/main.f5e1e94e.chunk.js"
+    "static/js/main.4f6cb04a.chunk.js"
   ]
 }
