@@ -6,6 +6,7 @@ import JobListView from "../components/JobListView/JobListView";
 import JobFilter from "../components/JobFilter/JobFilter";
 import JobListPagination from "../components/JobListPagination/JobListPagination";
 import api from "../api/index";
+import { useFetchUserData } from "../hooks/useUserData";
 
 //  import JobFilterContainer from '../components/JobFilter/JobFilter.styles';
 
@@ -16,6 +17,14 @@ const MainContainer = props => {
   const [bookmarkList, setBookmarkList] = useState([]);
   const [currentPage, setCurrentPage] = useState(pageNumber || 1);
   const [isMovePage, setIsMovePage] = useState(false);
+
+  const [userToken, setUserToken] = useState(null);
+  const { userData, isUserDataLoading, isUserDataError } = useFetchUserData(userToken);
+
+  // 딱 한 번 호출하고 끝내야 함!
+  useEffect(() => {
+    setUserToken(urlParams.get("at"));
+  }, []);
 
   const fetchBookmarkList = async url => {
     try {
@@ -71,8 +80,9 @@ const MainContainer = props => {
     }
   }, [pageNumber]);
 
-  // if (error) return <div>농담곰에러</div>;
-  // if (!data) return <div>로딩스</div>;
+  if (isUserDataLoading) return <div>로딩스</div>;
+  if (isUserDataError) return <div>농담곰에러</div>;
+
   return (
     <>
       <Header user={user} />
