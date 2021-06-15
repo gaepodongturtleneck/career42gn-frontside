@@ -1,39 +1,30 @@
-import React, { useCallback, useEffect, useState } from "react";
-import useSWR from "swr";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 import Header from "../components/Header/Header";
 import JobListView from "../components/JobListView/JobListView";
 import JobFilter from "../components/JobFilter/JobFilter";
 import JobListPagination from "../components/JobListPagination/JobListPagination";
 import api from "../api/index";
-import { useFetchUserData } from "../hooks/useUserData";
-
-//  import JobFilterContainer from '../components/JobFilter/JobFilter.styles';
 
 const MainContainer = props => {
   const { pageNumber } = useParams();
-  const { bookMark, tags, locations, types, user } = props;
+  const { bookMark, tags, locations, types } = props;
   const [jobListData, setJobListData] = useState([]);
-  const [bookmarkList, setBookmarkList] = useState([]);
+  // const [bookmarkList, setBookmarkList] = useState([]);
   const [currentPage, setCurrentPage] = useState(pageNumber || 1);
   const [isMovePage, setIsMovePage] = useState(false);
 
-  const [userToken, setUserToken] = useState(null);
-  const { userData, isUserDataLoading, isUserDataError } = useFetchUserData(userToken);
+  const [userData, setUserData] = useState(null);
 
-  // 딱 한 번 호출하고 끝내야 함!
-  useEffect(() => {
-    setUserToken(urlParams.get("at"));
-  }, []);
-
-  const fetchBookmarkList = async url => {
-    try {
-      const res = await api.get(`${url}/${user.id}`);
-      setBookmarkList([...res.data]);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  // const fetchBookmarkList = async url => {
+  //   try {
+  //     const res = await api.get(`${url}/${user.id}`);
+  //     setBookmarkList([...res.data]);
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
 
   const fetchListData = async url => {
     try {
@@ -71,25 +62,42 @@ const MainContainer = props => {
     setJobListData({ ...data });
   };
 
-  useEffect(async () => {
-    console.log("hello");
-    await fetchListData("/jobposts");
-    if (bookmarkList.length === 0) {
-      console.log("bookmarkList: ", bookmarkList);
-      await fetchBookmarkList("/bookmarks");
-    }
-  }, [pageNumber]);
+  // useEffect(async () => {
 
-  if (isUserDataLoading) return <div>로딩스</div>;
-  if (isUserDataError) return <div>농담곰에러</div>;
+  //   if (bookmarkList.length === 0) {
+  //     console.log("bookmarkList: ", bookmarkList);
+  //     await fetchBookmarkList("/bookmarks");
+  //   }
+  // }, [pageNumber]);
+
+  const fetchUserData = async url => {
+    try {
+      const res = await axios.get(`https://career.cadet.42seoul.io:8080/cadets`);
+      setUserData(res.data);
+      console.log(res.data);
+      return res.data;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(async () => {
+    console.log("get job");
+    // await fetchUserData("/cadets");
+    // await fetchListData("/jobposts");
+  }, []);
+
+  useEffect(async () => {
+    // await fetchListData("/jobposts");
+  }, [pageNumber]);
 
   return (
     <>
-      <Header user={user} />
+      {/* <Header user={userData} /> */}
       <section className="content-section">
         <div className="content-container">
           <JobFilter locations={locations} tags={tags} types={types} pageNumber={pageNumber} handleFilterButton={handleFilterButton} />
-          <JobListView dummyData={jobListData} bookMark={bookmarkList} />
+          <JobListView dummyData={jobListData} bookMark={bookMark} />
           {jobListData.totalPages !== 0 ? <JobListPagination id="job-list-pagination" totalPages={jobListData.totalPages || 0} currentPage={currentPage} handleCurrentPage={handleCurrentPage} /> : ""}
         </div>
       </section>
@@ -98,125 +106,6 @@ const MainContainer = props => {
 };
 
 MainContainer.defaultProps = {
-  // TODO 하기 API를 기반으로 요청, 데이터 get 후  rendering
-  // * /jobposts?page=1?type=aa?tag=bb  <GET>
-  user: {
-    id: 5,
-    intra: "secho2",
-    email: "seCho@seCHO.com",
-    image: "https://cdn.intra.42.fr/users/small_secho.jpg",
-  },
-  dummyData: {
-    content: [
-      {
-        id: 1,
-        title: "프론트엔드 개발자 모십니다.",
-        dueDate: "2021-05-07",
-        isClosed: false,
-        tag: ["Web", "iOS", "ETC"],
-        type: "프론트엔드",
-      },
-      {
-        id: 2,
-        title: "백엔드 개발자 모십니다.",
-        dueDate: "2021-04-13",
-        isClosed: true,
-        tag: ["Web", "iOS", "ETC"],
-        type: "백엔드",
-      },
-      {
-        id: 3,
-        title: "농담곰 인턴 모십니다.",
-        dueDate: "2021-04-29",
-        isClosed: false,
-        tag: ["Web", "iOS", "ETC"],
-        type: "프론트엔드",
-      },
-      {
-        id: 4,
-        title: "농담곰 모십니다.",
-        dueDate: "2021-05-07",
-        isClosed: false,
-        tag: ["Web", "iOS", "ETC"],
-        type: "농담곰",
-      },
-      {
-        id: 5,
-        title: "농담곰 모십니다.",
-        dueDate: "2021-05-07",
-        isClosed: false,
-        tag: ["Web", "iOS", "ETC"],
-
-        type: "농담곰",
-      },
-      {
-        id: 6,
-        title: "농담곰 모십니다.",
-        dueDate: "2021-05-07",
-        isClosed: false,
-        tag: ["Web", "iOS", "ETC"],
-        type: "농담곰",
-      },
-      {
-        id: 7,
-        title: "농담곰 모십니다.",
-        dueDate: "2021-05-07",
-        isClosed: false,
-        tag: ["Web", "iOS", "ETC"],
-        type: "농담곰",
-      },
-      {
-        id: 8,
-        title: "농담곰 모십니다.",
-        dueDate: "2021-05-07",
-        isClosed: false,
-        tag: ["Web", "iOS", "ETC"],
-        type: "농담곰",
-      },
-      {
-        id: 9,
-        title: "농담곰 모십니다.",
-        dueDate: "2021-05-07",
-        isClosed: false,
-        tag: ["Web", "iOS", "ETC"],
-        type: "농담곰",
-      },
-      {
-        id: 10,
-        title: "농담곰 모십니다.",
-        dueDate: "2021-05-07",
-        isClosed: false,
-        tag: ["Web", "iOS", "ETC"],
-        type: "농담곰",
-      },
-    ],
-    empty: true,
-    first: true,
-    last: true,
-    number: 0,
-    numberOfElements: 0,
-    pageable: {
-      offset: 0,
-      pageNumber: 0,
-      pageSize: 0,
-      paged: true,
-      sort: {
-        empty: true,
-        sorted: true,
-        unsorted: true,
-      },
-      unpaged: true,
-    },
-    size: 0,
-    sort: {
-      empty: true,
-      sorted: true,
-      unsorted: true,
-    },
-    totalElements: 24,
-    totalPages: 12,
-  },
-
   // */bookmarks?cadetid=secho => 북마크 조회 <GET>
   bookMark: [
     {
