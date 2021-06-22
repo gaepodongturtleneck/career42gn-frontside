@@ -4,7 +4,7 @@ import { ReactComponent as LogoIcon } from "../../images/logo.svg";
 
 const LoginView = () => {
   const handleLoginButton = () => {
-    window.location.replace("https://career.cadet.42seoul.io:8080/oauth2/authorization/42oauth");
+    window.location.replace("http://career.cadet.42seoul.io:8080/oauth2/authorization/42oauth");
   };
 
   return (
